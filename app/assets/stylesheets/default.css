@@ -47,7 +47,7 @@ a:hover {
 }
 
 .nav-button-second {
-    top: 75px;
+    top: 80px;
 }
 
 @media screen and (max-width: 900px) {
@@ -55,6 +55,13 @@ a:hover {
         padding: 6px;
         left: 8px;
         width: 34px;
+    }
+
+    .nav-button-first {
         top: 33px;
+    }
+
+    .nav-button-second {
+        top: 75px;
     }
 }

@@ -17,6 +17,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :points, only: [:index, :create]
     resources :tracks, only: [:index]
-    resources :notes, only: [:index]
+    resources :pins, only: [:index]
   end
 end

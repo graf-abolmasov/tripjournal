@@ -32,13 +32,13 @@ angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', 
       data: response.data
     }
 
-  $http.get('/api/notes.json').then (response) ->
+  $http.get('/api/pins.json').then (response) ->
     _.each response.data, (note) ->
       $scope.markers["note_#{note.id}"] = {
         lat: note.lat,
         lng: note.lng,
         compileMessage: true,
-        message: "<div class='map-note-image'><img class='img-responsive' src='#{note.image_url}'/>@#{note.author}</div>"
+        message: _note_message(note),
         icon: {
           type: 'awesomeMarker',
           icon: _note_icon(note.kind)
@@ -46,10 +46,10 @@ angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', 
         }
       }
 
-  $scope.init = (last_position) ->
+  $scope.init = (last_lat, last_lng) ->
     $scope.current_position = {
-      lat: last_position.lat,
-      lng: last_position.lng,
+      lat: last_lat,
+      lng: last_lng,
       icon: {
         type: 'awesomeMarker',
         icon: 'car',
@@ -60,8 +60,8 @@ angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', 
 
     $scope.center = {
       zoom: 16,
-      lat: last_position.lat,
-      lng: last_position.lng,
+      lat: last_lat,
+      lng: last_lng,
       autoDiscover: false
     }
 
@@ -70,7 +70,7 @@ angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', 
     $scope.paths.online_track = {
       color: 'red',
       weight: 2,
-      latlngs: [ last_position ]
+      latlngs: [ {lat: last_lat, lng: last_lng} ]
     }
 
   $scope.$on 'leafletDirectiveMap.drag', (event) ->
@@ -91,7 +91,7 @@ angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', 
     $scope.center.lng = location.lng
 
   _note_message = (note) ->
-    if note_type == 'photo'
+    if note.kind == 'photo'
       "<div class='map-note-image'><img class='img-responsive' src='#{note.image_url}'/>@#{note.author}</div>"
     else
       "<div class='map-note-text'>@#{note.text}</div>"

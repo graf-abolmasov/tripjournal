@@ -1,4 +1,4 @@
-.map-container ng-controller="MapCtrl" ng-init="init({lat: #{@current_position.lat}, lng: #{@current_position.lng}})"
-  = link_to '', notes_path, class:'nav-button nav-button-first fa fa-instagram'
+.map-container ng-controller="MapCtrl" ng-init="init(#{@current_position.lat}, #{@current_position.lng})"
+  = link_to '', notes_path, class:'nav-button nav-button-first ion-social-instagram-outline'
   = link_to '', 'javascript://void(0);', class:'nav-button nav-button-second ion-pinpoint', 'ng-click' => 'follow_position()', 'ng-hide' => 'follow_current_position'
   leaflet height="100%" width="100%" center="center" paths="paths" geojson="geojson" markers="markers" defaults="defaults"
