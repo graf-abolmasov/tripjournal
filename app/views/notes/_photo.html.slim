@@ -1,0 +1,7 @@
+.notes-icon.notes-icon-photo
+.notes-label
+  h2 = note.title
+  p = image_tag(note.image_url, class: 'img-responsive')
+  span
+    |@
+    = note.author

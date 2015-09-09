@@ -6,10 +6,4 @@
         time.notes-time datetime=("#{l(n.created_at, format: :long)}")
           span =l(n.created_at, format: :note_date)
           span =l(n.created_at, format: :note_time)
-        .notes-icon.notes-icon-photo
-        .notes-label
-          h2 = n.title
-          p = image_tag(n.image_url, class: 'img-responsive')
-          span
-            |@
-            = n.author
+        = render "notes/#{n.kind}", note: n
