@@ -2,7 +2,7 @@ class InstagramSource < ActiveRecord::Base
 
   def init!
     last_photo = client.user_recent_media(self.user_id, count: 1).first
-    self.update_attribute(:last_media_id, min_id: last_photo.id)
+    self.update_attribute(:last_media_id, last_photo.id)
   end
 
   def sync!
