@@ -38,6 +38,8 @@ class AggregatePointsJob < ActiveJob::Base
     l1 = to_rad(p1[:y])
     l2 = to_rad(p2[:y])
     111.2 * Math.acos(Math.sin(fi1) * Math.sin(fi2) + Math.cos(fi1) * Math.cos(fi2) * Math.cos(l2-l1))
+  rescue
+    99999
   end
 
   def to_rad(deg)
