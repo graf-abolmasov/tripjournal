@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828140854) do
+ActiveRecord::Schema.define(version: 20160810182947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,12 +37,13 @@ ActiveRecord::Schema.define(version: 20150828140854) do
   end
 
   create_table "points", force: :cascade do |t|
-    t.point    "latlng",     null: false
-    t.float    "alt"
-    t.float    "speed"
-    t.float    "hdop"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal  "alt",        default: 0.0
+    t.decimal  "speed",      default: 0.0
+    t.decimal  "hdop",       default: 0.0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.decimal  "lat",                      null: false
+    t.decimal  "lng",                      null: false
   end
 
   add_index "points", ["created_at"], name: "index_points_on_created_at", using: :btree

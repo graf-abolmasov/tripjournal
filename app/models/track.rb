@@ -18,11 +18,15 @@ class Track < ActiveRecord::Base
   end
 
   def self.to_geojson(points)
-    geo_json = '{"type": "Feature", "geometry": {"type": "MultiLineString","coordinates": [['
-    points.each { |tp| geo_json += '[' + "#{tp[:y].to_f}" + ', ' + "#{tp[:x].to_f}" + '], ' }
-    geo_json = geo_json[0..-3]
-    geo_json += ']]}}'
-    geo_json
+<<-JSON
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "MultiLineString",
+    "coordinates": [[#{points.map { |tp| "[#{tp[:y].to_f}, #{tp[:x].to_f}]" }.join(', ')}]]
+  }
+}
+JSON
   end
 
   def self.simplify(points)

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get '/notes',             to: 'notes#index',      as: :notes
 
-  get  '/track',            to: 'api/points#create'
+  get  '/track',            to: 'api/points#create', defaults: { format: 'json' }
 
   get  '/import',           to: 'import#show',      as: :import
   post '/import/instagram', to: 'import#instagram', as: :import_instagram
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post '/webhooks/instagram', to: 'webhooks#instagram'
 
   namespace :api do
-    resources :points, only: [:index, :create]
+    resources :points, only: [:index, :create], defaults: { format: 'json' }
     resources :tracks, only: [:index]
     resources :pins, only: [:index]
   end

@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.3.1'
 
-gem 'rails', '4.2.4'
+gem 'rails', '~> 4.2'
 gem 'pg'
 gem 'unicorn'
 gem 'sass-rails', '~> 5.0'
@@ -41,7 +41,7 @@ group :development, :test do
 end
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-modernizr'
+  gem 'rails-assets-modernizr', '~> 2'
   gem 'rails-assets-jquery'
   gem 'rails-assets-lodash'
   gem 'rails-assets-momentjs'
