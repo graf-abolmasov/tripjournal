@@ -28,8 +28,9 @@ class InstagramSource < ActiveRecord::Base
       note.source_url = photo.link
       note.author = photo.user.username
       note.created_at = Time.at(photo.created_time.to_i)
-      if photo.location.present? && photo.location.latitude.present?
-        note.latlng = [photo.location.latitude, photo.location.longitude]
+      if photo.location.present? && photo.location.latitude.present? && photo.location.longitude.present?
+        note.lat = photo.location.latitude
+        note.lng = photo.location.longitude
       end
     end
   end
