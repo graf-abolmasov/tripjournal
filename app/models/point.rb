@@ -9,6 +9,7 @@ class Point < ActiveRecord::Base
   private
 
   def notify
+    return if ENV['DISABLE_ONLINE_UPDATES'].present?
     Pusher["tj.#{Rails.env}"].trigger('tj:map:update_current_position', attributes.to_json )
   end
 end
