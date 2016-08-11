@@ -24,5 +24,7 @@ module Tripjournal
     config.active_record.raise_in_transactional_callbacks = true
 
     config.active_job.queue_adapter = :sidekiq
+
+    config.autoload_paths << File.join(config.root, 'app/services')
   end
 end
