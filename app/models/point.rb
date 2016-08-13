@@ -4,10 +4,10 @@ class Point < ActiveRecord::Base
 
   def to_json
     {
-        lat: self.lat,
-        lng: self.lng,
-        alt: self.alt,
-        speed: self.speed,
+        lat: self.lat.to_f,
+        lng: self.lng.to_f,
+        alt: self.alt.to_f,
+        speed: self.speed.to_f,
         created_at: self.created_at,
     }.to_json
   end
