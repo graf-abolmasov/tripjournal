@@ -10,6 +10,7 @@ angular.module('tj').factory '$pusher', ['$rootScope', ($rootScope) ->
       console.log(data) if console
 
     _channel.bind event, (data) ->
+      console.log(data) if console
       $rootScope.$apply ()->
         callback(data)
 
