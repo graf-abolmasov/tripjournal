@@ -79,14 +79,14 @@ GEM
       nokogiri
       rake
     hashie (3.4.4)
-    httpclient (2.8.1)
+    httpclient (2.8.2)
     i18n (0.7.0)
     instagram (1.1.6)
       faraday (>= 0.7, < 0.10)
       faraday_middleware (>= 0.8, < 0.10)
       hashie (>= 0.4.0)
       multi_json (~> 1.0, >= 1.0.3)
-    jbuilder (2.4.1)
+    jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     json (1.8.3)
