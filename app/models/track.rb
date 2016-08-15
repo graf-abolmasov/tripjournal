@@ -30,7 +30,7 @@ JSON
   end
 
   def self.simplify(points)
-    SimplifyRb.simplify(points, 0.0000005, true)
+    SimplifyRb::Simplifier.new.process(points, 0.0000005, true)
   end
 
 end

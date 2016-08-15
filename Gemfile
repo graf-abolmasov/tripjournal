@@ -22,6 +22,7 @@ gem 'sidekiq'
 gem 'simplify_rb'
 gem 'rubyzip'
 gem 'nokogiri'
+gem 'clockwork'
 
 group :development do
   gem 'web-console', '~> 2.0'
