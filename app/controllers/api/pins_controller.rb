@@ -1,7 +1,8 @@
-class Api::PinsController < ApplicationController
+class Api::PinsController < Api::ApplicationController
 
   def index
-    @notes = Note.where('lat is not null').where('lng is not null')
+    @notes = Note.where(:lat.ne => nil).where(:lng.ne => nil).all
+    respond_with @notes
   end
 
 end

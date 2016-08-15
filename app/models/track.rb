@@ -1,4 +1,6 @@
-class Track < ActiveRecord::Base
+class Track
+
+  include Mongoid::Document
 
   def self.create_from_points(points, created_at)
     return if points.length == 1

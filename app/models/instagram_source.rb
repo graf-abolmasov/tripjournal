@@ -1,4 +1,6 @@
-class InstagramSource < ActiveRecord::Base
+class InstagramSource
+
+  include Mongoid::Document
 
   def init!
     last_photo = client.user_recent_media(self.user_id, count: 1).first

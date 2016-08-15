@@ -1,10 +1,8 @@
 class Api::PointsController < Api::ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create]
-
-  respond_to :json
 
   def index
-    @points = Point.order(:created_at).all
+    @points = Point.all
+    respond_with @points
   end
 
   def create
