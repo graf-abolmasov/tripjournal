@@ -24,6 +24,7 @@ gem 'simplify_rb'
 gem 'rubyzip'
 gem 'nokogiri'
 gem 'clockwork'
+gem 'ruby-progressbar'
 
 group :development do
   gem 'web-console'
@@ -39,7 +40,6 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'factory_girl_rails'
-  gem 'ruby-progressbar'
   gem 'byebug', platform: :mri
 end
 
