@@ -1,7 +1,7 @@
 namespace :tj do
   namespace :data do
     task reprocess_tracks: :environment do
-      progress = ProgressBar.create(total: Track.count, format: '%a %B %p%% %r tracks/sec')
+      progress = ProgressBar.create(total: Track.where(geojson_lq: nil).count, format: '%a %B %p%% %r tracks/sec')
       Track.where(geojson_lq: nil).each do |track|
         Point.transaction do
           points = track.geojson_hq['geometry']['coordinates'].map do |coordinates|

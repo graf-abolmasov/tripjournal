@@ -32,20 +32,16 @@ class AggregatePointsJob < ActiveJob::Base
   end
 
   def merge_tracks
-    Track.transaction do
-      # Sort by id != sort by created_at, because imported tracks may have any created_at
-      newer_track = Track.order(created_at: :desc).first
-      Track.order(created_at: :desc).where.not(id: newer_track.id).each do |older_track|
-        newer_track_start_point = newer_track.points.order(created_at: :asc, id: :asc).first
-        older_track_finish_point = older_track.points.order(created_at: :desc, id: :desc).first
-        if distance(older_track_finish_point, newer_track_start_point) <= DISTANCE_EPSILON_FOR_NEW_TRACK &&
-           time_diff(older_track_finish_point,newer_track_start_point) <= TIME_EPSILON_FOR_NEW_TRACK
-          Rails.logger.info("Merge tracks [#{older_track.id} + #{newer_track.id}]")
-          older_track.update_attributes!(geojson_hq: nil, geojson_lq: nil, points: older_track.points + newer_track.points)
-          newer_track.destroy!
-        end
-        newer_track = older_track
+    # Sort by id != sort by created_at, because imported tracks may have any created_at
+    newer_track = Track.order(created_at: :desc).first
+    Track.order(created_at: :desc).where.not(id: newer_track.id).each do |older_track|
+      newer_track_start_point = newer_track.points.order(created_at: :asc, id: :asc).first
+      older_track_finish_point = older_track.points.order(created_at: :desc, id: :desc).first
+      if distance(older_track_finish_point, newer_track_start_point) <= DISTANCE_EPSILON_FOR_NEW_TRACK &&
+          time_diff(older_track_finish_point,newer_track_start_point) <= TIME_EPSILON_FOR_NEW_TRACK
+        older_track.merge!(newer_track)
       end
+      newer_track = older_track
     end
   end
 

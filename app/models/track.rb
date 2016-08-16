@@ -10,6 +10,17 @@ class Track < ActiveRecord::Base
 
   before_save :prepare_geojson
 
+  def merge!(other_track)
+    Track.transaction do
+      Rails.logger.info("Merge tracks [#{self.id} + #{other_track.id}]")
+      self.geojson_hq['geometry']['coordinates'][0] += other_track.geojson_hq['geometry']['coordinates'][0]
+      self.geojson_lq['geometry']['coordinates'][0] += other_track.geojson_lq['geometry']['coordinates'][0]
+      self.points += other_track.points
+      self.save!
+      other_track.destroy!
+    end
+  end
+
   private
 
   def prepare_geojson
