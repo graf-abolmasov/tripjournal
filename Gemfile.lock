@@ -43,7 +43,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (9.0.5)
-    clockwork (1.2.0)
+    clockwork (2.0.0)
       activesupport
       tzinfo
     coderay (1.1.1)
@@ -121,7 +121,7 @@ GEM
       yard (~> 0.8)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    pusher (1.1.0)
+    pusher (1.2.0)
       httpclient (~> 2.7)
       multi_json (~> 1.0)
       pusher-signature (~> 0.1.8)
@@ -180,7 +180,7 @@ GEM
     rake (11.2.2)
     redis (3.3.1)
     ref (2.0.0)
-    responders (2.2.0)
+    responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rspec-core (3.5.2)
       rspec-support (~> 3.5.0)
