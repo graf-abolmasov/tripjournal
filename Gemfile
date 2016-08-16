@@ -54,8 +54,3 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-angular-leaflet-directive', '= 0.8.6'
   gem 'rails-assets-Leaflet.awesome-markers'
 end
-
-group :production do
-  gem 'unicorn'
-end
-
