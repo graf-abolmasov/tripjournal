@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -38,17 +37,16 @@ ActiveRecord::Schema.define(version: 20160815175607) do
   end
 
   create_table "points", force: :cascade do |t|
-    t.decimal  "alt",        precision: 9, scale: 6, default: 0.0
-    t.decimal  "speed",      precision: 9, scale: 6, default: 0.0
-    t.decimal  "hdop",       precision: 9, scale: 6, default: 0.0
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.decimal  "lat",                                              null: false
-    t.decimal  "lng",                                              null: false
+    t.decimal  "alt",        precision: 9, scale: 6, default: "0.0"
+    t.decimal  "speed",      precision: 9, scale: 6, default: "0.0"
+    t.decimal  "hdop",       precision: 9, scale: 6, default: "0.0"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.decimal  "lat",                                                null: false
+    t.decimal  "lng",                                                null: false
     t.integer  "track_id"
+    t.index ["created_at"], name: "index_points_on_created_at", using: :btree
   end
-
-  add_index "points", ["created_at"], name: "index_points_on_created_at", using: :btree
 
   create_table "tracks", force: :cascade do |t|
     t.text     "geojson_hq"
