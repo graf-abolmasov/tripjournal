@@ -1,11 +1,3 @@
-GIT
-  remote: git://github.com/rails/jbuilder.git
-  revision: 003a369f7432c7173d00c453484ae11f1c952a15
-  specs:
-    jbuilder (2.6.0)
-      activesupport (>= 3.0.0, < 5.1)
-      multi_json (~> 1.2)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -51,6 +43,9 @@ GEM
     awesome_print (1.7.0)
     builder (3.2.2)
     byebug (9.0.5)
+    clockwork (2.0.0)
+      activesupport
+      tzinfo
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -85,13 +80,16 @@ GEM
       nokogiri
       rake
     hashie (3.4.4)
-    httpclient (2.8.2)
+    httpclient (2.8.2.1)
     i18n (0.7.0)
     instagram (1.1.6)
       faraday (>= 0.7, < 0.10)
       faraday_middleware (>= 0.8, < 0.10)
       hashie (>= 0.4.0)
       multi_json (~> 1.0, >= 1.0.3)
+    jbuilder (2.6.0)
+      activesupport (>= 3.0.0, < 5.1)
+      multi_json (~> 1.2)
     jquery-rails (4.1.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -130,7 +128,7 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     puma (3.6.0)
-    pusher (1.1.0)
+    pusher (1.2.0)
       httpclient (~> 2.7)
       multi_json (~> 1.0)
       pusher-signature (~> 0.1.8)
@@ -184,7 +182,7 @@ GEM
       ffi (>= 0.5.0)
     redis (3.3.1)
     ref (2.0.0)
-    responders (2.2.0)
+    responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rspec-core (3.5.2)
       rspec-support (~> 3.5.0)
@@ -266,12 +264,13 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   byebug
+  clockwork
   coffee-rails (~> 4.2)
   dotenv-rails
   factory_girl_rails
   gpx
   instagram
-  jbuilder!
+  jbuilder
   jquery-rails
   listen (~> 3.0.5)
   nokogiri

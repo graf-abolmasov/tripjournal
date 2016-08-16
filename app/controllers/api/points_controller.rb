@@ -1,7 +1,7 @@
 class Api::PointsController < Api::ApplicationController
 
   def index
-    @points = Point.order(:created_at).all
+    @points = Point.newly_added.order(id: :asc).all
     respond_with @points
   end
 

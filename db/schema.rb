@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811083300) do
+ActiveRecord::Schema.define(version: 20160815175607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,35 +24,38 @@ ActiveRecord::Schema.define(version: 20160811083300) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.integer  "kind",       default: 0, null: false
+    t.integer  "kind",                               default: 0, null: false
     t.string   "title"
     t.string   "text"
     t.string   "image_url"
     t.string   "source_url"
     t.string   "source_id"
     t.string   "author"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.decimal  "lat"
-    t.decimal  "lng"
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.decimal  "lat",        precision: 9, scale: 6
+    t.decimal  "lng",        precision: 9, scale: 6
   end
 
   create_table "points", force: :cascade do |t|
-    t.decimal  "alt",        default: 0.0
-    t.decimal  "speed",      default: 0.0
-    t.decimal  "hdop",       default: 0.0
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.decimal  "lat",                      null: false
-    t.decimal  "lng",                      null: false
+    t.decimal  "alt",        precision: 9, scale: 6, default: 0.0
+    t.decimal  "speed",      precision: 9, scale: 6, default: 0.0
+    t.decimal  "hdop",       precision: 9, scale: 6, default: 0.0
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.decimal  "lat",                                              null: false
+    t.decimal  "lng",                                              null: false
+    t.integer  "track_id"
   end
 
   add_index "points", ["created_at"], name: "index_points_on_created_at", using: :btree
 
   create_table "tracks", force: :cascade do |t|
-    t.text     "json"
+    t.text     "geojson_hq"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "geojson_lq"
   end
 
+  add_foreign_key "points", "tracks"
 end

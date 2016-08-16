@@ -1,5 +1,9 @@
 class Point < ActiveRecord::Base
 
+  belongs_to :track
+
+  scope :newly_added, -> { where(track_id: nil) }
+
   after_create :notify
 
   def pusher_json
