@@ -9,5 +9,5 @@ module Clockwork
     active_job_class.constantize.perform_later
   end
 
-  every(15.seconds, 'AggregatePointsJob')
+  every(1.day, 'AggregatePointsJob', at: '1:00')
 end

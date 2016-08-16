@@ -33,12 +33,12 @@ class Track < ActiveRecord::Base
       tracks.each do |t|
         transaction do
           points = t[:points].map { |p| Point.create!(lat: p[:x], lng: [:y], created_at: t[:created_at]) }
-          create_from_points(points)
+          create_from_points!(points)
         end
       end
     end
 
-    def create_from_points(points)
+    def create_from_points!(points)
       return if points.blank? || points.length < 2
       Track.create!(points: points, created_at: points.first.created_at)
     end

@@ -1,34 +1,62 @@
 class AggregatePointsJob < ActiveJob::Base
   queue_as :default
 
-  EPS = ENV.fetch('EPSILON_FOR_NEW_TRACK', 0.02).to_f
+  DISTANCE_EPSILON_FOR_NEW_TRACK = ENV.fetch('DISTANCE_EPSILON_FOR_NEW_TRACK', 0.02).to_f
+  TIME_EPSILON_FOR_NEW_TRACK = ENV.fetch('TIME_EPSILON_FOR_NEW_TRACK', 12).to_i
 
   def perform
+    aggregate_points
+    merge_tracks
+  end
+
+  private
+
+  def aggregate_points
     Point.transaction do
-      return if Point.newly_added.order(created_at: :desc).count < 2
-      last_point = Point.newly_added.order(created_at: :desc).first
-      all_points = Point.newly_added.where('id <= ?', last_point.id).order(created_at: :asc).to_a
-      p1 = all_points.pop
+      # Sort by id is allowed, because only on-line tracked points are newly added
+      return if Point.newly_added.count < 2
+      p1 = Point.newly_added.order(id: :asc).first
       points = [p1]
-      all_points.each do |p|
+      Point.newly_added.where('id > ?', p1.id).order(id: :asc).each do |p|
         p2 = p
-        if distance(p1, p2) > EPS
-          Track.create_from_points(points)
+        if distance(p1, p2) > DISTANCE_EPSILON_FOR_NEW_TRACK ||
+           time_diff(p1, p2) > TIME_EPSILON_FOR_NEW_TRACK
+          Track.create_from_points!(points)
           points = []
         end
         points << p2
         p1 = p2
       end
-      Track.create_from_points(points)
+      Track.create_from_points!(points)
     end
   end
 
-  private
+  def merge_tracks
+    Track.transaction do
+      # Sort by id != sort by created_at, because imported tracks may have any created_at
+      newer_track = Track.order(created_at: :desc).first
+      Track.order(created_at: :desc).where.not(id: newer_track.id).each do |older_track|
+        newer_track_start_point = newer_track.points.order(created_at: :asc, id: :asc).first
+        older_track_finish_point = older_track.points.order(created_at: :desc, id: :desc).first
+        if distance(older_track_finish_point, newer_track_start_point) <= DISTANCE_EPSILON_FOR_NEW_TRACK &&
+           time_diff(older_track_finish_point,newer_track_start_point) <= TIME_EPSILON_FOR_NEW_TRACK
+          Rails.logger.info("Merge tracks [#{older_track.id} + #{newer_track.id}]")
+          older_track.update_attributes!(geojson_hq: nil, geojson_lq: nil, points: older_track.points + newer_track.points)
+          newer_track.destroy!
+        end
+        newer_track = older_track
+      end
+    end
+  end
 
   def dest_sqr(p1, p2)
     dx = p2.lat - p1.lat
     dy = p2.lng - p1.lng
     dx * dx + dy * dy
+  end
+
+  def time_diff(p1, p2)
+    ((p1.created_at - p2.created_at) / 1.hour).abs
   end
 
   def distance(p1, p2)
