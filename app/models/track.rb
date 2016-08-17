@@ -10,14 +10,17 @@ class Track < ActiveRecord::Base
 
   before_save :prepare_geojson
 
-  def merge!(other_track)
+  def merge!(other_tracks)
+    other_tracks = Array.wrap(other_tracks)
+    return if other_tracks.blank?
     Track.transaction do
-      Rails.logger.info("Merge tracks [#{self.id} + #{other_track.id}]")
-      self.geojson_hq['geometry']['coordinates'][0] += other_track.geojson_hq['geometry']['coordinates'][0]
-      self.geojson_lq['geometry']['coordinates'][0] += other_track.geojson_lq['geometry']['coordinates'][0]
-      self.points += other_track.points
+      merged_ids = [self.id] + other_tracks.map(&:id)
+      Rails.logger.info("Merge tracks [#{merged_ids.join(' + ')}]")
+      self.geojson_hq['geometry']['coordinates'][0] += other_tracks.map { |t| t.geojson_hq['geometry']['coordinates'][0] }.flatten(1)
+      self.geojson_lq['geometry']['coordinates'][0] += other_tracks.map { |t| t.geojson_lq['geometry']['coordinates'][0] }.flatten(1)
+      self.points += other_tracks.map(&:points).flatten(1)
       self.save!
-      other_track.destroy!
+      other_tracks.each(&:destroy!)
     end
   end
 
@@ -41,9 +44,9 @@ class Track < ActiveRecord::Base
                else
                  raise 'Unsupported format'
                end
-      tracks.each do |t|
+      tracks.each do |track|
         transaction do
-          points = t[:points].map { |p| Point.create!(lat: p[:x], lng: [:y], created_at: t[:created_at]) }
+          points = track.map { |p| Point.new(lat: p[:x], lng: p[:y], created_at: p[:created_at]) }
           create_from_points!(points)
         end
       end

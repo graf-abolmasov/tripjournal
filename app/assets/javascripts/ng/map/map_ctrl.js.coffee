@@ -9,14 +9,8 @@ angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', 
   $scope.paths   = {}
   $scope.geojson = {
     data: [],
-    style: {
-      fillColor: "blue",
-      weight: 2,
-      opacity: 1,
-      color: 'white',
-      dashArray: '3',
-      fillOpacity: 0.7
-    }
+#    style: (feature) ->
+#      color: '#'+Math.random().toString(16).substr(-6),
   }
   $scope.center = {}
 
@@ -28,9 +22,7 @@ angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', 
     }
 
   $http.get('/api/tracks.json').then (response) ->
-    $scope.geojson = {
-      data: response.data
-    }
+    $scope.geojson.data = response.data
 
   $http.get('/api/pins.json').then (response) ->
     _.each response.data, (note) ->

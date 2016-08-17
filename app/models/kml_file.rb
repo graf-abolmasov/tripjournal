@@ -5,12 +5,13 @@ class KmlFile
   def self.read(filename)
     data = read_file(filename)
     coords = data.css('gxXcoord').to_a
-    created_at = data.css('when').to_a.last
-    points = coords.map do |c|
+    dates = data.css('when').to_a
+    points = coords.each_with_index.map do |c, idx|
       x_y_z = c.content.split(' ')
-      { x: x_y_z[1].to_f, y: x_y_z[0].to_f }
+      created_at = dates[idx].content
+      { x: x_y_z[1].to_f, y: x_y_z[0].to_f, created_at: created_at }
     end
-    [{ points: points, created_at: created_at }]
+    [points]
   end
 
   private
@@ -31,12 +32,9 @@ class KmlFile
   end
 
   def self.read_kmz(filename)
-    kml = ''
-    Zip::InputStream.open(filename) do |io|
-      while io.get_next_entry
-        kml << io.read.gsub('gx:', 'gxX')
-      end
+    Zip::File.open(filename) do |zip_file|
+      doc_kml = zip_file.glob('doc.kml').first
+      doc_kml.get_input_stream.read.gsub('gx:', 'gxX')
     end
-    kml
   end
 end
