@@ -16,9 +16,9 @@ class Track < ActiveRecord::Base
     Track.transaction do
       merged_ids = [self.id] + other_tracks.map(&:id)
       Rails.logger.info("Merge tracks [#{merged_ids.join(' + ')}]")
-      self.geojson_hq['geometry']['coordinates'][0] += other_tracks.map { |t| t.geojson_hq['geometry']['coordinates'][0] }.flatten(1)
-      self.geojson_lq['geometry']['coordinates'][0] += other_tracks.map { |t| t.geojson_lq['geometry']['coordinates'][0] }.flatten(1)
       self.points += other_tracks.map(&:points).flatten(1)
+      self.geojson_hq = nil
+      self.geojson_lq = nil
       self.save!
       other_tracks.each(&:destroy!)
     end
