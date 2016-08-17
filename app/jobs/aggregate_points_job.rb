@@ -6,7 +6,7 @@ class AggregatePointsJob < ActiveJob::Base
 
   def perform
     aggregate_points
-    merge_tracks
+    join_tracks
   end
 
   private
@@ -31,19 +31,19 @@ class AggregatePointsJob < ActiveJob::Base
     end
   end
 
-  def merge_tracks
+  def join_tracks
     # Sort by id != sort by created_at, because imported tracks may have any created_at
     newer_track = Track.order(created_at: :desc).first
-    tracks_to_merge = []
+    tracks_to_join = []
     Track.order(created_at: :desc).where.not(id: newer_track.id).each do |older_track|
       newer_track_start_point = newer_track.points.order(created_at: :asc, id: :asc).first
       older_track_finish_point = older_track.points.order(created_at: :desc, id: :desc).first
       if distance(older_track_finish_point, newer_track_start_point) <= DISTANCE_EPSILON_FOR_NEW_TRACK &&
           time_diff(older_track_finish_point,newer_track_start_point) <= TIME_EPSILON_FOR_NEW_TRACK
-        tracks_to_merge.unshift(newer_track)
+        tracks_to_join.unshift(newer_track)
       else
-        newer_track.merge!(tracks_to_merge)
-        tracks_to_merge = []
+        newer_track.join!(tracks_to_join)
+        tracks_to_join = []
       end
       newer_track = older_track
     end

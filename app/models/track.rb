@@ -10,12 +10,12 @@ class Track < ActiveRecord::Base
 
   before_save :prepare_geojson
 
-  def merge!(other_tracks)
+  def join!(other_tracks)
     other_tracks = Array.wrap(other_tracks)
     return if other_tracks.blank?
     Track.transaction do
-      merged_ids = [self.id] + other_tracks.map(&:id)
-      Rails.logger.info("Merge tracks [#{merged_ids.join(' + ')}]")
+      joined_ids = [self.id] + other_tracks.map(&:id)
+      Rails.logger.info("Join tracks [#{joined_ids.join(' + ')}]")
       self.points += other_tracks.map(&:points).flatten(1)
       self.geojson_hq = nil
       self.geojson_lq = nil
