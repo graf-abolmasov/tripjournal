@@ -6,7 +6,7 @@ class Track < ActiveRecord::Base
   serialize :geojson_hq, JSON
   serialize :geojson_lq, JSON
 
-  has_many :points
+  has_many :points, dependent: :delete_all
 
   before_save :prepare_geojson
 
@@ -22,6 +22,14 @@ class Track < ActiveRecord::Base
       self.save!
       other_tracks.each(&:destroy!)
     end
+  end
+
+  def to_gpx
+    gpx = GPX::GPXFile.new
+    self.points.each do |point|
+      gpx.waypoints << GPX::Waypoint.new({lat: point.lat, lon: point.lng, time: point.created_at})
+    end
+    gpx.to_s
   end
 
   private

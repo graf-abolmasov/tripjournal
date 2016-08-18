@@ -9,8 +9,8 @@ angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', 
   $scope.paths   = {}
   $scope.geojson = {
     data: [],
-#    style: (feature) ->
-#      color: '#'+Math.random().toString(16).substr(-6),
+    style: (feature) ->
+      color: '#'+Math.random().toString(16).substr(-6),
   }
   $scope.center = {}
 

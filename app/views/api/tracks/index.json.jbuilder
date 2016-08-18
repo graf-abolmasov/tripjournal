@@ -1,2 +1,2 @@
 json.type 'FeatureCollection'
-json.features @tracks.map(&:geojson_lq)
+json.features @tracks.map(&:geojson_hq)
