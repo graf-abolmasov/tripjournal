@@ -5,7 +5,9 @@ class ImportController < ApplicationController
   end
 
   def track
-    Track.import(params[:file].tempfile.path)
+    Array.wrap(params[:files]).each do |file|
+      Track.import(file.tempfile.path)
+    end
     redirect_to import_url
   end
 

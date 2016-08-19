@@ -42,6 +42,8 @@ GEM
     arel (7.1.1)
     awesome_print (1.7.0)
     builder (3.2.2)
+    bulk_insert (1.2.1)
+      activerecord (>= 4.1.0)
     byebug (9.0.5)
     clockwork (2.0.0)
       activesupport
@@ -80,7 +82,7 @@ GEM
       nokogiri
       rake
     hashie (3.4.4)
-    httpclient (2.8.2.1)
+    httpclient (2.8.2.2)
     i18n (0.7.0)
     instagram (1.1.6)
       faraday (>= 0.7, < 0.10)
@@ -114,7 +116,7 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
-    oj (2.17.2)
+    oj (2.17.3)
     pg (0.18.4)
     pkg-config (1.1.7)
     pry (0.10.4)
@@ -258,6 +260,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  bulk_insert
   byebug
   clockwork
   coffee-rails (~> 4.2)

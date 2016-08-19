@@ -54,8 +54,13 @@ class Track < ActiveRecord::Base
                end
       tracks.each do |track|
         transaction do
-          points = track.map { |p| Point.new(lat: p[:x], lng: p[:y], created_at: p[:created_at]) }
-          create_from_points!(points)
+          new_track = Track.create(created_at: track.first[:created_at])
+          Point.bulk_insert(:lat, :lng, :track_id, :created_at, :updated_at) do |worker|
+            track.each do |p|
+              worker.add(lat: p[:x], lng: p[:y], track_id: new_track.id, created_at: p[:created_at])
+            end
+          end
+          new_track.reload.update_attributes!(geojson_lq: nil, geojson_hq: nil)
         end
       end
     end
