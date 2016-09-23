@@ -31,16 +31,16 @@ class Point < ActiveRecord::Base
   end
 
   def notify
-    Pusher["tj.#{Rails.env}"].trigger('tj:map:update_current_position', pusher_json )
+    ActionCable.server.broadcast('points', pusher_json)
   end
 
   def pusher_json
-    JSON.dump(
+    {
         lat: self.lat.to_f,
         lng: self.lng.to_f,
         alt: self.alt.to_f,
         speed: self.speed.to_f,
-        created_at: self.created_at,
-    )
+        created_at: self.created_at
+    }
   end
 end

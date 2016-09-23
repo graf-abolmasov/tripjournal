@@ -1,4 +1,4 @@
-angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', '$http', 'leafletEvents', ($scope, leafletData, $pusher, $http, leafletEvents) ->
+angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$actionCable', '$http', 'leafletEvents', ($scope, leafletData, $actionCable, $http, leafletEvents) ->
 
   $scope.follow_current_position = true
 
@@ -73,7 +73,7 @@ angular.module('tj').controller 'MapCtrl', ['$scope', 'leafletData', '$pusher', 
     $scope.follow_current_position = true
     _move_center_to($scope.current_position)
 
-  $pusher.subscribe 'tj:map:update_current_position', (data) ->
+  $actionCable.subscribe 'PointsChannel', (data) ->
     $scope.current_position.lat = data.lat
     $scope.current_position.lng = data.lng
     _move_center_to(data) if $scope.follow_current_position

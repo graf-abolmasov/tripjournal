@@ -1,17 +1,11 @@
-angular.module('tj').factory '$pusher', ['$rootScope', ($rootScope) ->
-  _pusher = new Pusher(Rails.pusher_key)
+angular.module('tj').factory '$actionCable', ['$rootScope', ($rootScope) ->
 
-  _channel = undefined
+  socket = ActionCable.createConsumer();
 
-  subscribe: (event, callback) ->
-    _channel = _channel || _pusher.subscribe("tj.#{Rails.env}")
-
-    _channel.bind 'pusher:subscription_error', (data) ->
-      console.log(data) if console
-
-    _channel.bind event, (data) ->
-      console.log(data) if console
-      $rootScope.$apply ()->
-        callback(data)
-
+  subscribe: (channel, callback) ->
+    socket.subscriptions.create  { channel: channel },
+      received: (data) ->
+        console.log(data)
+        $rootScope.$apply ()->
+          callback(data)
 ]

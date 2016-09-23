@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  mount ActionCable.server => '/cable'
+
   root to: 'map#index'
 
   get '/notes',             to: 'notes#index',      as: :notes

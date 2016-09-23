@@ -14,7 +14,6 @@
   },
   "addons": [
     "heroku-postgresql:hobby-dev",
-    "pusher:sandbox",
     "rediscloud:30"
   ],
   "env": {

@@ -1,8 +1,7 @@
 module ApplicationHelper
   def js_env
     data = {
-        env: Rails.env,
-        pusher_key: Pusher.key,
+        env: Rails.env
     }
     <<-EOS.html_safe
 <script type="text/javascript">
