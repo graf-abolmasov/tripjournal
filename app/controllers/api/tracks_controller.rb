@@ -1,6 +1,6 @@
 class Api::TracksController < Api::ApplicationController
 
-  respond_to :gpx
+  respond_to :json, :gpx
 
   def index
     @tracks = Track.order(id: :desc).all

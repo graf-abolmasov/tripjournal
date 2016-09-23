@@ -3,14 +3,14 @@ namespace :tj do
     task reprocess_tracks: :environment do
       progress = ProgressBar.create(total: Track.where(geojson_lq: nil).count, format: '%a %B %p%% %r tracks/sec')
       Track.where(geojson_lq: nil).each do |track|
-        Point.transaction do
-          points = track.geojson_hq['geometry']['coordinates'].map do |coordinates|
-            coordinates.map do |coordinate|
-              Point.new(lng: coordinate[0], lat: coordinate[1], created_at: track.created_at)
+        Point.bulk_insert(:lat, :lng, :track_id, :created_at, :updated_at) do |worker|
+          track.geojson_hq['geometry']['coordinates'].map do |coordinates|
+            coordinates.each do |coordinate|
+              worker.add(lng: coordinate[0], lat: coordinate[1], track_id: track.id, created_at: track.created_at)
             end
           end
-          track.update_attributes(points: points.first)
         end
+        track.reload.recreate_geojson!(skip_hq: true)
         progress.increment
       end
     end

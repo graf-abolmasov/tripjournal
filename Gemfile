@@ -2,56 +2,56 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+
+gem 'bulk_insert'
+gem 'clockwork'
+gem 'coffee-rails', '~> 4.2'
+gem 'dotenv-rails'
+gem 'jbuilder'
+gem 'jquery-rails'
+gem 'oj'
 gem 'pg'
 gem 'puma', '~> 3.0'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
-gem 'therubyracer', platforms: :ruby
-gem 'jquery-rails'
-gem 'redis', '~> 3.0'
-gem 'dotenv-rails'
-gem 'responders', '~> 2.0'
-gem 'gpx'
-gem 'instagram'
-gem 'oj'
-gem 'jbuilder'
-gem 'slim-rails'
-gem 'bulk_insert'
 gem 'pusher'
+gem 'redis', '~> 3.0'
+gem 'responders', '~> 2.0'
+gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
-gem 'simplify_rb'
-gem 'rubyzip'
+gem 'slim-rails'
+gem 'therubyracer', platforms: :ruby
+gem 'uglifier', '>= 1.3.0'
+
+# Business logic
+gem 'instagram'
 gem 'nokogiri'
-gem 'clockwork'
+gem 'rubyzip'
+gem 'gpx'
 gem 'ruby-progressbar'
+gem 'simplify_rb'
 
 group :development do
-  gem 'web-console'
+  gem 'awesome_print'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'awesome_print'
+  gem 'web-console'
 end
 
 group :development, :test do
-  gem 'rspec-rails', '>= 3.0.0'
-  gem 'pry'
-  gem 'pry-doc'
-  gem 'pry-rails'
-  gem 'factory_girl_rails'
   gem 'byebug', platform: :mri
+  gem 'factory_girl_rails'
+  gem 'pry'
+  gem 'pry-rails'
 end
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-modernizr', '~> 2'
-  gem 'rails-assets-jquery'
-  gem 'rails-assets-lodash'
-  gem 'rails-assets-momentjs'
-  gem 'rails-assets-leaflet'
   gem 'rails-assets-angular'
-  gem 'rails-assets-angular-moment'
   gem 'rails-assets-angular-leaflet-directive', '= 0.8.6'
+  gem 'rails-assets-angular-moment'
+  gem 'rails-assets-leaflet'
   gem 'rails-assets-Leaflet.awesome-markers'
+  gem 'rails-assets-lodash'
+  gem 'rails-assets-modernizr', '~> 2'
+  gem 'rails-assets-momentjs'
 end

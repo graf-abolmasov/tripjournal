@@ -1,2 +1,2 @@
 json.type 'FeatureCollection'
-json.features @track.geojson_hq
+json.features [@track.geojson_hq]
