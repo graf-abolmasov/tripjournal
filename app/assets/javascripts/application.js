@@ -11,18 +11,15 @@
 // about supported directives.
 //
 //= require action_cable
-//= require modernizr
 //= require lodash
-//= require moment
 //= require jquery
-//= require leaflet
-//= require Leaflet.awesome-markers
+//= require leaflet/leaflet
+//= require leaflet-providers/leaflet-providers
 
-//= require angular
-//= require angular-moment
-//= require angular-leaflet-directive
+//= require_self
 
-//= require ./ng/app
-//= require_tree ./ng
+$(function() {
+  window.App = {};
 
-//= require_tree .
+  App.socket = ActionCable.createConsumer();
+});

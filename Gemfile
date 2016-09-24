@@ -47,12 +47,5 @@ group :development, :test do
 end
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-angular'
-  gem 'rails-assets-angular-leaflet-directive', '= 0.8.6'
-  gem 'rails-assets-angular-moment'
-  gem 'rails-assets-leaflet'
-  gem 'rails-assets-Leaflet.awesome-markers'
   gem 'rails-assets-lodash'
-  gem 'rails-assets-modernizr', '~> 2'
-  gem 'rails-assets-momentjs'
 end

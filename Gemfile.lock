@@ -146,21 +146,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.0.0.1)
       sprockets-rails (>= 2.0.0)
-    rails-assets-Leaflet.awesome-markers (2.0.2)
-    rails-assets-angular (1.4.12)
-    rails-assets-angular-leaflet-directive (0.8.6)
-      rails-assets-angular (~> 1.0)
-      rails-assets-font-awesome (~> 4.3.0)
-      rails-assets-leaflet (~> 0.7.0)
-    rails-assets-angular-moment (0.10.3)
-      rails-assets-angular (>= 1.2.0, < 1.5.0)
-      rails-assets-moment (>= 2.8.0, < 2.11.0)
-    rails-assets-font-awesome (4.3.0)
-    rails-assets-leaflet (0.7.7)
     rails-assets-lodash (4.16.1)
-    rails-assets-modernizr (2.8.3)
-    rails-assets-moment (2.10.6)
-    rails-assets-momentjs (2.15.1)
     rails-dom-testing (2.0.1)
       activesupport (>= 4.2.0, < 6.0)
       nokogiri (~> 1.6.0)
@@ -259,14 +245,7 @@ DEPENDENCIES
   puma_worker_killer
   rack-timeout
   rails (~> 5.0.0, >= 5.0.0.1)
-  rails-assets-Leaflet.awesome-markers!
-  rails-assets-angular!
-  rails-assets-angular-leaflet-directive (= 0.8.6)!
-  rails-assets-angular-moment!
-  rails-assets-leaflet!
   rails-assets-lodash!
-  rails-assets-modernizr (~> 2)!
-  rails-assets-momentjs!
   redis (~> 3.0)
   responders (~> 2.0)
   ruby-progressbar

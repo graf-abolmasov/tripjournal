@@ -1,7 +1,7 @@
 class MapController < ApplicationController
 
   def index
-    @current_position = current_center_point
+    @center = current_center_point
   end
 
   private
