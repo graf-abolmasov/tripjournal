@@ -1,10 +1,12 @@
-class Track < ActiveRecord::Base
+class Track < ApplicationRecord
 
   HQ_RESOLUTION = [0.0000005, true]
   LQ_RESOLUTION = [0.00005, false]
 
   serialize :geojson_hq, JSON
   serialize :geojson_lq, JSON
+
+  belongs_to :trip
 
   has_many :points, dependent: :delete_all
 
