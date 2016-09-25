@@ -1,9 +1,0 @@
-= link_to '', root_path, class:'nav-button nav-button-first ion-map'
-.container
-  ul.notes-timeline
-    - @notes.each do |n|
-      li
-        time.notes-time datetime=("#{l(n.created_at, format: :long)}")
-          span =l(n.created_at, format: :note_date)
-          span =l(n.created_at, format: :note_time)
-        = render "notes/#{n.kind}", note: n

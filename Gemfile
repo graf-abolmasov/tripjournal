@@ -7,10 +7,8 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'bulk_insert'
 gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
 gem 'clockwork'
-gem 'coffee-rails', '~> 4.2'
 gem 'dotenv-rails'
 gem 'jbuilder'
-gem 'jquery-rails'
 gem 'mini_magick'
 gem 'oj'
 gem 'pg'
@@ -19,11 +17,8 @@ gem 'puma_worker_killer'
 gem 'rack-timeout'
 gem 'redis', '~> 3.0'
 gem 'responders', '~> 2.0'
-gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'slim-rails'
-gem 'therubyracer', platforms: :ruby
-gem 'uglifier', '>= 1.3.0'
 
 # Business logic
 gem 'exifr'
@@ -47,8 +42,4 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry'
   gem 'pry-rails'
-end
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-lodash'
 end

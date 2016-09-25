@@ -5,7 +5,12 @@ html lang="en-US"
     meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, maximum-scale=1.0, initial-scale=1.0"
     title
       | Trip Tracking
+    = stylesheet_link_tag '/static/css/webpack.bundle.css', media: 'all'
     = csrf_meta_tags
+    = js_env
 
   body
-    = yield
+    #root
+
+  = javascript_include_tag 'application'
+  = javascript_include_tag '/static/js/webpack.bundle.js'

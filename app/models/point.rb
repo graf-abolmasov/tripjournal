@@ -2,7 +2,7 @@ class Point < ApplicationRecord
 
   belongs_to :track
 
-  scope :newly_added, -> { where(track_id: nil) }
+  scope :hot_points, -> { where(track_id: nil).order(id: :asc) }
 
   after_commit :notify, on: :create
 

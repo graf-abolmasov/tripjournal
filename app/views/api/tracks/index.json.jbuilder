@@ -1,2 +1,5 @@
-json.type 'FeatureCollection'
-json.features @tracks.map(&:geojson_lq)
+json.array! @tracks do |track|
+  json.id track.id
+  json.type 'FeatureCollection'
+  json.features [track.geojson_lq]
+end

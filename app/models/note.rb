@@ -4,6 +4,6 @@ class Note < ApplicationRecord
 
   belongs_to :trip
 
-  scope :with_location, -> { where('lat is not null').where('lng is not null') }
+  scope :with_location, -> { where.not(lat: nil).where.not(lng: nil) }
 
 end
