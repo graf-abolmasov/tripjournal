@@ -1,4 +1,4 @@
-class InstagramSource < ActiveRecord::Base
+class InstagramSource < ApplicationRecord
 
   def init!
     last_photo = client.user_recent_media(self.user_id, count: 1).first
@@ -9,7 +9,7 @@ class InstagramSource < ActiveRecord::Base
     photos = client.user_recent_media(self.user_id, min_id: self.last_media_id)
     return if photos.empty?
 
-    photos.each { |p| build_note(p) }
+    photos.each { |p| create_note(p) }
     self.update_attribute(:last_media_id, photos.first.id)
   end
 
@@ -19,7 +19,7 @@ class InstagramSource < ActiveRecord::Base
     @client ||= Instagram.client(access_token: ENV['INSTAGRAM_ACCESS_TOKEN'])
   end
 
-  def build_note(photo)
+  def create_note(photo)
     Note.find_or_create_by(source_id: photo.id) do |note|
       note.kind = :photo
       note.title = photo.caption.try(:text)

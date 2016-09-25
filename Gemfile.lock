@@ -45,6 +45,10 @@ GEM
     bulk_insert (1.2.1)
       activerecord (>= 4.1.0)
     byebug (9.0.5)
+    carrierwave (1.0.0.beta)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     clockwork (2.0.0)
       activesupport
       tzinfo
@@ -65,6 +69,7 @@ GEM
       railties (>= 4.0, < 5.1)
     erubis (2.7.0)
     execjs (2.7.0)
+    exifr (1.2.5)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.7.0)
@@ -107,6 +112,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    mini_magick (4.5.1)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
@@ -227,15 +233,18 @@ DEPENDENCIES
   awesome_print
   bulk_insert
   byebug
+  carrierwave (>= 1.0.0.beta, < 2.0)
   clockwork
   coffee-rails (~> 4.2)
   dotenv-rails
+  exifr
   factory_girl_rails
   gpx
   instagram
   jbuilder
   jquery-rails
   listen (~> 3.0.5)
+  mini_magick
   nokogiri
   oj
   pg

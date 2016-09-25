@@ -8,9 +8,8 @@ Rails.application.routes.draw do
 
   get  '/track',            to: 'api/points#create', defaults: { format: 'json' }
 
-  get  '/import',           to: 'import#show',      as: :import
-  post '/import/instagram', to: 'import#instagram', as: :import_instagram
-  post '/import/track',     to: 'import#track',     as: :import_track
+  resources :tracks, only: [:new, :create]
+  resources :photos, only: [:new, :create]
 
   get  '/oauth/instagram/connect',  to: 'oauth#connect_instagram', as: :instagram
   get  '/oauth/instagram/callback', to: 'oauth#instagram',         as: :instagram_callback
