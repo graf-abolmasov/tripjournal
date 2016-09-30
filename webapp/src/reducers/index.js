@@ -1,3 +1,5 @@
+import { LOCATION_CHANGE } from 'react-router-redux'
+
 const defaultReducer = (state, action) => {
   switch (action.type) {
     case 'MOVE_MAP_CENTER':
@@ -18,6 +20,8 @@ const defaultReducer = (state, action) => {
       return Object.assign({}, state, { tracks: action.tracks });
     case 'HOT_POINTS_LOADED':
       return Object.assign({}, state, { hotPoints: action.hotPoints });
+    case LOCATION_CHANGE:
+      return Object.assign({}, state, { routing: { locationBeforeTransitions: action.payload } });
     default:
       return state
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
 import MapBox from '../../components/MapBox/MapBox'
 import 'ionicons/css/ionicons.css'
-import './App.css'
+import './MapView.css'
 import {
   moveMapCenter,
   followTarget,
@@ -14,19 +14,15 @@ import {
   hotPointsLoaded
 } from '../../actions'
 
-class App extends React.Component {
+class MapView extends React.Component {
 
-  constructor(props) {
-    super(props);
-
+  componentDidMount() {
     this.props.webSocket.subscriptions.create({ channel: 'PointsChannel' }, {
       received: throttle((data) => {
         this.props.onNewHotPoint(data, this.props.followTarget);
       }, 500)
     });
-  }
 
-  componentDidMount() {
     fetch('/api/pins.json').then((response) => {
       return response.json();
     }).then((data) => {
@@ -95,6 +91,6 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const ActiveApp = connect(mapStateToProps, mapDispatchToProps)(App);
+const ActiveMapView = connect(mapStateToProps, mapDispatchToProps)(MapView);
 
-export default ActiveApp;
+export default ActiveMapView;

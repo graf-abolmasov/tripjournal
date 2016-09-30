@@ -11,8 +11,10 @@ Rails.application.routes.draw do
 
   post '/webhooks/instagram', to: 'webhooks#instagram'
 
-  resources :tracks, only: [:new, :create]
-  resources :photos, only: [:new, :create]
+  scope :admin do
+    resources :tracks, only: [:new, :create]
+    resources :photos, only: [:new, :create]
+  end
 
   namespace :api, defaults: { format: 'json' } do
     resources :hot_points, only: [:index]
@@ -20,4 +22,6 @@ Rails.application.routes.draw do
     resources :tracks, only: [:index, :show]
     resources :pins, only: [:index]
   end
+
+  get '/(*tail)', to: 'home#index'
 end

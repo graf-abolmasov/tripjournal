@@ -4,7 +4,9 @@ import storejs from 'storejs';
 import throttle from 'lodash/throttle';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import App from './containers/App/App';
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore  } from 'react-router-redux'
+import Root from './components/Root/Root';
 import reducer from './reducers'
 import './index.css';
 
@@ -23,10 +25,12 @@ const initStore = {
   pins: [],
   tracks: [],
   hotPoint: window.JsEnv.hot_point,
-  hotPoints: []
+  hotPoints: [],
+  routing: {}
 };
 
 const store = createStore(reducer, initStore);
+const history = syncHistoryWithStore(browserHistory, store);
 
 store.subscribe(throttle(() => {
   let { followTarget, center, zoom } = store.getState();
@@ -37,7 +41,7 @@ store.subscribe(throttle(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Root history={history} />
   </Provider>,
   document.getElementById('root')
 );
