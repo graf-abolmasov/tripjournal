@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930035832) do
+ActiveRecord::Schema.define(version: 20160930041136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160930035832) do
     t.decimal  "lat",        precision: 9, scale: 6
     t.decimal  "lng",        precision: 9, scale: 6
     t.integer  "trip_id"
+    t.index ["lat", "lng"], name: "index_notes_on_lat_and_lng", where: "((lat IS NOT NULL) AND (lng IS NOT NULL))", using: :btree
     t.index ["trip_id"], name: "index_notes_on_trip_id", using: :btree
   end
 
