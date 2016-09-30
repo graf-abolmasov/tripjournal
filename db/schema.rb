@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930171739) do
+ActiveRecord::Schema.define(version: 20160930204216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,12 +72,13 @@ ActiveRecord::Schema.define(version: 20160930171739) do
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.text     "geojson_hq"
+    t.json     "geojson_hq"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text     "geojson_lq"
+    t.json     "geojson_lq"
     t.integer  "trip_id"
     t.index ["trip_id"], name: "index_tracks_on_trip_id", using: :btree
+    t.index ["updated_at"], name: "index_tracks_on_updated_at", using: :btree
   end
 
   create_table "travelers", force: :cascade do |t|
