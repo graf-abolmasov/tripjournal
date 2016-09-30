@@ -10,42 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930041136) do
+ActiveRecord::Schema.define(version: 20160930171739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "instagram_sources", force: :cascade do |t|
-    t.string   "user_id"
-    t.string   "last_media_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "title"
+    t.string   "instagram_media_id", null: false
+    t.string   "original_media_url", null: false
+    t.string   "original_image_url", null: false
+    t.decimal  "lat"
+    t.decimal  "lng"
+    t.integer  "traveler_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["traveler_id"], name: "index_instagram_sources_on_traveler_id", using: :btree
   end
 
   create_table "notes", force: :cascade do |t|
-    t.integer  "kind",                               default: 0, null: false
     t.string   "title"
     t.string   "text"
     t.string   "image_url"
     t.string   "source_url"
-    t.string   "source_id"
-    t.string   "author"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.decimal  "lat",        precision: 9, scale: 6
-    t.decimal  "lng",        precision: 9, scale: 6
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.decimal  "lat",         precision: 9, scale: 6
+    t.decimal  "lng",         precision: 9, scale: 6
     t.integer  "trip_id"
+    t.integer  "traveler_id"
+    t.integer  "source_id",                           null: false
+    t.string   "source_type",                         null: false
+    t.index ["created_at"], name: "index_notes_on_created_at", using: :btree
     t.index ["lat", "lng"], name: "index_notes_on_lat_and_lng", where: "((lat IS NOT NULL) AND (lng IS NOT NULL))", using: :btree
+    t.index ["source_type", "source_id"], name: "index_notes_on_source_type_and_source_id", using: :btree
+    t.index ["traveler_id"], name: "index_notes_on_traveler_id", using: :btree
     t.index ["trip_id"], name: "index_notes_on_trip_id", using: :btree
   end
 
   create_table "photo_sources", force: :cascade do |t|
-    t.string   "author",                          null: false
-    t.string   "file",                            null: false
-    t.float    "file_ratio", default: 1.0
-    t.text     "file_exif",  default: "--- {}\n"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.string   "file",                             null: false
+    t.float    "file_ratio",  default: 1.0
+    t.text     "file_exif",   default: "--- {}\n"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "traveler_id"
+    t.index ["traveler_id"], name: "index_photo_sources_on_traveler_id", using: :btree
   end
 
   create_table "points", force: :cascade do |t|
@@ -70,6 +80,13 @@ ActiveRecord::Schema.define(version: 20160930041136) do
     t.index ["trip_id"], name: "index_tracks_on_trip_id", using: :btree
   end
 
+  create_table "travelers", force: :cascade do |t|
+    t.string   "nickname",        null: false
+    t.string   "instagram_token"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "trips", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -82,7 +99,10 @@ ActiveRecord::Schema.define(version: 20160930041136) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_foreign_key "instagram_sources", "travelers"
+  add_foreign_key "notes", "travelers"
   add_foreign_key "notes", "trips"
+  add_foreign_key "photo_sources", "travelers"
   add_foreign_key "points", "tracks"
   add_foreign_key "tracks", "trips"
 end

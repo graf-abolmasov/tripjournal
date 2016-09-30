@@ -1,6 +1,8 @@
 class PhotoSource < ApplicationRecord
 
-  validates :author, :file, presence: true
+  belongs_to :traveler
+
+  validates :traveler, :file, presence: true
 
   mount_uploader :file, PhotoUploader
 
@@ -12,10 +14,10 @@ class PhotoSource < ApplicationRecord
 
   def create_note
     Note.create do |note|
-      note.kind = :photo
+      note.source = self
+      note.traveler = traveler
       note.image_url = file.normal.url
       note.source_url = file.url
-      note.author = author
       note.created_at = created_at
       if file_exif.gps.present?
         note.lat = file_exif.gps.latitude
