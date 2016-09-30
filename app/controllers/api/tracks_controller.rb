@@ -4,7 +4,7 @@ class Api::TracksController < Api::ApplicationController
   respond_to :gpx,  only: :show
 
   def index
-    @tracks = Track.order(id: :desc).all
+    @tracks = Track.where(trip_id: params[:trip_id]).order(id: :desc).all
     respond_with @tracks
   end
 

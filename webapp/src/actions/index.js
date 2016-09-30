@@ -1,29 +1,17 @@
-import storejs from 'storejs';
-
 export const moveMapCenter = (newCenter) => {
-  storejs.set('center', newCenter);
   return {
     type: 'MOVE_MAP_CENTER',
     newCenter: newCenter
   }
 };
 
-export const stopFollowTarget = () => {
-  storejs.set('followTarget', false);
-  return {
-    type: 'STOP_FOLLOW_TARGET'
-  }
-};
-
 export const followTarget = () => {
-  storejs.set('followTarget', true);
   return {
     type: 'FOLLOW_TARGET'
   }
 };
 
 export const zoomMap = (newZoom) => {
-  storejs.set('zoom', newZoom);
   return {
     type: 'ZOOM_MAP',
     newZoom: newZoom

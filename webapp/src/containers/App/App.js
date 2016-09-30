@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import throttle from 'lodash/throttle';
 import MapBox from '../../components/MapBox/MapBox'
 import 'ionicons/css/ionicons.css'
 import './App.css'
 import {
   moveMapCenter,
-  stopFollowTarget,
   followTarget,
   zoomMap,
   moveHotPoint,
@@ -21,7 +20,7 @@ class App extends React.Component {
     super(props);
 
     this.props.webSocket.subscriptions.create({ channel: 'PointsChannel' }, {
-      received: _.throttle((data) => {
+      received: throttle((data) => {
         this.props.onNewHotPoint(data, this.props.followTarget);
       }, 500)
     });
@@ -61,7 +60,7 @@ class App extends React.Component {
         />
         {!this.props.followTarget ? (
           <button id="followTargetBtn" className="ion ion-android-locate"
-                  onClick={(e) => this.props.onFollowBtnClick(e, this.props.hotPoint)}/>
+                  onClick={(e) => this.props.onFollowBtnClick(e)}/>
         ) : null}
       </div>
     );
@@ -74,22 +73,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onMapDragEnd: (e) => {
-    dispatch(stopFollowTarget());
     dispatch(moveMapCenter(e.target.getCenter()));
   },
-  onFollowBtnClick: (e, hotPoint) => {
+  onFollowBtnClick: (e) => {
     dispatch(followTarget());
-    dispatch(moveMapCenter(hotPoint));
-    dispatch(zoomMap(13));
   },
   onMapZoom: (e) => {
     dispatch(zoomMap(e.target.getZoom()))
   },
-  onNewHotPoint: (newHotPoint, followTarget) => {
+  onNewHotPoint: (newHotPoint) => {
     dispatch(moveHotPoint(newHotPoint));
-    if (followTarget) {
-      dispatch(moveMapCenter(newHotPoint));
-    }
   },
   onTracksLoaded: (tracks) => {
     dispatch(tracksLoaded(tracks));

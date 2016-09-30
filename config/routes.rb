@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     resources :hot_points, only: [:index]
+    resources :trips, only: [:index, :show]
     resources :tracks, only: [:index, :show]
     resources :pins, only: [:index]
   end

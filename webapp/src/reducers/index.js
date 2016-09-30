@@ -1,17 +1,16 @@
 const defaultReducer = (state, action) => {
   switch (action.type) {
     case 'MOVE_MAP_CENTER':
-      return Object.assign({}, state, { center: action.newCenter });
-    case 'STOP_FOLLOW_TARGET':
-      return Object.assign({}, state, { followTarget: false });
+      return Object.assign({}, state, { center: action.newCenter, followTarget: false });
     case 'FOLLOW_TARGET':
-      return Object.assign({}, state, { followTarget: true });
+      return Object.assign({}, state, { followTarget: true, center: state.hotPoint, zoom: 13 });
     case 'ZOOM_MAP':
       return Object.assign({}, state, { zoom: action.newZoom });
     case 'MOVE_HOT_POINT':
       return Object.assign({}, state, {
         hotPoint: action.newHotPoint,
-        hotPoints: state.hotPoints.concat([action.newHotPoint])
+        hotPoints: [...state.hotPoints, action.newHotPoint],
+        center: state.followTarget ? action.newHotPoint : state.center
       });
     case 'PINS_LOADED':
       return Object.assign({}, state, { pins: action.pins });

@@ -1,0 +1,1 @@
+json.(@trip, :id, :name, :description, :planned_route_geojson_lq)
