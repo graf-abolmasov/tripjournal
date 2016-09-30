@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925085524) do
+ActiveRecord::Schema.define(version: 20160930035832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160925085524) do
     t.decimal  "lng",                                                null: false
     t.integer  "track_id"
     t.index ["created_at"], name: "index_points_on_created_at", using: :btree
+    t.index ["track_id"], name: "index_points_on_track_id", using: :btree
   end
 
   create_table "tracks", force: :cascade do |t|
