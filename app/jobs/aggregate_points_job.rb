@@ -7,8 +7,8 @@ class AggregatePointsJob < ActiveJob::Base
   def perform
     PointsAggregator.execute(distance_epsilon_for_new_track: DISTANCE_EPSILON_FOR_NEW_TRACK,
                              time_epsilon_for_new_track: TIME_EPSILON_FOR_NEW_TRACK)
-    TracksAggregator.execute(distance_epsilon_for_new_track: DISTANCE_EPSILON_FOR_NEW_TRACK,
-                             time_epsilon_for_new_track: TIME_EPSILON_FOR_NEW_TRACK)
+    # TracksAggregator.execute(distance_epsilon_for_new_track: DISTANCE_EPSILON_FOR_NEW_TRACK,
+    #                          time_epsilon_for_new_track: TIME_EPSILON_FOR_NEW_TRACK)
   end
 
 end

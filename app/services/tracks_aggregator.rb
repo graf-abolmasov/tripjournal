@@ -20,7 +20,7 @@ class TracksAggregator
     end
   end
 
-  def join_tracks(first_track, other_tracks)
+  def self.join_tracks(first_track, other_tracks)
     other_tracks = Array.wrap(other_tracks)
     return if other_tracks.blank?
     Track.transaction do
