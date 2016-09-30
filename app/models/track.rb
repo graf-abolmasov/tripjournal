@@ -8,7 +8,7 @@ class Track < ApplicationRecord
 
   belongs_to :trip
 
-  has_many :points, dependent: :delete_all
+  has_many :points, -> { order(id: :asc) }, dependent: :delete_all
 
   before_save :prepare_geojson
 
