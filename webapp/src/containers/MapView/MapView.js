@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
 import MapBox from '../../components/MapBox/MapBox'
+import MapControls from '../../components/MapBox/MapControls'
 import 'ionicons/css/ionicons.css'
 import './MapView.css'
 import {
@@ -11,7 +12,9 @@ import {
   moveHotPoint,
   pinsLoaded,
   tracksLoaded,
-  hotPointsLoaded
+  hotPointsLoaded,
+  zoomIn,
+  zoomOut,
 } from '../../actions'
 
 class MapView extends React.Component {
@@ -47,6 +50,8 @@ class MapView extends React.Component {
       <div id="mapContainer">
         <MapBox center={this.props.center}
                 zoom={this.props.zoom}
+                minZoom={this.props.minZoom}
+                maxZoom={this.props.minZoom}
                 pins={this.props.pins}
                 tracks={this.props.tracks}
                 hotPoint={this.props.hotPoint}
@@ -54,10 +59,14 @@ class MapView extends React.Component {
                 onDragEnd={(e) => this.props.onMapDragEnd(e)}
                 onZoom={(e) => this.props.onMapZoom(e)}
         />
-        {!this.props.followTarget ? (
-          <button id="followTargetBtn" className="ion ion-android-locate"
-                  onClick={(e) => this.props.onFollowBtnClick(e)}/>
-        ) : null}
+        <MapControls followTarget={this.props.followTarget}
+                     zoom={this.props.zoom}
+                     maxZoom={this.props.maxZoom}
+                     minZoom={this.props.minZoom}
+                     onFollowClick={(e) => this.props.onFollowBtnClick(e)}
+                     onZoomInClick={(e) => this.props.onZoomInBtnClick(e)}
+                     onZoomOutClick={(e) => this.props.onZoomOutBtnClick(e)}
+        />
       </div>
     );
   }
@@ -68,6 +77,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  onZoomInBtnClick: (e) => {
+    dispatch(zoomIn())
+  },
+  onZoomOutBtnClick:(e) => {
+    dispatch(zoomOut())
+  },
   onMapDragEnd: (e) => {
     dispatch(moveMapCenter(e.target.getCenter()));
   },

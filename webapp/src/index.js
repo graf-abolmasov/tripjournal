@@ -23,6 +23,8 @@ const initStore = {
   center: storedCenter,
   zoom: storedZoom,
   pins: [],
+  minZoom: 4,
+  maxZoom: 16,
   tracks: [],
   hotPoint: window.JsEnv.hot_point,
   hotPoints: [],

@@ -1,0 +1,59 @@
+.MapControls {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+}
+
+.MapControls button {
+    font-family: Roboto, Arial, sans-serif;
+    background-color: white;
+    border-radius: 2px;
+    border: 0 solid gray;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    display: block;
+    font-size: 16px;
+    height: 29px;
+    outline: none;
+    color: rgb(100, 100, 100);
+    width: 29px;
+    cursor: pointer;
+    padding: 0;
+}
+.MapControls button:hover {
+    color: rgb(50, 50, 50);
+}
+
+.MapControls button:disabled {
+    color: rgb(200, 200, 200);
+}
+
+.MapControls .followTarget {
+
+}
+
+.MapControls .zoom {
+    margin-top: 3px;
+}
+
+.MapControls .zoom button.zoomIn {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.MapControls .zoom button.zoomOut {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+@media (max-width: 768px) {
+    .MapControls .zoom {
+        display: none;
+    }
+
+    .MapControls .followTarget button {
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+        font-size: 32px;
+    }
+}

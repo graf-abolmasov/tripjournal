@@ -45,3 +45,15 @@ export const pinsLoaded = (data) => {
     pins: data
   }
 };
+
+export const zoomIn = (data) => {
+  return {
+    type: 'ZOOM_IN',
+  }
+};
+
+export const zoomOut = (data) => {
+  return {
+    type: 'ZOOM_OUT',
+  }
+};
