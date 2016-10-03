@@ -4,8 +4,9 @@ import HotPointMarker from './HotPointMarker'
 import './MapBox.css';
 import 'leaflet/dist/leaflet.css'
 
-const MapBox = ({ center, zoom, pins, tracks, hotPoint, hotPoints, onDragEnd, onZoom }) => (
-  <Map center={[center.lat, center.lng]} zoom={zoom} onDragend={onDragEnd} onZoomend={onZoom} zoomControl={false}>
+const MapBox = ({ center, zoom, minZoom, maxZoom, pins, tracks, hotPoint, hotPoints, onDragEnd, onZoom }) => (
+  <Map center={[center.lat, center.lng]} zoom={zoom} minZoom={minZoom} maxZoom={maxZoom} onDragend={onDragEnd}
+       onZoomend={onZoom} zoomControl={false}>
     <TileLayer
       url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

@@ -51,7 +51,7 @@ class MapView extends React.Component {
         <MapBox center={this.props.center}
                 zoom={this.props.zoom}
                 minZoom={this.props.minZoom}
-                maxZoom={this.props.minZoom}
+                maxZoom={this.props.maxZoom}
                 pins={this.props.pins}
                 tracks={this.props.tracks}
                 hotPoint={this.props.hotPoint}

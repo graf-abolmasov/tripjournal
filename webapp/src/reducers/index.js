@@ -5,7 +5,11 @@ const defaultReducer = (state, action) => {
     case 'MOVE_MAP_CENTER':
       return Object.assign({}, state, { center: action.newCenter, followTarget: false });
     case 'FOLLOW_TARGET':
-      return Object.assign({}, state, { followTarget: true, center: state.hotPoint, zoom: state.zoom < 13 ? 13 : state.zoom });
+      return Object.assign({}, state, {
+        followTarget: true,
+        center: state.hotPoint,
+        zoom: state.zoom < 13 ? 13 : state.zoom
+      });
     case 'ZOOM_MAP':
       return Object.assign({}, state, { zoom: action.newZoom });
     case 'ZOOM_IN':
