@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'react-router-redux'
+import { LOCATION_CHANGE } from "react-router-redux";
 
 const defaultReducer = (state, action) => {
   switch (action.type) {
@@ -22,12 +22,31 @@ const defaultReducer = (state, action) => {
         hotPoints: [...state.hotPoints, action.newHotPoint],
         center: state.followTarget ? action.newHotPoint : state.center
       });
-    case 'PINS_LOADED':
-      return Object.assign({}, state, { pins: action.pins });
+
+    case 'INT_POINTS_LOADED':
+      return Object.assign({}, state, { intPoints: action.intPoints, ajax: { ...state.ajax, intPoints: true } });
     case 'TRACKS_LOADED':
-      return Object.assign({}, state, { tracks: action.tracks });
+      return Object.assign({}, state, { tracks: action.tracks, ajax: { ...state.ajax, tracks: true } });
     case 'HOT_POINTS_LOADED':
-      return Object.assign({}, state, { hotPoints: action.hotPoints });
+      return Object.assign({}, state, { hotPoints: action.hotPoints, ajax: { ...state.ajax, hotPoints: true } });
+
+    case 'NEW_SELECTED_INDEX':
+      let index = action.index;
+      if (index >= state.intPoints.length) {
+        index = 0;
+      }
+      if (index < 0) {
+        index = state.intPoints.length - 1
+      }
+      return Object.assign({}, state, { selectedIntPointIndex: index });
+
+    case 'TOGGLE_SMALL_GALLERY':
+      if (state.selectedIntPointIndex !== undefined) {
+        return Object.assign({}, state, { selectedIntPointIndex: undefined });
+      } else {
+        return Object.assign({}, state, { selectedIntPointIndex: 0 });
+      }
+
     case LOCATION_CHANGE:
       return Object.assign({}, state, { routing: { locationBeforeTransitions: action.payload } });
     default:

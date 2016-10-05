@@ -2,7 +2,6 @@ var path = require('path');
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var paths = require('./paths');
 var env = require('./env');
 
@@ -77,7 +76,6 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin(env),
-    new CaseSensitivePathsPlugin(),
     new ExtractTextPlugin('static/css/webpack.bundle.css')
   ]
 };

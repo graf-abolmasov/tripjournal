@@ -1,0 +1,24 @@
+.SmallGallery {
+}
+
+.SmallGallery .previews {
+    background-color: #000;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 159px;
+    white-space: nowrap;
+}
+
+.SmallGallery .previews img.preview {
+    box-shadow: 1px 1px 10px #999;
+    margin: 8px 5px;
+    max-height: 120px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    outline: none;
+}
+.SmallGallery .previews img.preview.selected {
+    outline: 4px solid white;
+}

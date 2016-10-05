@@ -1,49 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import throttle from 'lodash/throttle';
+import React from 'react'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import MapBox from '../../components/MapBox/MapBox'
 import MapControls from '../../components/MapBox/MapControls'
+import SmallGallery from '../../components/Gallery/SmallGallery'
 import 'ionicons/css/ionicons.css'
 import './MapView.css'
 import {
   moveMapCenter,
   followTarget,
   zoomMap,
-  moveHotPoint,
-  pinsLoaded,
-  tracksLoaded,
-  hotPointsLoaded,
   zoomIn,
   zoomOut,
+  newSelectedIndex,
+  toggleSmallGallery
 } from '../../actions'
 
 class MapView extends React.Component {
-
-  componentDidMount() {
-    this.props.webSocket.subscriptions.create({ channel: 'PointsChannel' }, {
-      received: throttle((data) => {
-        this.props.onNewHotPoint(data, this.props.followTarget);
-      }, 500)
-    });
-
-    fetch('/api/pins.json').then((response) => {
-      return response.json();
-    }).then((data) => {
-      this.props.onPinsLoaded(data);
-    });
-
-    fetch('/api/tracks.json').then((response) => {
-      return response.json();
-    }).then((data) => {
-      this.props.onTracksLoaded(data);
-    });
-
-    fetch('/api/hot_points.json').then((response) => {
-      return response.json();
-    }).then((data) => {
-      this.props.onHotPointsLoaded(data);
-    });
-  }
 
   render() {
     return (
@@ -52,21 +25,41 @@ class MapView extends React.Component {
                 zoom={this.props.zoom}
                 minZoom={this.props.minZoom}
                 maxZoom={this.props.maxZoom}
-                pins={this.props.pins}
+                intPoints={this.props.intPoints}
+                selectedIntPointIndex={this.props.selectedIntPointIndex}
                 tracks={this.props.tracks}
                 hotPoint={this.props.hotPoint}
                 hotPoints={this.props.hotPoints}
                 onDragEnd={(e) => this.props.onMapDragEnd(e)}
                 onZoom={(e) => this.props.onMapZoom(e)}
+                onIntPointMarkerClick={(index) => {this.props.onIntPointMarkerClick(index)}}
         />
-        <MapControls followTarget={this.props.followTarget}
-                     zoom={this.props.zoom}
-                     maxZoom={this.props.maxZoom}
-                     minZoom={this.props.minZoom}
-                     onFollowClick={(e) => this.props.onFollowBtnClick(e)}
-                     onZoomInClick={(e) => this.props.onZoomInBtnClick(e)}
-                     onZoomOutClick={(e) => this.props.onZoomOutBtnClick(e)}
-        />
+        { this.props.selectedIntPointIndex !== undefined ? (
+          <div id="fullImageContainer">
+            <img src={this.props.intPoints[this.props.selectedIntPointIndex].image_url}/>
+          </div>
+        ) : null }
+        <div id="mapBottomBarContainer">
+          <div id="mapControlsContainer">
+            <MapControls followTarget={this.props.followTarget}
+                         zoom={this.props.zoom}
+                         maxZoom={this.props.maxZoom}
+                         minZoom={this.props.minZoom}
+                         onFollowClick={(e) => this.props.onFollowBtnClick(e)}
+                         onZoomInClick={(e) => this.props.onZoomInBtnClick(e)}
+                         onZoomOutClick={(e) => this.props.onZoomOutBtnClick(e)}
+            />
+            <button id="openGalleryButton" className="ion ion-image" onClick={(e) => this.props.onGalleryBtnClick()}/>
+          </div>
+          { this.props.selectedIntPointIndex !== undefined ? (
+            <div id="smallGalleryContainer">
+              <SmallGallery selectedIndex={this.props.selectedIntPointIndex}
+                            intPoints={this.props.intPoints}
+                            onIntPointSelect={(index) => this.props.onIntPointSelect(index)}
+              />
+            </div>
+          ) : null }
+        </div>
       </div>
     );
   }
@@ -80,7 +73,7 @@ const mapDispatchToProps = (dispatch) => ({
   onZoomInBtnClick: (e) => {
     dispatch(zoomIn())
   },
-  onZoomOutBtnClick:(e) => {
+  onZoomOutBtnClick: (e) => {
     dispatch(zoomOut())
   },
   onMapDragEnd: (e) => {
@@ -92,17 +85,21 @@ const mapDispatchToProps = (dispatch) => ({
   onMapZoom: (e) => {
     dispatch(zoomMap(e.target.getZoom()))
   },
-  onNewHotPoint: (newHotPoint) => {
-    dispatch(moveHotPoint(newHotPoint));
+  onIntPointMarkerClick: (index) => {
+    dispatch(newSelectedIndex(index));
+    if (window.md.mobile()) {
+      dispatch(push('/gallery'));
+    }
   },
-  onTracksLoaded: (tracks) => {
-    dispatch(tracksLoaded(tracks));
+  onGalleryBtnClick: () => {
+    if (window.md.mobile()) {
+      dispatch(push('/gallery'));
+    } else {
+      dispatch(toggleSmallGallery());
+    }
   },
-  onPinsLoaded: (pins) => {
-    dispatch(pinsLoaded(pins));
-  },
-  onHotPointsLoaded: (hotPoints) => {
-    dispatch(hotPointsLoaded(hotPoints));
+  onIntPointSelect: (index) => {
+    dispatch(newSelectedIndex(index));
   }
 });
 

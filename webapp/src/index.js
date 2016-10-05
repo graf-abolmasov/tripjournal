@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import storejs from 'storejs';
 import throttle from 'lodash/throttle';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { syncHistoryWithStore  } from 'react-router-redux'
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
+import MobileDetect from 'mobile-detect';
 import Root from './components/Root/Root';
 import reducer from './reducers'
 import './index.css';
@@ -17,21 +18,28 @@ if (localStorage && storejs.has('followTarget')) {
   storedFollowTarget = storejs.get('followTarget')
 }
 
+window.md = { mobile: () => (new MobileDetect(window.navigator.userAgent).mobile()) };
+
 const initStore = {
   webSocket: window.ActionCable.createConsumer(),
   followTarget: storedFollowTarget,
   center: storedCenter,
   zoom: storedZoom,
-  pins: [],
+  intPoints: [],
   minZoom: 4,
   maxZoom: 16,
   tracks: [],
   hotPoint: window.JsEnv.hot_point,
   hotPoints: [],
-  routing: {}
+  routing: {},
+  ajax: {
+    intPoints: false,
+    hotPoints: false,
+    tracks: false
+  }
 };
 
-const store = createStore(reducer, initStore);
+const store = createStore(reducer, initStore, applyMiddleware(routerMiddleware(browserHistory)));
 const history = syncHistoryWithStore(browserHistory, store);
 
 store.subscribe(throttle(() => {

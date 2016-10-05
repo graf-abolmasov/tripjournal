@@ -39,10 +39,10 @@ export const tracksLoaded = (data) => {
   }
 };
 
-export const pinsLoaded = (data) => {
+export const intPointsLoaded = (data) => {
   return {
-    type: 'PINS_LOADED',
-    pins: data
+    type: 'INT_POINTS_LOADED',
+    intPoints: data
   }
 };
 
@@ -55,5 +55,24 @@ export const zoomIn = (data) => {
 export const zoomOut = (data) => {
   return {
     type: 'ZOOM_OUT',
+  }
+};
+
+export const closeBottomGallery = () => {
+  return {
+    type: 'CLOSE_BOTTOM_GALLERY'
+  }
+};
+
+export const newSelectedIndex = (index) => {
+  return {
+    type: 'NEW_SELECTED_INDEX',
+    index: index
+  }
+};
+
+export const toggleSmallGallery = () => {
+  return {
+    type: 'TOGGLE_SMALL_GALLERY'
   }
 };

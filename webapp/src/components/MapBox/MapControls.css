@@ -1,8 +1,4 @@
-.MapControls {
-    position: fixed;
-    bottom: 30px;
-    right: 20px;
-}
+.MapControls { }
 
 .MapControls button {
     font-family: Roboto, Arial, sans-serif;
