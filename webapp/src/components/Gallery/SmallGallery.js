@@ -12,7 +12,7 @@ class SmallGallery extends React.Component {
   constructor(props) {
     super(props);
     this.scrollToSelectedImg = debounce((containerDomNode, selectedDomNode) => {
-      $(containerDomNode).scrollTo(selectedDomNode, 500, {offset: {left: -(containerDomNode.offsetWidth / 2) + (selectedDomNode.offsetWidth / 2)}});
+      $(containerDomNode).scrollTo(selectedDomNode, 500, { offset: { left: -(containerDomNode.offsetWidth / 2) + (selectedDomNode.offsetWidth / 2) } });
     }, 400);
     this.keyPressing = throttle((newIndex) => {
       this.props.onIntPointSelect(newIndex)
@@ -49,7 +49,7 @@ class SmallGallery extends React.Component {
             }
 
             return (
-              <img {...props} />
+              <img {...props} alt={intPoint.author}/>
             )
           })}
         </div>

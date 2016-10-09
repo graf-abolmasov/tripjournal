@@ -6,7 +6,6 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
-import MobileDetect from 'mobile-detect';
 import Root from './components/Root/Root';
 import reducer from './reducers'
 import './index.css';
@@ -18,7 +17,11 @@ if (localStorage && storejs.has('followTarget')) {
   storedFollowTarget = storejs.get('followTarget')
 }
 
-window.md = { mobile: () => (new MobileDetect(window.navigator.userAgent).mobile()) };
+let mobileMediaQuery = window.matchMedia('(max-width: 750px)');
+mobileMediaQuery.addListener((mql) => {
+  window.mobileDetect = mql.matches;
+});
+window.mobileDetect = mobileMediaQuery.matches;
 
 const initStore = {
   webSocket: window.ActionCable.createConsumer(),

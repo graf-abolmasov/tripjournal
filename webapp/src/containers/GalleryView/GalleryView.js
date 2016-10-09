@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router'
 import MobileGallery from '../../components/Gallery/MobileGallery'
-import './GalleryView.css'
+import './GalleryView.scss'
 
 import {
   newSelectedIndex
@@ -16,7 +16,7 @@ const GalleryView = ({ intPoints, selectedIntPointIndex, onIntPointSelect }) => 
 
   return (
     <div id="galleryContainer">
-      { selectedIntPointIndex !== undefined ? (
+      { window.mobileDetect && selectedIntPointIndex !== undefined ? (
         <div id="mobileGalleryContainer">
           <MobileGallery intPoints={intPoints}
                          selectedIndex={selectedIntPointIndex}

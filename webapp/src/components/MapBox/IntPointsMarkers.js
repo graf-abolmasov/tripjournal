@@ -1,6 +1,5 @@
 import React from 'react'
 import { Marker } from 'react-leaflet';
-import './IntPointsMarker.css'
 
 class IntPointsMarkers extends React.Component {
 

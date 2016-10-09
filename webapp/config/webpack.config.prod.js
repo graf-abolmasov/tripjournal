@@ -44,6 +44,10 @@ module.exports = {
         loader: ExtractTextPlugin.extract("style-loader", "css-loader?-autoprefixer")
       },
       {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract(['css?-autoprefixer','sass'])
+      },
+      {
         test: /\.(ico|jpg|png|gif|svg|otf|webp)(\?.*)?$/,
         loader: 'file',
         query: {

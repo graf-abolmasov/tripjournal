@@ -1,5 +1,5 @@
 import React from 'react';
-import './MapControls.css'
+import './MapControls.scss'
 
 const MapControls = ({ followTarget, zoom, minZoom, maxZoom, onFollowClick, onZoomInClick, onZoomOutClick }) => (
   <div className="MapControls">

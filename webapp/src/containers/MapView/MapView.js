@@ -5,7 +5,7 @@ import MapBox from '../../components/MapBox/MapBox'
 import MapControls from '../../components/MapBox/MapControls'
 import SmallGallery from '../../components/Gallery/SmallGallery'
 import 'ionicons/css/ionicons.css'
-import './MapView.css'
+import './MapView.scss'
 import {
   moveMapCenter,
   followTarget,
@@ -34,9 +34,10 @@ class MapView extends React.Component {
                 onZoom={(e) => this.props.onMapZoom(e)}
                 onIntPointMarkerClick={(index) => {this.props.onIntPointMarkerClick(index)}}
         />
-        { this.props.selectedIntPointIndex !== undefined ? (
+        { !window.mobileDetect && this.props.selectedIntPointIndex !== undefined ? (
           <div id="fullImageContainer">
-            <img src={this.props.intPoints[this.props.selectedIntPointIndex].image_url}/>
+            <img src={this.props.intPoints[this.props.selectedIntPointIndex].image_url}
+                 alt={this.props.intPoints[this.props.selectedIntPointIndex].author}/>
           </div>
         ) : null }
         <div id="mapBottomBarContainer">
@@ -51,7 +52,7 @@ class MapView extends React.Component {
             />
             <button id="openGalleryButton" className="ion ion-image" onClick={(e) => this.props.onGalleryBtnClick()}/>
           </div>
-          { this.props.selectedIntPointIndex !== undefined ? (
+          { !window.mobileDetect && this.props.selectedIntPointIndex !== undefined ? (
             <div id="smallGalleryContainer">
               <SmallGallery selectedIndex={this.props.selectedIntPointIndex}
                             intPoints={this.props.intPoints}
@@ -87,12 +88,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onIntPointMarkerClick: (index) => {
     dispatch(newSelectedIndex(index));
-    if (window.md.mobile()) {
+    if (window.mobileDetect) {
       dispatch(push('/gallery'));
     }
   },
   onGalleryBtnClick: () => {
-    if (window.md.mobile()) {
+    if (window.mobileDetect) {
       dispatch(push('/gallery'));
     } else {
       dispatch(toggleSmallGallery());
