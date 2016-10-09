@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
+import screenfull from 'screenfull';
 import {
   moveHotPoint,
   intPointsLoaded,
   tracksLoaded,
   hotPointsLoaded,
+  requestFullScreen
 } from '../../actions'
 import './App.css'
 
@@ -35,11 +37,22 @@ class App extends React.Component {
     }).then((data) => {
       this.props.onHotPointsLoaded(data);
     });
+
+    setTimeout(() => {
+      this.props.onFullScreenBtnClick(true);
+    }, 10000)
   }
 
   render() {
     return (
       <div id="appContainer">
+        {window.mobileDetect && screenfull.enabled && !this.props.isFullscreen ? (
+          <div id="fullScreenBtnContainer">
+            <button onClick={(e) => this.props.onFullScreenBtnClick()}>
+              Перейти в полный экран
+            </button>
+          </div>
+        ): null}
         {this.props.children}
       </div>
     );
@@ -62,6 +75,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onHotPointsLoaded: (hotPoints) => {
     dispatch(hotPointsLoaded(hotPoints));
+  },
+  onFullScreenBtnClick: (timeout = false) => {
+    if (!timeout && window.mobileDetect && screenfull.enabled) {
+      screenfull.request();
+    }
+    dispatch(requestFullScreen());
   }
 });
 

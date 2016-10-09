@@ -49,6 +49,10 @@ const defaultReducer = (state, action) => {
 
     case LOCATION_CHANGE:
       return Object.assign({}, state, { routing: { locationBeforeTransitions: action.payload } });
+
+    case 'REQUEST_FULL_SCREEN':
+      return Object.assign({}, state, { isFullscreen: true });
+
     default:
       return state
   }

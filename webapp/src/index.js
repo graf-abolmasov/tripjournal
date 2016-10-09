@@ -35,6 +35,7 @@ const initStore = {
   hotPoint: window.JsEnv.hot_point,
   hotPoints: [],
   routing: {},
+  isFullscreen: false,
   ajax: {
     intPoints: false,
     hotPoints: false,

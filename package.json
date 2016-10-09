@@ -71,6 +71,7 @@
     "redux": "^3.6.0",
     "rimraf": "2.5.4",
     "sass-loader": "^4.0.2",
+    "screenfull": "^3.0.2",
     "storejs": "^1.0.13",
     "strip-ansi": "3.0.1",
     "style-loader": "^0.13.1",

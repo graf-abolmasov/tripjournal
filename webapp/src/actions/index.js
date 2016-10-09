@@ -76,3 +76,9 @@ export const toggleSmallGallery = () => {
     type: 'TOGGLE_SMALL_GALLERY'
   }
 };
+
+export const requestFullScreen = () => {
+  return {
+    type: 'REQUEST_FULL_SCREEN'
+  }
+};

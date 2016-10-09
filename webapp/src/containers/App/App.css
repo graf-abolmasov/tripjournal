@@ -2,3 +2,25 @@
     height: 100%;
     width: 100%;
 }
+
+#fullScreenBtnContainer {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    z-index: 700;
+}
+
+#fullScreenBtnContainer button {
+    font-family: Roboto, Arial, sans-serif;
+    background-color: white;
+    border: 0 solid gray;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    display: block;
+    font-size: 24px;
+    height: 60px;
+    outline: none;
+    color: rgb(100, 100, 100);
+    cursor: pointer;
+    border-radius: 30px;
+    padding: 0 15px;
+}
