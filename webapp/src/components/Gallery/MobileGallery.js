@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactSwipe from 'react-swipe';
 import { Map, TileLayer, Marker } from 'react-leaflet';
-import './MobileGallery.css'
+import './MobileGallery.scss'
 
 class MobileGallery extends React.Component {
 
@@ -20,7 +20,9 @@ class MobileGallery extends React.Component {
         <div className="preview">
           <ReactSwipe swipeOptions={swipeOptions} key={this.props.intPoints.length}>
             { this.props.intPoints.map((intPoint) => (
-              <img key={intPoint.id} src={intPoint.image_url} alt={intPoint.author}/>
+              <div key={intPoint.id}>
+                <img src={intPoint.image_url} alt={intPoint.author}/>
+              </div>
             ))}
           </ReactSwipe>
         </div>
@@ -28,14 +30,11 @@ class MobileGallery extends React.Component {
           { (selectedIntPoint.lat && selectedIntPoint.lng) ? (
             <Map center={[selectedIntPoint.lat, selectedIntPoint.lng]}
                  zoomControl={false}
-                 zoom={10}
-                 minZoom={10}
-                 maxZoom={10}
+                 zoom={8}
+                 minZoom={8}
+                 maxZoom={8}
                  dragging={false}>
-              <TileLayer
-                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              />
+              <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
               <Marker position={[selectedIntPoint.lat, selectedIntPoint.lng]}/>
             </Map>
           ) : (

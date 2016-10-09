@@ -1,0 +1,51 @@
+.MobileGallery {
+  height: 100%;
+  width: 100%;
+
+  .preview {
+    height: 70%;
+    background-color: #000;
+    overflow: hidden;
+
+    div {
+      height: 100%;
+      width: 100%;
+      text-align: center;
+      overflow: hidden;
+      img {
+        position: relative;
+        top: 50%;
+        transform: perspective(1px) translateY(-50%);
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .smallMap {
+    height: 30%;
+  }
+}
+
+@media (orientation: landscape) {
+  .MobileGallery {
+    .preview {
+      height: 100%;
+
+      div {
+        img {
+          height: 100%;
+          width: auto;
+        }
+      }
+    }
+
+    .smallMap {
+      width: 140px;
+      height: 140px;
+      position: absolute;
+      left: 20px;
+      bottom: 30px;
+    }
+  }
+}
