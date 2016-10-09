@@ -22,7 +22,7 @@ const MapBox = ({ center, zoom, minZoom, maxZoom, intPoints, selectedIntPointInd
     />
     <Marker position={[hotPoint.lat, hotPoint.lng]} icon={ HotPointIcon }/>
     <IntPointsMarkers points={intPoints} onMarkerClick={onIntPointMarkerClick}/>
-    { hotPoint.length > 2 ? (
+    { hotPoints.length > 2 ? (
       <Polyline positions={hotPoints} color="red"/>
     ) : null }
     {tracks.map((track) => {
