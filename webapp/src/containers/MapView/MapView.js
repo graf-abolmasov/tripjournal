@@ -38,6 +38,7 @@ class MapView extends React.Component {
           <div id="fullImageContainer">
             <img src={this.props.intPoints[this.props.selectedIntPointIndex].image_url}
                  alt={this.props.intPoints[this.props.selectedIntPointIndex].author}/>
+            <span>@{this.props.intPoints[this.props.selectedIntPointIndex].author}</span>
           </div>
         ) : null }
         <div id="mapBottomBarContainer">

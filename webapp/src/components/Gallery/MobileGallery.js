@@ -22,6 +22,7 @@ class MobileGallery extends React.Component {
             { this.props.intPoints.map((intPoint) => (
               <div key={intPoint.id}>
                 <img src={intPoint.image_url} alt={intPoint.author}/>
+                <span>@{intPoint.author}</span>
               </div>
             ))}
           </ReactSwipe>

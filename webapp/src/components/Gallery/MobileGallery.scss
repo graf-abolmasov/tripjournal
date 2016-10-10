@@ -19,6 +19,16 @@
         width: 100%;
         height: auto;
       }
+
+      span {
+        position: absolute;
+        background-color: #fff;
+        right: 0;
+        bottom: 0;
+        font-size: 0.7em;
+        padding: 2px;
+        font-family: Roboto, Arial, sans-serif;
+      }
     }
   }
 
