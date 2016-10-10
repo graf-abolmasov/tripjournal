@@ -2,6 +2,8 @@ class Traveler < ApplicationRecord
 
   has_many :notes
 
+  scope :with_instagram, -> { where.not(instagram_token: nil) }
+
   def import_from_instagram
     return if instagram_token.blank?
 

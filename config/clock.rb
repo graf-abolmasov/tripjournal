@@ -10,4 +10,5 @@ module Clockwork
   end
 
   every(1.day, 'AggregatePointsJob', at: '1:00')
+  every(1.hour, 'ImportFromInstagramJob')
 end
