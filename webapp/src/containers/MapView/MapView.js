@@ -94,6 +94,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onGalleryBtnClick: () => {
     if (window.mobileDetect) {
+      dispatch(newSelectedIndex(0));
       dispatch(push('/gallery'));
     } else {
       dispatch(toggleSmallGallery());

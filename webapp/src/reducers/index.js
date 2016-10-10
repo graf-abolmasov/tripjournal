@@ -1,5 +1,17 @@
 import { LOCATION_CHANGE } from "react-router-redux";
 
+const newIntPointSelected = (state, index) => {
+  const intPoint = state.intPoints[index];
+  if (intPoint.lat && intPoint.lng) {
+    return {
+      selectedIntPointIndex: index,
+      center: { lat: intPoint.lat, lng: intPoint.lng },
+      followTarget: false
+    };
+  }
+  return { selectedIntPointIndex: index };
+};
+
 const defaultReducer = (state, action) => {
   switch (action.type) {
     case 'MOVE_MAP_CENTER':
@@ -38,13 +50,13 @@ const defaultReducer = (state, action) => {
       if (index < 0) {
         index = state.intPoints.length - 1
       }
-      return Object.assign({}, state, { selectedIntPointIndex: index });
+      return Object.assign({}, state, newIntPointSelected(state, index));
 
     case 'TOGGLE_SMALL_GALLERY':
       if (state.selectedIntPointIndex !== undefined) {
         return Object.assign({}, state, { selectedIntPointIndex: undefined });
       } else {
-        return Object.assign({}, state, { selectedIntPointIndex: 0 });
+        return Object.assign({}, state, newIntPointSelected(state, 0));
       }
 
     case LOCATION_CHANGE:

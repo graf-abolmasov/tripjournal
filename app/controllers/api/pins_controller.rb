@@ -1,7 +1,7 @@
 class Api::PinsController < Api::ApplicationController
 
   def index
-    @notes = Note.with_location.inverse_chronologically_ordered.includes(:traveler).all
+    @notes = Note.includes(:traveler).inverse_chronologically_ordered.all
     respond_with @notes
   end
 

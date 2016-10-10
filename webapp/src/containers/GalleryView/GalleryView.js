@@ -8,7 +8,7 @@ import {
   newSelectedIndex
 } from '../../actions'
 
-const GalleryView = ({ intPoints, selectedIntPointIndex, onIntPointSelect }) => {
+const GalleryView = ({ center, intPoints, selectedIntPointIndex, onIntPointSelect }) => {
 
   if (selectedIntPointIndex === undefined && intPoints.length > 0) {
     selectedIntPointIndex = 0;
@@ -18,7 +18,8 @@ const GalleryView = ({ intPoints, selectedIntPointIndex, onIntPointSelect }) => 
     <div id="galleryContainer">
       { window.mobileDetect && selectedIntPointIndex !== undefined ? (
         <div id="mobileGalleryContainer">
-          <MobileGallery intPoints={intPoints}
+          <MobileGallery center={center}
+                         intPoints={intPoints}
                          selectedIndex={selectedIntPointIndex}
                          onIntPointSelect={onIntPointSelect}/>
           <Link id="openMapButton" to="/">

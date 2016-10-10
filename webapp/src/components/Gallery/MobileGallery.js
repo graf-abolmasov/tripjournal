@@ -11,7 +11,7 @@ class MobileGallery extends React.Component {
     const swipeOptions = {
       startSlide: this.props.selectedIndex,
       callback: (index) => {
-        this.props.onIntPointSelect(index)
+        this.props.onIntPointSelect(index);
       }
     };
 
@@ -27,21 +27,17 @@ class MobileGallery extends React.Component {
           </ReactSwipe>
         </div>
         <div className="smallMap">
-          { (selectedIntPoint.lat && selectedIntPoint.lng) ? (
-            <Map center={[selectedIntPoint.lat, selectedIntPoint.lng]}
-                 zoomControl={false}
-                 zoom={8}
-                 minZoom={8}
-                 maxZoom={8}
-                 dragging={false}>
-              <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+          <Map center={this.props.center}
+               zoomControl={false}
+               zoom={8}
+               minZoom={8}
+               maxZoom={8}
+               dragging={false}>
+            <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+            { (selectedIntPoint.lat && selectedIntPoint.lng) ? (
               <Marker position={[selectedIntPoint.lat, selectedIntPoint.lng]}/>
-            </Map>
-          ) : (
-            <div>
-              No lat lng specified
-            </div>
-          ) }
+            ) : null }
+          </Map>
         </div>
       </div>
     );
