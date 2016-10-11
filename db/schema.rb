@@ -10,42 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930204216) do
+ActiveRecord::Schema.define(version: 20161011120533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "instagram_sources", force: :cascade do |t|
     t.string   "title"
-    t.string   "instagram_media_id", null: false
-    t.string   "original_media_url", null: false
-    t.string   "original_image_url", null: false
+    t.string   "instagram_media_id",             null: false
+    t.string   "original_media_url",             null: false
+    t.string   "original_image_url",             null: false
     t.decimal  "lat"
     t.decimal  "lng"
     t.integer  "traveler_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "kind",               default: 0, null: false
+    t.string   "original_video_url"
     t.index ["traveler_id"], name: "index_instagram_sources_on_traveler_id", using: :btree
   end
 
-  create_table "notes", force: :cascade do |t|
+  create_table "int_points", force: :cascade do |t|
     t.string   "title"
     t.string   "text"
     t.string   "image_url"
     t.string   "source_url"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.decimal  "lat",         precision: 9, scale: 6
     t.decimal  "lng",         precision: 9, scale: 6
     t.integer  "trip_id"
     t.integer  "traveler_id"
-    t.integer  "source_id",                           null: false
-    t.string   "source_type",                         null: false
-    t.index ["created_at"], name: "index_notes_on_created_at", using: :btree
-    t.index ["lat", "lng"], name: "index_notes_on_lat_and_lng", where: "((lat IS NOT NULL) AND (lng IS NOT NULL))", using: :btree
-    t.index ["source_type", "source_id"], name: "index_notes_on_source_type_and_source_id", using: :btree
-    t.index ["traveler_id"], name: "index_notes_on_traveler_id", using: :btree
-    t.index ["trip_id"], name: "index_notes_on_trip_id", using: :btree
+    t.integer  "source_id",                                       null: false
+    t.string   "source_type",                                     null: false
+    t.integer  "kind",                                default: 0, null: false
+    t.string   "video_url"
+    t.index ["created_at"], name: "index_int_points_on_created_at", using: :btree
+    t.index ["lat", "lng"], name: "index_int_points_on_lat_and_lng", where: "((lat IS NOT NULL) AND (lng IS NOT NULL))", using: :btree
+    t.index ["source_type", "source_id"], name: "index_int_points_on_source_type_and_source_id", using: :btree
+    t.index ["traveler_id"], name: "index_int_points_on_traveler_id", using: :btree
+    t.index ["trip_id"], name: "index_int_points_on_trip_id", using: :btree
   end
 
   create_table "photo_sources", force: :cascade do |t|
@@ -101,8 +105,8 @@ ActiveRecord::Schema.define(version: 20160930204216) do
   end
 
   add_foreign_key "instagram_sources", "travelers"
-  add_foreign_key "notes", "travelers"
-  add_foreign_key "notes", "trips"
+  add_foreign_key "int_points", "travelers"
+  add_foreign_key "int_points", "trips"
   add_foreign_key "photo_sources", "travelers"
   add_foreign_key "points", "tracks"
   add_foreign_key "tracks", "trips"

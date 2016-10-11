@@ -20,14 +20,14 @@ namespace :tj do
       Track.delete_all
     end
 
-    task notes: :environment do
-      Note.delete_all
+    task int_points: :environment do
+      IntPoint.delete_all
     end
 
     task sources: :environment do
       InstagramSource.all.each { |s| s.update_attribute(:last_media_id, nil) }
     end
 
-    task all: [:points, :tracks, :notes, :sources]
+    task all: [:points, :tracks, :int_points, :sources]
   end
 end

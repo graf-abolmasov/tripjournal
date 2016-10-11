@@ -9,7 +9,7 @@ import {
   hotPointsLoaded,
   requestFullScreen
 } from '../../actions'
-import './App.css'
+import './App.scss'
 
 class App extends React.Component {
 
@@ -20,7 +20,7 @@ class App extends React.Component {
       }, 500)
     });
 
-    fetch('/api/pins.json').then((response) => {
+    fetch('/api/int_points.json').then((response) => {
       return response.json();
     }).then((data) => {
       this.props.onIntPointsLoaded(data);
@@ -48,8 +48,9 @@ class App extends React.Component {
       <div id="appContainer">
         {window.mobileDetect && screenfull.enabled && !this.props.isFullscreen ? (
           <div id="fullScreenBtnContainer">
+            <span>Перейти в полный экран</span>
             <button onClick={(e) => this.props.onFullScreenBtnClick()}>
-              Перейти в полный экран
+              <i className="ion ion-android-expand"/>
             </button>
           </div>
         ): null}

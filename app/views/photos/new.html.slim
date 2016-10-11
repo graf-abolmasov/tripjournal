@@ -1,4 +1,4 @@
 = form_tag photos_path, method: :post, multipart: true do
   = file_field_tag 'files[]', multiple: true
-  = text_field_tag 'author'
+  = select_tag(:traveler_id, options_for_select(Traveler.pluck(:nickname, :id)))
   = submit_tag 'Import'

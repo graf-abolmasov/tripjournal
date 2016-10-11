@@ -52,7 +52,7 @@ const defaultReducer = (state, action) => {
       }
       return Object.assign({}, state, newIntPointSelected(state, index));
 
-    case 'TOGGLE_SMALL_GALLERY':
+    case 'TOGGLE_DESKTOP_GALLERY_THUMBNAILS':
       if (state.selectedIntPointIndex !== undefined) {
         return Object.assign({}, state, { selectedIntPointIndex: undefined });
       } else {

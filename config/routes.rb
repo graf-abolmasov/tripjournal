@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :hot_points, only: [:index]
     resources :trips, only: [:index, :show]
     resources :tracks, only: [:index, :show]
-    resources :pins, only: [:index]
+    resources :int_points, only: [:index]
   end
 
   get '/(*tail)', to: 'home#index'

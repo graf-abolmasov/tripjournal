@@ -6,7 +6,7 @@ class PhotosController < ApplicationController
 
   def create
     Array.wrap(params[:files]).each do |file|
-      PhotoSource.create(file: file, author: params[:author])
+      PhotoSource.create(file: file, traveler_id: params[:traveler_id])
     end
     redirect_to new_photo_path
   end

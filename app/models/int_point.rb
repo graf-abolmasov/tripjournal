@@ -1,4 +1,6 @@
-class Note < ApplicationRecord
+class IntPoint < ApplicationRecord
+
+  enum kind: {image: 0, video: 10, text: 20}
 
   belongs_to :trip
   belongs_to :traveler

@@ -36,11 +36,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader?-autoprefixer")
+        loader: ExtractTextPlugin.extract("style", "css!postcss")
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(['css?-autoprefixer','sass'])
+        loader: ExtractTextPlugin.extract(['css', 'postcss', 'sass'])
       },
       {
         test: /\.json$/,

@@ -5,9 +5,9 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import $ from 'jquery'
 import 'jquery.scrollto'
-import './SmallGallery.css'
+import './DesktopGalleryThumbnails.scss'
 
-class SmallGallery extends React.Component {
+class DesktopGalleryThumbnails extends React.Component {
 
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ class SmallGallery extends React.Component {
 
   render() {
     return (
-      <div className="SmallGallery">
+      <div className="DesktopGalleryThumbnails">
         <div className="previews" ref="previewsContainer">
           { this.props.intPoints.map((intPoint, index) => {
             const isSelected = this.props.selectedIndex === index;
@@ -39,7 +39,7 @@ class SmallGallery extends React.Component {
               key: intPoint.id,
               src: intPoint.image_url,
               tabIndex: index,
-              className: classNames("preview", { selected: isSelected }),
+              className: classNames("preview", { selected: isSelected, video: intPoint.kind === 'video' }),
               onClick: (e) => this.props.onIntPointSelect(index),
               onKeyDown: (e) => this.onKeyDown(e)
             };
@@ -80,4 +80,4 @@ class SmallGallery extends React.Component {
   }
 }
 
-export default SmallGallery;
+export default DesktopGalleryThumbnails;

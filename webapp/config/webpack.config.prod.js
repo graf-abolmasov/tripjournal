@@ -41,11 +41,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader?-autoprefixer")
+        loader: ExtractTextPlugin.extract("style", "css?-autoprefixer!postcss")
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(['css?-autoprefixer','sass'])
+        loader: ExtractTextPlugin.extract(['css?-autoprefixer', 'postcss', 'sass'])
       },
       {
         test: /\.(ico|jpg|png|gif|svg|otf|webp)(\?.*)?$/,

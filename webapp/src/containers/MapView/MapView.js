@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import MapBox from '../../components/MapBox/MapBox'
 import MapControls from '../../components/MapBox/MapControls'
-import SmallGallery from '../../components/Gallery/SmallGallery'
+import DesktopGalleryThumbnails from '../../components/Gallery/DesktopGalleryThumbnails'
+import DesktopGalleryPreview from '../../components/Gallery/DesktopGalleryPreview'
 import 'ionicons/css/ionicons.css'
 import './MapView.scss'
 import {
@@ -13,7 +14,7 @@ import {
   zoomIn,
   zoomOut,
   newSelectedIndex,
-  toggleSmallGallery
+  toggleDesktopGalleryThumbnails
 } from '../../actions'
 
 class MapView extends React.Component {
@@ -36,9 +37,7 @@ class MapView extends React.Component {
         />
         { !window.mobileDetect && this.props.selectedIntPointIndex !== undefined ? (
           <div id="fullImageContainer">
-            <img src={this.props.intPoints[this.props.selectedIntPointIndex].image_url}
-                 alt={this.props.intPoints[this.props.selectedIntPointIndex].author}/>
-            <span>@{this.props.intPoints[this.props.selectedIntPointIndex].author}</span>
+            <DesktopGalleryPreview intPoint={this.props.intPoints[this.props.selectedIntPointIndex]}/>
           </div>
         ) : null }
         <div id="mapBottomBarContainer">
@@ -54,10 +53,10 @@ class MapView extends React.Component {
             <button id="openGalleryButton" className="ion ion-image" onClick={(e) => this.props.onGalleryBtnClick()}/>
           </div>
           { !window.mobileDetect && this.props.selectedIntPointIndex !== undefined ? (
-            <div id="smallGalleryContainer">
-              <SmallGallery selectedIndex={this.props.selectedIntPointIndex}
-                            intPoints={this.props.intPoints}
-                            onIntPointSelect={(index) => this.props.onIntPointSelect(index)}
+            <div id="desktopGalleryThumbnailsContainer">
+              <DesktopGalleryThumbnails selectedIndex={this.props.selectedIntPointIndex}
+                                        intPoints={this.props.intPoints}
+                                        onIntPointSelect={(index) => this.props.onIntPointSelect(index)}
               />
             </div>
           ) : null }
@@ -95,10 +94,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onGalleryBtnClick: () => {
     if (window.mobileDetect) {
-      dispatch(newSelectedIndex(0));
       dispatch(push('/gallery'));
     } else {
-      dispatch(toggleSmallGallery());
+      dispatch(toggleDesktopGalleryThumbnails());
     }
   },
   onIntPointSelect: (index) => {

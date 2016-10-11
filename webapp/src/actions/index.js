@@ -71,9 +71,9 @@ export const newSelectedIndex = (index) => {
   }
 };
 
-export const toggleSmallGallery = () => {
+export const toggleDesktopGalleryThumbnails = () => {
   return {
-    type: 'TOGGLE_SMALL_GALLERY'
+    type: 'TOGGLE_DESKTOP_GALLERY_THUMBNAILS'
   }
 };
 
