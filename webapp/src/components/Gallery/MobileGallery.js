@@ -1,9 +1,23 @@
 import React from 'react';
 import ReactSwipe from 'react-swipe';
-import { Map, TileLayer, Marker } from 'react-leaflet';
+import {Map, TileLayer, Marker} from 'react-leaflet';
 import './MobileGallery.scss'
 
 class MobileGallery extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {orientation: this.getOrientation()};
+
+    window.addEventListener("orientationchange", () => {
+      this.setState({orientation: this.getOrientation()});
+    });
+  }
+
+  getOrientation() {
+    return screen.height > screen.width ? 'portrait' : 'landscape';
+  }
 
   render() {
     const selectedIntPoint = this.props.intPoints[this.props.selectedIndex];
@@ -16,7 +30,7 @@ class MobileGallery extends React.Component {
     };
 
     return (
-      <div className="MobileGallery">
+      <div className="MobileGallery" key={this.state.orientation}>
         <div className="preview">
           <ReactSwipe swipeOptions={swipeOptions} key={this.props.intPoints.length}>
             { this.props.intPoints.map((intPoint) => (
@@ -34,7 +48,7 @@ class MobileGallery extends React.Component {
                minZoom={8}
                maxZoom={8}
                dragging={false}>
-            <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+            <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'/>
             { (selectedIntPoint.lat && selectedIntPoint.lng) ? (
               <Marker position={[selectedIntPoint.lat, selectedIntPoint.lng]}/>
             ) : null }
