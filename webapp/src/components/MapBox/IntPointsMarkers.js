@@ -1,5 +1,6 @@
 import React from 'react'
 import { Marker } from 'react-leaflet';
+import IntPointIcon from './IntPointIcon'
 
 class IntPointsMarkers extends React.Component {
 
@@ -11,6 +12,7 @@ class IntPointsMarkers extends React.Component {
             <Marker key={point.id}
                     ref={'marker' + index}
                     position={[point.lat, point.lng]}
+                    icon={ IntPointIcon }
                     onClick={(e) => this.props.onMarkerClick(index) }>
             </Marker>
           ) : null
