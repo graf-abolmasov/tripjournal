@@ -10,18 +10,24 @@ import {
 
 const GalleryView = ({ center, intPoints, selectedIntPointIndex, onIntPointSelect }) => {
 
-  if (selectedIntPointIndex === undefined && intPoints.length > 0) {
+  if (selectedIntPointIndex === undefined) {
     selectedIntPointIndex = 0;
   }
 
   return (
     <div id="galleryContainer">
-      { window.mobileDetect && selectedIntPointIndex !== undefined ? (
+      { window.mobileDetect ? (
         <div id="mobileGalleryContainer">
-          <MobileGallery center={center}
-                         intPoints={intPoints}
-                         selectedIndex={selectedIntPointIndex}
-                         onIntPointSelect={onIntPointSelect}/>
+          { intPoints.length === 0 ? (
+            <h1 id="noIntPointsMessage">
+              Друг, приходи чуть попозже. Скоро тут будет много картинок из нашей замечательно поездки
+            </h1>
+          ) : (
+            <MobileGallery center={center}
+                           intPoints={intPoints}
+                           selectedIndex={selectedIntPointIndex}
+                           onIntPointSelect={onIntPointSelect}/>
+          ) }
           <Link id="openMapButton" to="/">
             <i className="ion ion-map"/>
           </Link>
