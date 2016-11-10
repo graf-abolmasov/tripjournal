@@ -1,6 +1,9 @@
 import { LOCATION_CHANGE } from "react-router-redux";
 
 const newIntPointSelected = (state, index) => {
+  if (index < 0 || index >= state.intPoints.length) {
+    return { selectedIntPointIndex: undefined };
+  }
   const intPoint = state.intPoints[index];
   if (intPoint.lat && intPoint.lng) {
     return {
