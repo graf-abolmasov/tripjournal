@@ -11,7 +11,7 @@ class InstagramGrabber
     photos.each do |photo|
       InstagramSource.find_or_create_by(instagram_media_id: photo.id) do |instagram_source|
         instagram_source.traveler = @traveler
-        instagram_source.kind  = photo.type
+        instagram_source.kind  = photo.type == 'video' ? 'video' : 'image'
         instagram_source.title = photo.caption.try(:text)
         instagram_source.original_image_url = photo.images.standard_resolution.url
         instagram_source.original_video_url = photo.videos.standard_resolution.url if photo.type == 'video'
