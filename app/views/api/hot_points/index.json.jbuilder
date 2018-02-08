@@ -1,1 +1,4 @@
-json.array! @points, :lat, :lng
+json.array! @points do |p|
+  json.lat p.lat&.to_f
+  json.lng p.lng&.to_f
+end

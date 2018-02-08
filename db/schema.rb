@@ -15,93 +15,93 @@ ActiveRecord::Schema.define(version: 20161011120533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "instagram_sources", force: :cascade do |t|
-    t.string   "title"
-    t.string   "instagram_media_id",             null: false
-    t.string   "original_media_url",             null: false
-    t.string   "original_image_url",             null: false
-    t.decimal  "lat"
-    t.decimal  "lng"
-    t.integer  "traveler_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "kind",               default: 0, null: false
-    t.string   "original_video_url"
-    t.index ["traveler_id"], name: "index_instagram_sources_on_traveler_id", using: :btree
-  end
-
-  create_table "int_points", force: :cascade do |t|
-    t.string   "title"
-    t.string   "text"
-    t.string   "image_url"
-    t.string   "source_url"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.decimal  "lat",         precision: 9, scale: 6
-    t.decimal  "lng",         precision: 9, scale: 6
-    t.integer  "trip_id"
-    t.integer  "traveler_id"
-    t.integer  "source_id",                                       null: false
-    t.string   "source_type",                                     null: false
-    t.integer  "kind",                                default: 0, null: false
-    t.string   "video_url"
-    t.index ["created_at"], name: "index_int_points_on_created_at", using: :btree
-    t.index ["lat", "lng"], name: "index_int_points_on_lat_and_lng", where: "((lat IS NOT NULL) AND (lng IS NOT NULL))", using: :btree
-    t.index ["source_type", "source_id"], name: "index_int_points_on_source_type_and_source_id", using: :btree
-    t.index ["traveler_id"], name: "index_int_points_on_traveler_id", using: :btree
-    t.index ["trip_id"], name: "index_int_points_on_trip_id", using: :btree
-  end
-
-  create_table "photo_sources", force: :cascade do |t|
-    t.string   "file",                             null: false
-    t.float    "file_ratio",  default: 1.0
-    t.text     "file_exif",   default: "--- {}\n"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "traveler_id"
-    t.index ["traveler_id"], name: "index_photo_sources_on_traveler_id", using: :btree
-  end
-
-  create_table "points", force: :cascade do |t|
-    t.decimal  "alt",        precision: 9, scale: 6, default: "0.0"
-    t.decimal  "speed",      precision: 9, scale: 6, default: "0.0"
-    t.decimal  "hdop",       precision: 9, scale: 6, default: "0.0"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.decimal  "lat",                                                null: false
-    t.decimal  "lng",                                                null: false
-    t.integer  "track_id"
-    t.index ["created_at"], name: "index_points_on_created_at", using: :btree
-    t.index ["track_id"], name: "index_points_on_track_id", using: :btree
-  end
-
-  create_table "tracks", force: :cascade do |t|
-    t.json     "geojson_hq"
+  create_table "instagram_sources", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.string "instagram_media_id", null: false
+    t.string "original_media_url", null: false
+    t.string "original_image_url", null: false
+    t.decimal "lat"
+    t.decimal "lng"
+    t.integer "traveler_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.json     "geojson_lq"
-    t.integer  "trip_id"
-    t.index ["trip_id"], name: "index_tracks_on_trip_id", using: :btree
-    t.index ["updated_at"], name: "index_tracks_on_updated_at", using: :btree
+    t.integer "kind", default: 0, null: false
+    t.string "original_video_url"
+    t.index ["traveler_id"], name: "index_instagram_sources_on_traveler_id"
   end
 
-  create_table "travelers", force: :cascade do |t|
-    t.string   "nickname",        null: false
-    t.string   "instagram_token"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+  create_table "int_points", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.string "text"
+    t.string "image_url"
+    t.string "source_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "lat", precision: 9, scale: 6
+    t.decimal "lng", precision: 9, scale: 6
+    t.integer "trip_id"
+    t.integer "traveler_id"
+    t.integer "source_id", null: false
+    t.string "source_type", null: false
+    t.integer "kind", default: 0, null: false
+    t.string "video_url"
+    t.index ["created_at"], name: "index_int_points_on_created_at"
+    t.index ["lat", "lng"], name: "index_int_points_on_lat_and_lng", where: "((lat IS NOT NULL) AND (lng IS NOT NULL))"
+    t.index ["source_type", "source_id"], name: "index_int_points_on_source_type_and_source_id"
+    t.index ["traveler_id"], name: "index_int_points_on_traveler_id"
+    t.index ["trip_id"], name: "index_int_points_on_trip_id"
   end
 
-  create_table "trips", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.text     "checkpoints"
+  create_table "photo_sources", id: :serial, force: :cascade do |t|
+    t.string "file", null: false
+    t.float "file_ratio", default: 1.0
+    t.text "file_exif", default: "--- {}\n"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "traveler_id"
+    t.index ["traveler_id"], name: "index_photo_sources_on_traveler_id"
+  end
+
+  create_table "points", id: :serial, force: :cascade do |t|
+    t.decimal "alt", precision: 9, scale: 6, default: "0.0"
+    t.decimal "speed", precision: 9, scale: 6, default: "0.0"
+    t.decimal "hdop", precision: 9, scale: 6, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "lat", null: false
+    t.decimal "lng", null: false
+    t.integer "track_id"
+    t.index ["created_at"], name: "index_points_on_created_at"
+    t.index ["track_id"], name: "index_points_on_track_id"
+  end
+
+  create_table "tracks", id: :serial, force: :cascade do |t|
+    t.json "geojson_hq"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "geojson_lq"
+    t.integer "trip_id"
+    t.index ["trip_id"], name: "index_tracks_on_trip_id"
+    t.index ["updated_at"], name: "index_tracks_on_updated_at"
+  end
+
+  create_table "travelers", id: :serial, force: :cascade do |t|
+    t.string "nickname", null: false
+    t.string "instagram_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trips", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.text "checkpoints"
     t.datetime "start_date"
     t.datetime "finish_date"
-    t.decimal  "length",                      null: false
-    t.boolean  "published",   default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.decimal "length", null: false
+    t.boolean "published", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "instagram_sources", "travelers"
