@@ -1,25 +1,31 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+ruby '2.5.0'
+
+gem 'rails', '~> 5.1.4'
 
 gem 'bulk_insert'
 gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
 gem 'clockwork'
 gem 'dotenv-rails'
-gem 'jbuilder'
+gem 'jbuilder', '~> 2.5'
 gem 'mini_magick'
 gem 'oj'
 gem 'oj_mimic_json'
-gem 'pg'
-gem 'puma', '~> 3.0'
+gem 'pg', '~> 0.18'
+gem 'puma', '~> 3.7'
 gem 'puma_worker_killer'
 gem 'rack-timeout'
 gem 'redis', '~> 3.0'
 gem 'responders', '~> 2.0'
 gem 'sidekiq'
 gem 'slim-rails'
+gem 'webpacker'
 
 # Business logic
 gem 'exifr'
@@ -32,10 +38,10 @@ gem 'simplify_rb'
 
 group :development do
   gem 'awesome_print'
-  gem 'listen', '~> 3.0.5'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console'
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :development, :test do
@@ -43,4 +49,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry'
   gem 'pry-rails'
+  gem 'capybara', '~> 2.13'
+  gem 'selenium-webdriver'
 end

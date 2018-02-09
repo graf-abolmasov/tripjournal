@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from "react-router-redux";
+import { routerReducer } from "react-router-redux";
 
 const newIntPointSelected = (state, index) => {
   if (index < 0 || index >= state.intPoints.length) {
@@ -16,6 +16,8 @@ const newIntPointSelected = (state, index) => {
 };
 
 const defaultReducer = (state, action) => {
+  state = Object.assign({}, state, {routing: routerReducer(state.routing, action)})
+
   switch (action.type) {
     case 'MOVE_MAP_CENTER':
       return Object.assign({}, state, { center: action.newCenter, followTarget: false });
@@ -61,9 +63,6 @@ const defaultReducer = (state, action) => {
       } else {
         return Object.assign({}, state, newIntPointSelected(state, 0));
       }
-
-    case LOCATION_CHANGE:
-      return Object.assign({}, state, { routing: { locationBeforeTransitions: action.payload } });
 
     case 'REQUEST_FULL_SCREEN':
       return Object.assign({}, state, { isFullscreen: true });

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
-import $ from 'jquery'
 import 'jquery.scrollto'
 import './DesktopGalleryThumbnails.scss'
 
@@ -12,7 +11,7 @@ class DesktopGalleryThumbnails extends React.Component {
   constructor(props) {
     super(props);
     this.scrollToSelectedImg = debounce((containerDomNode, selectedDomNode) => {
-      $(containerDomNode).scrollTo(selectedDomNode, 500, { offset: { left: -(containerDomNode.offsetWidth / 2) + (selectedDomNode.offsetWidth / 2) } });
+      jQuery(containerDomNode).scrollTo(selectedDomNode, 500, { offset: { left: -(containerDomNode.offsetWidth / 2) + (selectedDomNode.offsetWidth / 2) } });
     }, 400);
     this.keyPressing = throttle((newIndex) => {
       this.props.onIntPointSelect(newIndex)

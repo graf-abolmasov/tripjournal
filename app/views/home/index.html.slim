@@ -6,10 +6,9 @@ html lang="en-US"
     title
       | Trip Tracking
     = js_env
-    = stylesheet_link_tag '/static/css/webpack.bundle.css', media: 'all'
+    = stylesheet_pack_tag 'application'
 
   body
     #root
 
-= javascript_include_tag 'application'
-= javascript_include_tag '/static/js/webpack.bundle.js'
+= javascript_pack_tag 'application'

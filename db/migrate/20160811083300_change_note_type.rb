@@ -1,4 +1,4 @@
-class ChangeNoteType < ActiveRecord::Migration
+class ChangeNoteType < ActiveRecord::Migration[4.2]
   def up
     add_column :notes, :lat, :decimal, precision: 9, scale: 6
     add_column :notes, :lng, :decimal, precision: 9, scale: 6

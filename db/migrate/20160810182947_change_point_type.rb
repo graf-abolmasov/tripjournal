@@ -1,4 +1,4 @@
-class ChangePointType < ActiveRecord::Migration
+class ChangePointType < ActiveRecord::Migration[4.2]
   def up
     add_column :points, :lat, :decimal, precision: 9, scale: 6
     add_column :points, :lng, :decimal, precision: 9, scale: 6

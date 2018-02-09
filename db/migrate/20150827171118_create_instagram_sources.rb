@@ -1,4 +1,4 @@
-class CreateInstagramSources < ActiveRecord::Migration
+class CreateInstagramSources < ActiveRecord::Migration[4.2]
   def change
     create_table :instagram_sources do |t|
 
