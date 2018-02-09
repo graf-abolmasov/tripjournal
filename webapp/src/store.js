@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
 import createHistory from 'history/createBrowserHistory'
 import throttle from 'lodash/throttle'
 import storejs from 'storejs'
@@ -35,9 +36,11 @@ const initStore = {
 }
 
 const browserHistory = createHistory()
-const middlewares = routerMiddleware(browserHistory)
+const middlewares = applyMiddleware(
+  routerMiddleware(browserHistory)
+)
 
-const store = createStore(reducer, initStore, applyMiddleware(middlewares))
+const store = createStore(reducer, initStore, composeWithDevTools(middlewares))
 store.subscribe(throttle(() => {
   let {followTarget, center, zoom} = store.getState()
   storejs.set('followTarget', followTarget)
