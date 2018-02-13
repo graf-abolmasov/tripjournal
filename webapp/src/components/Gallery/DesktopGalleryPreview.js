@@ -3,31 +3,33 @@ import './DesktopGalleryPreview.scss'
 
 const DesktopGalleryPreview = ({intPoint}) => {
 
-  let renderImage = (intPoint) => (
+  const renderImage = (intPoint) => (
     <img src={intPoint.image_url} alt={intPoint.author}/>
-  );
+  )
 
-  let renderVideo = (intPoint) => (
+  const renderVideo = (intPoint) => (
     <video src={intPoint.video_url} type="video/mp4" poster={intPoint.image_url} autoPlay={true} controls={true}/>
-  );
+  )
 
-  let renderContent = (intPoint) => {
+  const renderContent = (intPoint) => {
     switch (intPoint.kind) {
       case 'image':
-        return renderImage(intPoint);
+        return renderImage(intPoint)
       case 'video':
-        return renderVideo(intPoint);
+        return renderVideo(intPoint)
       default:
-        return renderImage(intPoint);
+        return renderImage(intPoint)
     }
-  };
+  }
 
   return (
-    <div className="DesktopGalleryPreview">
-      { renderContent(intPoint) }
-      <span>@{intPoint.author}</span>
-    </div>
+    (intPoint) ? (
+      <div className="DesktopGalleryPreview">
+        {renderContent(intPoint)}
+        <span>@{intPoint.author}</span>
+      </div>
+    ) : null
   )
-};
+}
 
-export default DesktopGalleryPreview;
+export default DesktopGalleryPreview

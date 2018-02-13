@@ -6,9 +6,9 @@ import store, { history } from '../../store'
 
 import './Root.css'
 
-import App from '../../containers/App/App'
-import MapView from '../../containers/MapView/MapView'
-import GalleryView from '../../containers/GalleryView/GalleryView'
+import App from '../../views/App/App'
+import MapView from '../../views/MapView/MapView'
+import GalleryView from '../../views/GalleryView/GalleryView'
 
 const mobileMediaQuery = window.matchMedia('(max-width: 750px)')
 const onScreenMaxWidthChange = (mql) => {
