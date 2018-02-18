@@ -63,7 +63,8 @@ class DesktopGalleryThumbnails extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.selectedIndex !== prevProps.selectedIndex) {
+    if (this.props.selectedIndex !== prevProps.selectedIndex ||
+        this.props.intPoints.length !== prevProps.intPoints.length) {
       this.ensureActiveItemVisible();
     }
   }

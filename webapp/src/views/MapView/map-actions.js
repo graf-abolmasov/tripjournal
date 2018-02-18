@@ -10,6 +10,8 @@ const { mapActions } = createActions({
     MOVE_CENTER: identity,
     STOP_FOLLOW_TARGET: identity,
     START_FOLLOW_TARGET: identity,
+
+    OPEN_GALLERY: identity
   },
 })
 

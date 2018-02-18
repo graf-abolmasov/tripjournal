@@ -1,8 +1,9 @@
 class Point < ApplicationRecord
 
+  belongs_to :trip
   belongs_to :track
 
-  scope :hot_points, -> { where(track_id: nil).order(id: :asc) }
+  scope :hot, -> { where(track_id: nil).order(id: :asc) }
 
   after_commit :notify, on: :create
 
@@ -31,16 +32,7 @@ class Point < ApplicationRecord
   end
 
   def notify
-    ActionCable.server.broadcast('points', pusher_json)
+    PointsChannel.notify(self)
   end
 
-  def pusher_json
-    {
-        lat: self.lat.to_f,
-        lng: self.lng.to_f,
-        alt: self.alt.to_f,
-        speed: self.speed.to_f,
-        created_at: self.created_at
-    }
-  end
 end

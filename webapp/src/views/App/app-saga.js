@@ -4,11 +4,11 @@ import API from '../../services/api'
 import appActions from './app-actions'
 import cableActions from '../../action-cable/cable-actions'
 
-function* initializeAppSaga() {
+function* initializeAppSaga({payload}) {
   const [intPoints, hotTrack, tracks] = yield all([
-    call(API.fetchIntPoints),
-    call(API.fetchhotTrack),
-    call(API.fetchTracks)
+    call(API.fetchIntPoints, payload.id),
+    call(API.fetchHotTrack, payload.id),
+    call(API.fetchTracks, payload.id)
   ])
 
   yield all([
@@ -17,7 +17,7 @@ function* initializeAppSaga() {
     put(appActions.tracksLoaded(tracks)),
   ])
 
-  yield put(cableActions.connectTo())
+  yield put(cableActions.connectTo(payload.id))
 }
 
 function* newPointReceivedSaga({payload}) {

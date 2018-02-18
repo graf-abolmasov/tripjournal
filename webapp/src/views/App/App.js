@@ -9,7 +9,7 @@ import './App.scss'
 class App extends React.Component {
 
   componentDidMount() {
-    this.props.start()
+    this.props.start(this.props.trip)
   }
 
   render() {
