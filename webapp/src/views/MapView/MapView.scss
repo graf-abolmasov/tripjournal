@@ -1,0 +1,70 @@
+#mapContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+#mapBottomBarContainer {
+  position: absolute;
+  z-index: 400;
+  width: 100%;
+  bottom: 0;
+
+  #mapControlsContainer {
+    position: relative;
+    right: 20px;
+    bottom: 30px;
+
+    .MapControls {
+      position: absolute;
+      bottom: 33px;
+      right: 0;
+    }
+
+    #openGalleryButton {
+      background-color: white;
+      border-radius: 2px;
+      border: 0 solid gray;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      color: rgb(100, 100, 100);
+      cursor: pointer;
+      display: block;
+      font-size: 16px;
+      height: 29px;
+      outline: none;
+      padding: 0;
+      width: 29px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      line-height: 29px;
+    }
+  }
+
+  #desktopGalleryThumbnailsContainer {
+    position: relative;
+  }
+}
+
+@media (max-width: 750px) {
+  #mapBottomBarContainer {
+    #mapControlsContainer {
+      .MapControls {
+        margin-bottom: 45px;
+      }
+      #openGalleryButton {
+        background-color: rgb(52, 109, 241);
+        border-radius: 30px;
+        margin-top: 17px;
+        color: #fff;
+        font-size: 32px;
+        height: 60px;
+        position: absolute;
+        width: 60px;
+        text-align: center;
+        line-height: 59px;
+      }
+    }
+  }
+}

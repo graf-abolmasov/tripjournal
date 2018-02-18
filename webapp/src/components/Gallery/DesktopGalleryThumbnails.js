@@ -14,7 +14,7 @@ class DesktopGalleryThumbnails extends React.Component {
       jQuery(containerDomNode).scrollTo(selectedDomNode, 500, { offset: { left: -(containerDomNode.offsetWidth / 2) + (selectedDomNode.offsetWidth / 2) } });
     }, 400);
     this.keyPressing = throttle((newIndex) => {
-      this.props.onIntPointSelect(newIndex)
+      this.props.setSelectedIndex(newIndex)
     }, 100)
   }
 
@@ -39,7 +39,7 @@ class DesktopGalleryThumbnails extends React.Component {
               src: intPoint.image_url,
               tabIndex: index,
               className: classNames("preview", { selected: isSelected, video: intPoint.kind === 'video' }),
-              onClick: (e) => this.props.onIntPointSelect(index),
+              onClick: (e) => this.props.setSelectedIndex(index),
               onKeyDown: (e) => this.onKeyDown(e)
             };
 

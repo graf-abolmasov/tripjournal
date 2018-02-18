@@ -7,7 +7,7 @@ require_relative '../app/services/kml_file'
 require_relative '../app/services/gpx_file'
 require_relative '../app/services/tracks_factory'
 
-host = 'https://tripjournal.abolmasov.pro'
+host = 'http://localhost:3000'
 
 tracks = TracksFactory.send(:read_tracks_from_file, ARGV[0])
 
@@ -16,6 +16,7 @@ tracks.each do |track|
   track.each do |point|
     uri = URI("#{host}/track?lat=#{point[:x]}&lng=#{point[:y]}")
     Net::HTTP.get(uri)
+    sleep(0.1)
     progress.increment
   end
 end

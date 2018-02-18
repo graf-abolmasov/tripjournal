@@ -8,12 +8,13 @@ import 'leaflet/dist/images/marker-icon.png'
 import 'leaflet/dist/images/marker-shadow.png'
 import 'leaflet/dist/leaflet.css'
 
-const MapBox = ({ center, zoom, minZoom, maxZoom, intPoints, selectedIntPointIndex, tracks, hotPoint, hotPoints, onDragEnd, onZoom, onIntPointMarkerClick}) => (
+const MapBox = ({ center, zoom, minZoom, maxZoom, intPoints, tracks, hotPoint, hotTrack, onDragStart, onDragEnd, onZoom, onIntPointMarkerClick}) => (
   <Map center={[center.lat, center.lng]}
        zoomControl={false}
        zoom={zoom}
        minZoom={minZoom}
        maxZoom={maxZoom}
+       onDragstart={onDragStart}
        onDragend={onDragEnd}
        onZoomend={onZoom}>
     <TileLayer
@@ -22,8 +23,8 @@ const MapBox = ({ center, zoom, minZoom, maxZoom, intPoints, selectedIntPointInd
     />
     <Marker position={[hotPoint.lat, hotPoint.lng]} icon={ HotPointIcon }/>
     <IntPointsMarkers points={intPoints} onMarkerClick={onIntPointMarkerClick}/>
-    { hotPoints.length > 2 ? (
-      <Polyline positions={hotPoints} color="red"/>
+    { hotTrack.length > 2 ? (
+      <Polyline positions={hotTrack} color="red"/>
     ) : null }
     {tracks.map((track) => {
       return <GeoJSON key={track.id} data={track}/>
