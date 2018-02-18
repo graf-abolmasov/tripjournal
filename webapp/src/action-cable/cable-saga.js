@@ -19,8 +19,8 @@ function* consumeData(channel) {
   }
 }
 
-function* createCableConnection() {
-  const manager = new CableManager()
+function* createCableConnection(tripId) {
+  const manager = new CableManager({tripId})
   const channel = yield call(connectToChannel, manager)
 
   const consumeTask = yield fork(consumeData, channel)
@@ -31,8 +31,8 @@ function* createCableConnection() {
   channel.close()
 }
 
-function* connectSaga() {
-  yield call(createCableConnection)
+function* connectSaga(action) {
+  yield call(createCableConnection, action.payload)
 }
 
 export default function* cableSagas() {

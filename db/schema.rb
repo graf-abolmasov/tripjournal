@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011120533) do
+ActiveRecord::Schema.define(version: 20180218140513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,8 +71,10 @@ ActiveRecord::Schema.define(version: 20161011120533) do
     t.decimal "lat", null: false
     t.decimal "lng", null: false
     t.integer "track_id"
+    t.bigint "trip_id"
     t.index ["created_at"], name: "index_points_on_created_at"
     t.index ["track_id"], name: "index_points_on_track_id"
+    t.index ["trip_id"], name: "index_points_on_trip_id"
   end
 
   create_table "tracks", id: :serial, force: :cascade do |t|
@@ -80,7 +82,7 @@ ActiveRecord::Schema.define(version: 20161011120533) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "geojson_lq"
-    t.integer "trip_id"
+    t.integer "trip_id", null: false
     t.index ["trip_id"], name: "index_tracks_on_trip_id"
     t.index ["updated_at"], name: "index_tracks_on_updated_at"
   end
@@ -102,6 +104,7 @@ ActiveRecord::Schema.define(version: 20161011120533) do
     t.boolean "published", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "custom_domain"
   end
 
   add_foreign_key "instagram_sources", "travelers"
@@ -109,5 +112,6 @@ ActiveRecord::Schema.define(version: 20161011120533) do
   add_foreign_key "int_points", "trips"
   add_foreign_key "photo_sources", "travelers"
   add_foreign_key "points", "tracks"
+  add_foreign_key "points", "trips"
   add_foreign_key "tracks", "trips"
 end

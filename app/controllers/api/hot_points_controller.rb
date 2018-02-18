@@ -1,7 +1,7 @@
 class Api::HotPointsController < Api::ApplicationController
 
   def index
-    @points = Point.hot_points.all
+    @points = @current_trip.points.hot.all
     respond_with @points
   end
 
