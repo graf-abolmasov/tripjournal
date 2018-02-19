@@ -1,7 +1,7 @@
 class Api::PointsController < Api::ApplicationController
 
   def create
-    @point = Point.create(point_params)
+    @point = @current_trip.points.create(point_params)
     respond_with @point
   end
 
