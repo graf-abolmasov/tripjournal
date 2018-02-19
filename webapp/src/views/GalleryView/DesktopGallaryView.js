@@ -24,7 +24,7 @@ const DesktopGalleryView = props =>
             hotPoint={props.hotPoint}
             hotTrack={props.hotTrack}
             onDragStart={() => props.stopFollowTarget() }
-            onDragEnd={(e) => props.moveCente(e.target.getCenter())}
+            onDragEnd={(e) => props.moveCenter(e.target.getCenter())}
             onZoom={(e) => {props.zoomMap(e.target.getZoom())}}
             onIntPointMarkerClick={props.setSelectedIndex}
     />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ConnectedRouter } from 'react-router-redux'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store, { history } from '../../store'
 
@@ -20,10 +20,12 @@ mobileMediaQuery.addListener(onScreenMaxWidthChange)
 const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App>
-        <Route exact path="/" component={MapView}/>
-        <Route path="/gallery" component={GalleryView}/>
-      </App>
+      <Switch>
+        <App>
+          <Route exact path="/" component={MapView}/>
+          <Route path="/gallery" component={GalleryView}/>
+        </App>
+      </Switch>
     </ConnectedRouter>
   </Provider>
 )

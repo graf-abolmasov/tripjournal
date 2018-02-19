@@ -5,7 +5,6 @@ import { Link } from "react-router-dom"
 import MapBox from '../../components/MapBox/MapBox'
 import MapControls from '../../components/MapBox/MapControls'
 import mapActions from './map-actions'
-import galleryActions from '../GalleryView/gallery-actions'
 
 import 'ionicons/css/ionicons.css'
 import './MapView.scss'
@@ -23,7 +22,7 @@ const MapView = props =>
             onDragStart={() => props.stopFollowTarget() }
             onDragEnd={(e) => props.moveCenter(e.target.getCenter())}
             onZoom={(e) => {props.zoomMap(e.target.getZoom())}}
-            onIntPointMarkerClick={props.setSelectedIndex}
+            onIntPointMarkerClick={props.openGallery}
     />
     <div id="mapBottomBarContainer">
       <div id="mapControlsContainer">
@@ -40,4 +39,4 @@ const MapView = props =>
     </div>
   </div>
 
-export default connect(identity, {...mapActions, ...galleryActions})(MapView);
+export default connect(identity, mapActions)(MapView);
