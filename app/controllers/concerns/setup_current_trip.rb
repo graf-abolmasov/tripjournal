@@ -12,7 +12,11 @@ module SetupCurrentTrip
   end
 
   def detect_custom_domain
-    @current_trip = find_by_param || find_by_custom_domain || Trip.last
+    @current_trip = find_by_param || find_by_custom_domain
+
+    if @current_trip.blank?
+      redirect_to '/pick-a-trip'
+    end
   end
 
   def find_by_param

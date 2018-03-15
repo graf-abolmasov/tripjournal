@@ -24,6 +24,7 @@ const initStore = {
   minZoom: 4,
   maxZoom: 16,
   trip: window.JsEnv.trip,
+  trips: [],
   tracks: [],
   hotPoint: window.JsEnv.hot_point,
   hotTrack: [],

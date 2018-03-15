@@ -22,8 +22,7 @@ class ApplicationController < ActionController::Base
 
   def js_env_data
     @js_env_data ||= {
-        env: Rails.env,
-        trip: @current_trip
+        env: Rails.env
     }
   end
 end

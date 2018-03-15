@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   root to: 'home#index'
+  get '/pick-a-trip', to: 'trips#index'
 
   get '/track', to: 'api/points#create', defaults: { format: 'json' }
 

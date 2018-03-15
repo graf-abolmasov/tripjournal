@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   layout false
 
   def index
-    push_to_js_env(hot_point: {lat: hot_point.lat.to_f, lng: hot_point.lng.to_f })
+    push_to_js_env(hot_point: {lat: hot_point.lat.to_f, lng: hot_point.lng.to_f }, trip: @current_trip)
   end
 
   private
