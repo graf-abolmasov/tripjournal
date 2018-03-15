@@ -3,7 +3,7 @@ class ImportFromInstagramJob < ActiveJob::Base
 
   def perform
     Traveler.with_instagram.each do |t|
-      InstagramGrabber.new(t).run
+      InstagramGrabber.execute(t)
     end
   end
 end

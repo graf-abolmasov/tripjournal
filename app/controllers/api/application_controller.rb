@@ -1,6 +1,8 @@
 class Api::ApplicationController < ActionController::API
   include ActionController::Caching
-  include SetupCurrentTrip
+  include CustomDomainSupport
+
+  before_action :ensure_current_trip
 
   respond_to :json
 

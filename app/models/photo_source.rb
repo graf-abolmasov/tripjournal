@@ -2,7 +2,7 @@ class PhotoSource < ApplicationRecord
 
   belongs_to :traveler
 
-  validates :traveler, :file, presence: true
+  validates :file, presence: true
 
   mount_uploader :file, PhotoUploader
 
