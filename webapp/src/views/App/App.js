@@ -8,19 +8,31 @@ import './App.scss'
 
 class App extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      showFullscreenButton: true
+    }
+  }
+
   componentDidMount() {
     this.props.start(this.props.trip)
+    setTimeout(() => {
+      this.setState({showFullscreenButton: false})
+    }, 8000)
   }
 
   render() {
-    const showFullscreenButton = window.mobileDetect && screenfull.enabled && !this.props.isFullscreen
-
+    const showFullscreenButton = this.state.showFullscreenButton
+      && window.mobileDetect
+      && screenfull.enabled
+      && !this.props.isFullScreen
     return (
       <div id="appContainer">
         {showFullscreenButton ? (
           <div id="fullScreenBtnContainer">
             <span>Перейти в полный экран</span>
-            <button onClick={this.props.requestFullscreen}>
+            <button onClick={this.props.requestFullScreen}>
               <i className="ion ion-android-expand"/>
             </button>
           </div>

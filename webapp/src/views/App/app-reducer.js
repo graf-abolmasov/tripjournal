@@ -10,7 +10,7 @@ export default handleActions({
   [appActions.hotTrackLoaded]: (state, action) =>
     ({...state, hotTrack: action.payload, ajax: {...state.ajax, hotTrack: true}}),
   [appActions.requestFullScreen]: (state) =>
-    ({...state, isFullscreen: true}),
+    ({...state, isFullScreen: true}),
   [appActions.moveHotPoint]: (state, action) =>
     ({
       ...state,

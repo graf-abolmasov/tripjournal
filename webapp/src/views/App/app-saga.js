@@ -3,6 +3,7 @@ import { takeLatest, call, put, all, takeEvery, throttle } from "redux-saga/effe
 import API from '../../services/api'
 import appActions from './app-actions'
 import cableActions from '../../action-cable/cable-actions'
+import screenfull from "screenfull"
 
 function* initializeAppSaga({payload}) {
   const [intPoints, hotTrack, tracks] = yield all([
@@ -20,6 +21,10 @@ function* initializeAppSaga({payload}) {
   yield put(cableActions.connectTo(payload.id))
 }
 
+function *switchToFullScreenSaga() {
+  screenfull.request()
+}
+
 function* newPointReceivedSaga({payload}) {
   yield put(appActions.moveHotPoint(payload))
 }
@@ -28,4 +33,5 @@ export default function* appSagas() {
   yield takeEvery(cableActions.dataReceived, newPointReceivedSaga)
 
   yield takeLatest(appActions.start, initializeAppSaga)
+  yield takeLatest(appActions.requestFullScreen, switchToFullScreenSaga)
 }

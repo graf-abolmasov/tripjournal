@@ -29,7 +29,7 @@ const initStore = {
   hotTrack: [],
   selectedIntPointIndex: 0,
   routing: {},
-  isFullscreen: false,
+  isFullScreen: false,
   ajax: {
     intPoints: false,
     hotTrack: false,
