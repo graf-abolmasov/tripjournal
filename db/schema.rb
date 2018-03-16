@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218140513) do
+ActiveRecord::Schema.define(version: 20180316085758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20180218140513) do
     t.datetime "updated_at", null: false
     t.decimal "lat", precision: 9, scale: 6
     t.decimal "lng", precision: 9, scale: 6
-    t.integer "trip_id"
+    t.integer "trip_id", null: false
     t.integer "traveler_id"
     t.integer "source_id", null: false
     t.string "source_type", null: false
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20180218140513) do
     t.decimal "lat", null: false
     t.decimal "lng", null: false
     t.integer "track_id"
-    t.bigint "trip_id"
+    t.bigint "trip_id", null: false
     t.index ["created_at"], name: "index_points_on_created_at"
     t.index ["track_id"], name: "index_points_on_track_id"
     t.index ["trip_id"], name: "index_points_on_trip_id"
@@ -107,11 +107,11 @@ ActiveRecord::Schema.define(version: 20180218140513) do
     t.string "custom_domain"
   end
 
-  add_foreign_key "instagram_sources", "travelers"
-  add_foreign_key "int_points", "travelers"
-  add_foreign_key "int_points", "trips"
-  add_foreign_key "photo_sources", "travelers"
-  add_foreign_key "points", "tracks"
-  add_foreign_key "points", "trips"
-  add_foreign_key "tracks", "trips"
+  add_foreign_key "instagram_sources", "travelers", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "int_points", "travelers", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "int_points", "trips", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "photo_sources", "travelers", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "points", "tracks", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "points", "trips", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "tracks", "trips", on_update: :cascade, on_delete: :cascade
 end
