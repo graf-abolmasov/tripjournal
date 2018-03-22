@@ -1,7 +1,6 @@
 import { routerReducer } from "react-router-redux"
 import reduceReducers from 'reduce-reducers'
 import appReducer from './views/App/app-reducer'
-import tripsReducer from './views/TripsView/trips-reducer'
 import mapReducer from './views/MapView/map-reducer'
 import galleryReducer from './views/GalleryView/gallery-reducer'
 
@@ -10,5 +9,4 @@ export default reduceReducers(
   appReducer,
   mapReducer,
   galleryReducer,
-  tripsReducer
 )

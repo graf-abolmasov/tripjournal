@@ -9,7 +9,6 @@ import './Root.css'
 import App from '../../views/App/App'
 import MapView from '../../views/MapView/MapView'
 import GalleryView from '../../views/GalleryView/GalleryView'
-import TripsView from '../../views/TripsView/TripsView'
 
 const mobileMediaQuery = window.matchMedia('(max-width: 750px)')
 const onScreenMaxWidthChange = (mql) => {
@@ -22,7 +21,6 @@ const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
-        <Route path="/pick-a-trip" component={TripsView}/>
         <App>
           <Route path="/gallery" component={GalleryView}/>
           <Route exact path="/" component={MapView}/>
