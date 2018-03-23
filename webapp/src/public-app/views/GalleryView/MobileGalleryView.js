@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { identity } from "ramda"
 import MobileGallery from '../../components/Gallery/MobileGallery'
 import galleryActions from './gallery-actions'
 
@@ -22,4 +21,12 @@ const MobileGalleryView = ({center, intPoints, selectedIntPointIndex, setSelecte
   )
 }
 
-export default connect(identity, galleryActions)(MobileGalleryView)
+const mapStateToProps = (state) => {
+  return {
+    center: state.ui.map.center,
+    intPoints: state.data.intPoints,
+    selectedIntPointIndex: state.ui.gallery.selectedIntPointIndex
+  }
+}
+
+export default connect(mapStateToProps, galleryActions)(MobileGalleryView)

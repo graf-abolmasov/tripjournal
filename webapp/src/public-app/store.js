@@ -9,34 +9,6 @@ import storejs from 'storejs'
 import reducer from './reducer'
 import saga from './saga'
 
-const storedCenter = (localStorage && storejs.get('center')) || window.JsEnv.hot_point
-const storedZoom = (localStorage && storejs.get('zoom')) || 13
-let storedFollowTarget = false
-if (localStorage && storejs.has('followTarget')) {
-  storedFollowTarget = storejs.get('followTarget')
-}
-
-const initStore = {
-  followTarget: storedFollowTarget,
-  center: storedCenter,
-  zoom: storedZoom,
-  intPoints: [],
-  minZoom: 4,
-  maxZoom: 16,
-  trip: window.JsEnv.trip,
-  tracks: [],
-  hotPoint: window.JsEnv.hot_point,
-  hotTrack: [],
-  selectedIntPointIndex: 0,
-  routing: {},
-  isFullScreen: false,
-  ajax: {
-    intPoints: false,
-    hotTrack: false,
-    tracks: false
-  }
-}
-
 const browserHistory = createHistory()
 const sagaMiddleware = createSagaMiddleware()
 const middlewares = applyMiddleware(
@@ -44,9 +16,9 @@ const middlewares = applyMiddleware(
   sagaMiddleware
 )
 
-const store = createStore(reducer, initStore, composeWithDevTools(middlewares))
+const store = createStore(reducer, composeWithDevTools(middlewares))
 store.subscribe(throttle(() => {
-  let {followTarget, center, zoom} = store.getState()
+  let {ui: {map: {center, zoom, followTarget}}} = store.getState()
   storejs.set('followTarget', followTarget)
   storejs.set('center', center)
   storejs.set('zoom', zoom)

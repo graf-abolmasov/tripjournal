@@ -39,4 +39,19 @@ const MapView = props =>
     </div>
   </div>
 
-export default connect(identity, mapActions)(MapView);
+const mapStateToProps = (state) => {
+  return {
+    center: state.ui.map.center,
+    zoom: state.ui.map.zoom,
+    minZoom: state.ui.map.minZoom,
+    maxZoom: state.ui.map.maxZoom,
+    intPoints: state.data.intPoints,
+    tracks: state.data.tracks,
+    hotPoint: state.data.hotPoint,
+    hotTrack: state.data.hotTrack,
+    followTarget: state.ui.map.followTarget,
+    selectedIntPointIndex: state.ui.gallery.selectedIntPointIndex,
+  }
+}
+
+export default connect(mapStateToProps, mapActions)(MapView);

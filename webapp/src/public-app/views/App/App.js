@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { identity } from "ramda"
 import screenfull from 'screenfull'
 import appActions from "./app-actions"
 
@@ -43,4 +42,11 @@ class App extends React.Component {
   }
 }
 
-export default connect(identity, appActions)(App)
+const mapStateToProps = (state) => {
+  return {
+    isFullScreen: state.ui.settings.isFullScreen,
+    trip: state.data.trip,
+  };
+};
+
+export default connect(mapStateToProps, appActions)(App)
