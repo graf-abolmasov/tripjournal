@@ -1,4 +1,4 @@
-class OauthController < ApplicationController
+class OauthController < ActionController::Base
 
   def connect_instagram
     redirect_to Instagram.authorize_url(redirect_uri: instagram_callback_url)

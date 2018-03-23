@@ -7,7 +7,7 @@ require_relative '../app/services/kml_file'
 require_relative '../app/services/gpx_file'
 require_relative '../app/services/tracks_factory'
 
-host = 'http://localhost:3000'
+host = 'http://go2snow.test:3000'
 
 tracks = TracksFactory.send(:read_tracks_from_file, ARGV[0])
 

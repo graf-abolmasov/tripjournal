@@ -5,11 +5,8 @@ class Point < ApplicationRecord
 
   scope :hot, -> { where(track_id: nil).order(id: :asc) }
 
-  after_commit :notify, on: :create
-
-  def to_x_y
-    {x: self.lat.to_f, y: self.lng.to_f}
-  end
+  def x; lat.to_f end
+  def y; lng.to_f end
 
   def distance_to(other_point)
     fi1 = to_rad(self.lat)
@@ -29,10 +26,6 @@ class Point < ApplicationRecord
 
   def to_rad(deg)
     deg * Math::PI / 180.0
-  end
-
-  def notify
-    PointsChannel.notify(self)
   end
 
 end

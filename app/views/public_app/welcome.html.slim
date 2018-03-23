@@ -1,0 +1,28 @@
+doctype html
+html lang="en-US"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, maximum-scale=1.0, initial-scale=1.0"
+    title
+      | Trip Tracking
+  css:
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: auto;
+      flex-direction: column;
+    }
+
+    a {
+      font-size: 10vw;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+      padding: 2vw;
+    }
+  body
+    - @trips.each do |t|
+      = link_to("#"+ t.name, "http://#{t.custom_domain}")

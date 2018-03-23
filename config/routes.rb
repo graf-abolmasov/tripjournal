@@ -2,14 +2,12 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
-  root to: 'home#index'
-
-  get '/track', to: 'api/points#create', defaults: { format: 'json' }
 
   get '/oauth/instagram/connect',  to: 'oauth#connect_instagram', as: :instagram
   get '/oauth/instagram/callback', to: 'oauth#instagram',         as: :instagram_callback
 
-  post '/webhooks/instagram', to: 'webhooks#instagram'
+  # for OsmAnd
+  get '/track', to: 'api/points#create', defaults: { format: 'json' }
 
   scope :admin do
     resources :tracks, only: [:new, :create]
@@ -23,5 +21,8 @@ Rails.application.routes.draw do
     resources :int_points, only: [:index]
   end
 
-  get '/(*tail)', to: 'home#index'
+  get '/admin/(*tail)', to: 'admin_app#index'
+
+  get '/welcome',       to: 'public_app#welcome'
+  get '/(*tail)',       to: 'public_app#index'
 end

@@ -1,0 +1,14 @@
+doctype html
+html lang="en-US"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, maximum-scale=1.0, initial-scale=1.0"
+    title
+      | #{@current_trip.name} | Trip Tracking
+    = js_env
+    = stylesheet_pack_tag 'public_app'
+
+  body
+    #root
+
+= javascript_pack_tag 'public_app'
