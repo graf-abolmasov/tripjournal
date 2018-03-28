@@ -1,13 +1,17 @@
 import { handleActions } from 'redux-actions'
 
 import photosActions from './photos-actions'
-import { assoc, findIndex, propEq, update } from "ramda"
+import { assoc, filter, findIndex, propEq, update } from "ramda"
 
 export default handleActions({
+  [photosActions.allPhotosSuccess]: (state, action) => {
+    const uploadingPhotos = filter(propEq('uploading', true), state)
+    return [...uploadingPhotos, ...action.payload]
+  },
   [photosActions.uploadToClRequest]: (state, action) => {
     return [{
       id: action.payload.id,
-      image_url: action.payload.preview,
+      thumb_url: action.payload.preview,
       uploading: true,
       progress: 0,
     }, ...state]

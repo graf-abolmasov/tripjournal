@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :trips, only: [:index, :show]
     resources :tracks, only: [:index, :show]
     resources :int_points, only: [:index]
-    resources :photo_sources, only: [:create]
+    resources :photo_sources, only: [:create, :index]
     resources :travelers, only: [:index]
   end
 

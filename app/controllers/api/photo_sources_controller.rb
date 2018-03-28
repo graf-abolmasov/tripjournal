@@ -1,4 +1,8 @@
 class Api::PhotoSourcesController < Api::ApplicationController
+  def index
+    @photo_sources = PhotoSource.inverse_chronologically_sorted.all
+    respond_with @photo_sources
+  end
 
   def create
     @photo_source = PhotoSource.create!(point_params)

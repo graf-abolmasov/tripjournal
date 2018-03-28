@@ -8,11 +8,14 @@ class IntPoint < ApplicationRecord
   belongs_to :source, polymorphic: true
 
   scope :with_location, -> { where.not(lat: nil).where.not(lng: nil) }
-  scope :inverse_chronologically_ordered, -> { order(created_at: :desc) }
+  scope :inverse_chronologically_sorted, -> { order(created_at: :desc) }
 
-  def image_url
-    return nil if cl_image_id.blank?
-    Cloudinary::Utils.cloudinary_url(cl_image_id, format: 'jpg')
+  def image_big_url
+    Images.big_url(cl_image_id)
+  end
+
+  def image_thumb_url
+    Images.thumb_url(cl_image_id)
   end
 
   def video_url

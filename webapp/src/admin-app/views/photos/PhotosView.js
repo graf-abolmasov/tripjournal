@@ -8,12 +8,15 @@ import travelersAction from '../../services/data/travelers/travelers-actions'
 import Thumbnail from "../../components/photos/Thumbnail"
 import PhotoUpload from "../../components/photos/PhotoUpload"
 
-import './UploadPhotoView.sass'
+import './PhotosView.sass'
 
-class UploadPhotoView extends React.Component {
+class PhotosView extends React.Component {
 
   componentDidMount() {
     this.props.allTravelersRequest()
+    if (this.props.match.path === '/admin/photos') {
+      this.props.allPhotosRequest()
+    }
   }
 
   uploadPhoto({traveler, file}) {
@@ -32,7 +35,7 @@ class UploadPhotoView extends React.Component {
         </div>
         {this.props.photos.map((p) => (
           <div key={p.id} className="upload-photos__photo-wrap">
-            <Thumbnail imageUrl={p.image_url}
+            <Thumbnail imageUrl={p.thumb_url}
                        uploading={p.uploading}
                        progress={p.progress}/>
           </div>
@@ -51,4 +54,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {...photosActions, ...travelersAction})(UploadPhotoView)
+export default connect(mapStateToProps, {...photosActions, ...travelersAction})(PhotosView)

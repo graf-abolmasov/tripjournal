@@ -1,11 +1,11 @@
 import randomize from 'randomatic'
-import { takeEvery, take, call, put } from "redux-saga/effects"
+import { takeEvery, take, call, put, takeLatest } from "redux-saga/effects"
 import { END, eventChannel, buffers } from "redux-saga"
 import { identity } from "ramda"
 
 import cloudinary from "./cloudinary"
 import photosActions from './photos-actions'
-import photoApi from './photos-api'
+import Photo from './photos-api'
 
 function progressiveFileUpload(uploader, file, options) {
   return eventChannel(emitter => {
@@ -40,14 +40,14 @@ function* uploadToCloudinarySaga(id, file, options) {
 }
 
 function createPhotoSourceSaga(travelerId, clResource) {
-  return photoApi.create({
+  return Photo.create({
     traveler_id: travelerId,
     cl_public_id: clResource.public_id,
     meta: clResource
   })
 }
 
-function* startPhotoUploadSaga(action) {
+function* doPhotoUploadRequestSaga(action) {
   const {traveler, trip, file} = action.payload
 
   const uploadId = randomize('*', 10)
@@ -63,6 +63,12 @@ function* startPhotoUploadSaga(action) {
   window.URL.revokeObjectURL(file.preview)
 }
 
+function* doAllPhotoRequestSaga() {
+  const photos = yield call(Photo.all)
+  yield put(photosActions.allPhotosSuccess(photos))
+}
+
 export default function* photosSaga() {
-  yield takeEvery(photosActions.uploadPhotoRequest, startPhotoUploadSaga)
+  yield takeEvery(photosActions.uploadPhotoRequest, doPhotoUploadRequestSaga)
+  yield takeLatest(photosActions.allPhotosRequest,  doAllPhotoRequestSaga)
 }

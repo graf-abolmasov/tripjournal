@@ -6,6 +6,8 @@ class PhotoSource < ApplicationRecord
 
   has_one :int_point, dependent: :destroy, as: :source
 
+  scope :inverse_chronologically_sorted, -> { order(created_at: :desc) }
+
   before_create :ensure_image_metadata
 
   def lat
@@ -18,8 +20,12 @@ class PhotoSource < ApplicationRecord
     parse_coord(meta['image_metadata']['GPSLongitude'], "%lngd deg %lngm' %lngs\" %lngh").lng
   end
 
-  def image_url
-    Cloudinary::Utils.cloudinary_url(cl_public_id, format: 'jpg')
+  def big_url
+    Images.big_url(cl_public_id)
+  end
+
+  def thumb_url
+    Images.thumb_url(cl_public_id)
   end
 
   private

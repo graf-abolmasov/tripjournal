@@ -4,11 +4,11 @@ import './DesktopGalleryPreview.scss'
 const DesktopGalleryPreview = ({intPoint}) => {
 
   const renderImage = (intPoint) => (
-    <img src={intPoint.image_url} alt={intPoint.author}/>
+    <img src={intPoint.image_big_url} alt={intPoint.author}/>
   )
 
   const renderVideo = (intPoint) => (
-    <video src={intPoint.video_url} type="video/mp4" poster={intPoint.image_url} autoPlay={true} controls={true}/>
+    <video src={intPoint.video_url} type="video/mp4" poster={intPoint.image_big_url} autoPlay={true} controls={true}/>
   )
 
   const renderContent = (intPoint) => {

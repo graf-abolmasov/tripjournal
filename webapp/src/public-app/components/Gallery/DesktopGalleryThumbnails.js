@@ -36,7 +36,7 @@ class DesktopGalleryThumbnails extends React.Component {
             const isSelected = this.props.selectedIndex === index;
             let props = {
               key: intPoint.id,
-              src: intPoint.image_url,
+              src: intPoint.image_big_url,
               tabIndex: index,
               className: classNames("preview", { selected: isSelected, video: intPoint.kind === 'video' }),
               onClick: (e) => this.props.setSelectedIndex(index),

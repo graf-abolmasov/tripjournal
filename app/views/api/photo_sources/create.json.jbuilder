@@ -1,1 +1,1 @@
-json.(@photo_source, :id, :meta, :image_url)
+json.(@photo_source, :id, :meta, :thumb_url)

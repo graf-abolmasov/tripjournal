@@ -3,6 +3,9 @@ import { identity } from 'ramda'
 
 const {data} = createActions({
   DATA: {
+    ALL_PHOTOS_REQUEST: identity,
+    ALL_PHOTOS_SUCCESS: identity,
+
     UPLOAD_PHOTO_REQUEST: identity,
     UPLOAD_PHOTO_SUCCESS: identity,
 

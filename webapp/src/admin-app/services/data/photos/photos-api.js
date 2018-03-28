@@ -1,13 +1,6 @@
-import axios from 'axios'
+import { get, post } from '../api'
 
 export default {
-  create: (photo) => {
-    return axios.post('/api/photo_sources', photo)
-      .then((response) => {
-        return response.data
-      })
-      .catch((error) => {
-        throw error
-      })
-  }
+  create: (photo) => post('/api/photo_sources.json', photo),
+  all: () => get('/api/photo_sources.json')
 }
