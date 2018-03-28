@@ -4,4 +4,6 @@ class InstagramSource < ApplicationRecord
 
   belongs_to :traveler
 
+  has_one :int_point, dependent: :destroy, foreign_key: :source_id
+
 end

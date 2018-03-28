@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180316085758) do
+ActiveRecord::Schema.define(version: 20180326143744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,13 +27,13 @@ ActiveRecord::Schema.define(version: 20180316085758) do
     t.datetime "updated_at", null: false
     t.integer "kind", default: 0, null: false
     t.string "original_video_url"
+    t.string "tags", default: [], array: true
     t.index ["traveler_id"], name: "index_instagram_sources_on_traveler_id"
   end
 
   create_table "int_points", id: :serial, force: :cascade do |t|
     t.string "title"
     t.string "text"
-    t.string "image_url"
     t.string "source_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,7 +44,8 @@ ActiveRecord::Schema.define(version: 20180316085758) do
     t.integer "source_id", null: false
     t.string "source_type", null: false
     t.integer "kind", default: 0, null: false
-    t.string "video_url"
+    t.string "cl_image_id"
+    t.string "cl_video_id"
     t.index ["created_at"], name: "index_int_points_on_created_at"
     t.index ["lat", "lng"], name: "index_int_points_on_lat_and_lng", where: "((lat IS NOT NULL) AND (lng IS NOT NULL))"
     t.index ["source_type", "source_id"], name: "index_int_points_on_source_type_and_source_id"
@@ -53,12 +54,11 @@ ActiveRecord::Schema.define(version: 20180316085758) do
   end
 
   create_table "photo_sources", id: :serial, force: :cascade do |t|
-    t.string "file", null: false
-    t.float "file_ratio", default: 1.0
-    t.text "file_exif", default: "--- {}\n"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "traveler_id"
+    t.string "cl_public_id", null: false
+    t.jsonb "meta", null: false
     t.index ["traveler_id"], name: "index_photo_sources_on_traveler_id"
   end
 

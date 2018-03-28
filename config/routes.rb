@@ -9,16 +9,13 @@ Rails.application.routes.draw do
   # for OsmAnd
   get '/track', to: 'api/points#create', defaults: { format: 'json' }
 
-  scope :admin do
-    resources :tracks, only: [:new, :create]
-    resources :photos, only: [:new, :create]
-  end
-
   namespace :api, defaults: { format: 'json' } do
     resources :hot_points, only: [:index]
     resources :trips, only: [:index, :show]
     resources :tracks, only: [:index, :show]
     resources :int_points, only: [:index]
+    resources :photo_sources, only: [:create]
+    resources :travelers, only: [:index]
   end
 
   get '/admin/(*tail)', to: 'admin_app#index'

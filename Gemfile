@@ -27,6 +27,9 @@ gem 'sidekiq'
 gem 'slim-rails'
 gem 'webpacker'
 
+# SaaS
+gem 'cloudinary'
+
 # Business logic
 gem 'exifr'
 gem 'instagram'
@@ -35,6 +38,7 @@ gem 'rubyzip'
 gem 'gpx'
 gem 'ruby-progressbar'
 gem 'simplify_rb'
+gem 'geo_coord'
 
 group :development do
   gem 'awesome_print'

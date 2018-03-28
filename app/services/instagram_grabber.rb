@@ -7,13 +7,13 @@ class InstagramGrabber
       return if photos.empty?
 
       photos.each do |photo|
-        InstagramSource.find_by(instagram_media_id: photo.id) || create(photo)
+        InstagramSource.find_by(instagram_media_id: photo.id) || create(photo, traveler)
       end
     end
 
     private
 
-    def create(photo)
+    def create(photo, traveler)
       inst_source = InstagramSource.create do |inst_source|
         inst_source.instagram_media_id = photo.id
         inst_source.traveler = traveler
@@ -22,6 +22,7 @@ class InstagramGrabber
         inst_source.original_image_url = photo.images.standard_resolution.url
         inst_source.original_video_url = photo.videos.standard_resolution.url if photo.type == 'video'
         inst_source.original_media_url = photo.link
+        inst_source.tags = photo.tags
         inst_source.created_at = Time.at(photo.created_time.to_i)
         if photo.location.present? && photo.location.latitude.present? && photo.location.longitude.present?
           inst_source.lat = photo.location.latitude

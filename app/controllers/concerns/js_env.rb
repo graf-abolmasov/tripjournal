@@ -21,7 +21,12 @@ module JsEnv
 
   def js_env_data
     @js_env_data ||= {
-        env: Rails.env
+        env: Rails.env,
+        cl: {
+            api_key: Cloudinary.config.api_key,
+            upload_url: Cloudinary::Utils.cloudinary_api_url("upload", resource_type: :auto),
+            upload_preset: 'tripjournal',
+        }
     }
   end
 end

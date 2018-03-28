@@ -1,0 +1,22 @@
+.thumbnail
+  position: relative
+  height: 100%
+  width: 100%
+
+.thumbnail__image
+  box-sizing: border-box
+  height: 100%
+  width: 100%
+  object-fit: cover
+  object-position: center
+  border: 1px solid #ddd
+  border-radius: 5px
+  padding: 5px
+  &.-uploading
+    opacity: 0.65
+
+.thumbnail__progress
+  position: absolute
+  width: 90%
+  top: 70%
+  left: 5%
