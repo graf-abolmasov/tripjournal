@@ -39,13 +39,13 @@ class IntPointFactory
       end
     end
 
-    def upload_image(remote_url, tags: [])
-      cl_image = Cloudinary::Uploader.upload(remote_url, tags: tags)
+    def upload_image(remote_url, tags: [], context: Rails.env)
+      cl_image = Cloudinary::Uploader.upload(remote_url, tags: tags, context: context)
       cl_image['public_id']
     end
 
-    def upload_video(remote_url, tags: [])
-      cl_video = Cloudinary::Uploader.upload(remote_url, tags: tags, resource_type: :video)
+    def upload_video(remote_url, tags: [], context: Rails.env)
+      cl_video = Cloudinary::Uploader.upload(remote_url, tags: tags, resource_type: :video, context: context)
       cl_video['public_id']
     end
   end
