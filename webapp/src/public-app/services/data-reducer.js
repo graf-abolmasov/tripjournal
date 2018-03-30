@@ -1,15 +1,17 @@
 import { handleActions } from 'redux-actions'
 
-import dataActions from './data-actions'
+import IntPoint from '../../common/models/int-points'
+import HotPoint from '../models/hot-points'
+import Track from '../models/tracks'
 
 export default handleActions({
-  [dataActions.intPointsLoaded]: (state, action) =>
+  [IntPoint.allSuccess]: (state, action) =>
     ({...state, intPoints: action.payload}),
-  [dataActions.tracksLoaded]: (state, action) =>
-    ({...state, tracks: action.payload}),
-  [dataActions.hotTrackLoaded]: (state, action) =>
+  [HotPoint.allSuccess]: (state, action) =>
     ({...state, hotTrack: action.payload}),
-  [dataActions.moveHotPoint]: (state, action) =>
+  [Track.allSuccess]: (state, action) =>
+    ({...state, tracks: action.payload}),
+  [HotPoint.append]: (state, action) =>
     ({
       ...state,
       hotPoint: action.payload,

@@ -1,9 +1,9 @@
 import { handleActions } from 'redux-actions'
 
-import travelersActions from './travelers-actions'
+import Traveler from '../../../models/travelers'
 
 export default handleActions({
-  [travelersActions.allTravelersSuccess]: (state, action) => {
+  [Traveler.allSuccess]: (state, action) => {
     return action.payload
   },
 }, [])

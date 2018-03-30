@@ -3,9 +3,8 @@ import { takeEvery, take, call, put, takeLatest } from "redux-saga/effects"
 import { END, eventChannel, buffers } from "redux-saga"
 import { identity } from "ramda"
 
+import Photo from '../../../models/photos'
 import cloudinary from "./cloudinary"
-import photosActions from './photos-actions'
-import Photo from './photos-api'
 
 function progressiveFileUpload(uploader, file, options) {
   return eventChannel(emitter => {
@@ -28,14 +27,14 @@ function* uploadToCloudinarySaga(id, file, options) {
   while (true) {
     const {progress, response, error} = yield take(uploadChannel)
     if (response) {
-      yield put(photosActions.uploadToClSuccess(id))
+      yield put(Photo.uploadToClSuccess(id))
       return response.data
     }
     if (error) {
-      yield put(photosActions.uploadToClFailure(id))
+      yield put(Photo.uploadToClFailure(id))
       throw error
     }
-    yield put(photosActions.uploadToClProgress({id, progress}))
+    yield put(Photo.uploadToClProgress({id, progress}))
   }
 }
 
@@ -52,23 +51,23 @@ function* doPhotoUploadRequestSaga(action) {
 
   const uploadId = randomize('*', 10)
 
-  yield put(photosActions.uploadToClRequest({id: uploadId, preview: file.preview}))
+  yield put(Photo.uploadToClRequest({id: uploadId, preview: file.preview}))
   const cloudinaryResource = yield call(uploadToCloudinarySaga, uploadId, file, {
     tags: [`@${traveler.nickname}`, trip.name],
   })
 
   const photoSource = yield call(createPhotoSourceSaga, traveler.id, cloudinaryResource)
 
-  yield put(photosActions.uploadPhotoSuccess({id: uploadId, photo: photoSource}))
+  yield put(Photo.uploadSuccess({id: uploadId, photo: photoSource}))
   window.URL.revokeObjectURL(file.preview)
 }
 
 function* doAllPhotoRequestSaga() {
   const photos = yield call(Photo.all)
-  yield put(photosActions.allPhotosSuccess(photos))
+  yield put(Photo.allSuccess(photos))
 }
 
 export default function* photosSaga() {
-  yield takeEvery(photosActions.uploadPhotoRequest, doPhotoUploadRequestSaga)
-  yield takeLatest(photosActions.allPhotosRequest,  doAllPhotoRequestSaga)
+  yield takeEvery(Photo.uploadRequest, doPhotoUploadRequestSaga)
+  yield takeLatest(Photo.allRequest,   doAllPhotoRequestSaga)
 }

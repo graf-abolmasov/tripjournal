@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from "react-redux"
 import { identity, times } from "ramda"
 
-import photosActions from '../../services/data/photos/photos-actions'
-import travelersAction from '../../services/data/travelers/travelers-actions'
+import photoActions from '../../models/photos'
+import travelerActions from '../../models/travelers'
 
 import Thumbnail from "../../components/photos/Thumbnail"
 import PhotoUpload from "../../components/photos/PhotoUpload"
@@ -54,4 +54,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {...photosActions, ...travelersAction})(PhotosView)
+const mapActionsToProps = {
+  uploadPhotoRequest: photoActions.uploadRequest,
+  allPhotosRequest: photoActions.allRequest,
+  allTravelersRequest: travelerActions.allRequest
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(PhotosView)

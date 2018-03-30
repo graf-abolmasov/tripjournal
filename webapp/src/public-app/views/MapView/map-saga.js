@@ -2,7 +2,7 @@ import { throttle, select, put, takeLatest } from "redux-saga/effects"
 import { push } from 'react-router-redux'
 
 import mapActions from './map-actions'
-import dataActions from '../../services/data-actions'
+import IntPoint from '../../../common/models/int-points'
 import galleryActions from '../GalleryView/gallery-actions'
 
 function* newHotPointReceivedSaga({payload}) {
@@ -24,7 +24,7 @@ function* moveCenterToHotPointSaga() {
 }
 
 export default function* mapSagas() {
-  yield throttle(250, dataActions.moveHotPoint, newHotPointReceivedSaga)
+  yield throttle(250, IntPoint.append, newHotPointReceivedSaga)
   yield takeLatest(mapActions.startFollowTarget, moveCenterToHotPointSaga)
   yield takeLatest(mapActions.openGallery, openGallerySaga)
 }
