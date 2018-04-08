@@ -13,16 +13,13 @@ import './PhotosView.sass'
 class PhotosView extends React.Component {
 
   componentDidMount() {
-    this.props.allTravelersRequest()
-    if (this.props.match.path === '/admin/photos') {
-      this.props.allPhotosRequest()
-    }
+    this.props.allPhotosRequest()
   }
 
   uploadPhoto({traveler, file}) {
     this.props.uploadPhotoRequest({
       trip: this.props.trip,
-      traveler: traveler,
+      traveler: this.props.traveler,
       file: file,
     })
   }
@@ -31,7 +28,7 @@ class PhotosView extends React.Component {
     return (
       <div className="upload-photos">
         <div className="upload-photos__photo-wrap">
-          <PhotoUpload travelers={this.props.travelers} onSubmit={(e) => this.uploadPhoto(e)}/>
+          <PhotoUpload onSubmit={(e) => this.uploadPhoto(e)}/>
         </div>
         {this.props.photos.map((p) => (
           <div key={p.id} className="upload-photos__photo-wrap">
@@ -50,14 +47,13 @@ const mapStateToProps = (state) => {
   return {
     trip: state.data.trip,
     photos: state.data.photos,
-    travelers: state.data.travelers,
+    traveler: state.data.traveler,
   }
 }
 
 const mapActionsToProps = {
   uploadPhotoRequest: photoActions.uploadRequest,
   allPhotosRequest: photoActions.allRequest,
-  allTravelersRequest: travelerActions.allRequest
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(PhotosView)

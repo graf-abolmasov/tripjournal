@@ -5,5 +5,4 @@ class Api::ApplicationController < ActionController::API
   before_action :ensure_current_trip
 
   respond_to :json
-
 end

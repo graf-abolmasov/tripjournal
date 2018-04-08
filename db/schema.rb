@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326143744) do
+ActiveRecord::Schema.define(version: 20180408162412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 20180326143744) do
     t.string "instagram_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.index ["nickname"], name: "index_travelers_on_nickname", unique: true
   end
 
   create_table "trips", id: :serial, force: :cascade do |t|

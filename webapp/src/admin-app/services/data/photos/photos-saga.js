@@ -38,9 +38,8 @@ function* uploadToCloudinarySaga(id, file, options) {
   }
 }
 
-function createPhotoSourceSaga(travelerId, clResource) {
+function createPhotoSourceAsync(clResource) {
   return Photo.create({
-    traveler_id: travelerId,
     cl_public_id: clResource.public_id,
     meta: clResource
   })
@@ -53,10 +52,10 @@ function* doPhotoUploadRequestSaga(action) {
 
   yield put(Photo.uploadToClRequest({id: uploadId, preview: file.preview}))
   const cloudinaryResource = yield call(uploadToCloudinarySaga, uploadId, file, {
-    tags: [`@${traveler.nickname}`, trip.name],
+    tags: [`@${traveler.nickname}`, `#${trip.name}`],
   })
 
-  const photoSource = yield call(createPhotoSourceSaga, traveler.id, cloudinaryResource)
+  const photoSource = yield call(createPhotoSourceAsync, cloudinaryResource)
 
   yield put(Photo.uploadSuccess({id: uploadId, photo: photoSource}))
   window.URL.revokeObjectURL(file.preview)
