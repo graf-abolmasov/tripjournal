@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 import { identity, times } from "ramda"
 
 import photoActions from '../../models/photos'
-import travelerActions from '../../models/travelers'
 
 import Thumbnail from "../../components/photos/Thumbnail"
 import PhotoUpload from "../../components/photos/PhotoUpload"
@@ -16,7 +15,7 @@ class PhotosView extends React.Component {
     this.props.allPhotosRequest()
   }
 
-  uploadPhoto({traveler, file}) {
+  uploadPhoto({file}) {
     this.props.uploadPhotoRequest({
       trip: this.props.trip,
       traveler: this.props.traveler,

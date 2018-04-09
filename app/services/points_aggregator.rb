@@ -12,13 +12,13 @@ class PointsAggregator
         p2 = p
         if p1.distance_to(p2) > distance_epsilon_for_new_track ||
             p1.time_diff(p2) > time_epsilon_for_new_track
-          TracksFactory.create_from_points(points)
+          TracksFactory.create_from_points(points, p1.trip)
           points = []
         end
         points << p2
         p1 = p2
       end
-      TracksFactory.create_from_points(points)
+      TracksFactory.create_from_points(points, p1.trip)
     end
   end
 

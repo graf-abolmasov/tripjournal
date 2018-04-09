@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const cl_api_key = window.JsEnv.cl.api_key
-const cl_upload_url = `${window.JsEnv.cl.upload_url}`
+const cl_upload_url = window.JsEnv.cl.upload_url
 const cl_upload_preset = window.JsEnv.cl.upload_preset
 const env = window.JsEnv.env
 

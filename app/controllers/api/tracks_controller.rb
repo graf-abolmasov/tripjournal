@@ -1,6 +1,6 @@
 class Api::TracksController < Api::ApplicationController
 
-  respond_to :json, only: :index
+  respond_to :json, only: [:index, :create]
   respond_to :gpx,  only: :show
 
   def index
@@ -10,10 +10,14 @@ class Api::TracksController < Api::ApplicationController
     end
   end
 
+  def create
+    @track = TracksFactory.create_from_file(params[:file].tempfile.path, @current_trip)
+    respond_with @tracks, location: nil
+  end
+
   # Download as GPX
   def show
     @track = Track.find(params[:id])
     respond_with @track
   end
-
 end
