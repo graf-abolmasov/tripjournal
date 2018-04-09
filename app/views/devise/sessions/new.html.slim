@@ -1,0 +1,70 @@
+doctype html
+html lang="en-US"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, maximum-scale=1.0, initial-scale=1.0"
+    title
+      | Trip Tracking
+    = csrf_meta_tags
+
+  body
+    css:
+      .new_traveler {
+        max-width: 100%;
+        box-sizing: border-box;
+        width: 400px;
+        margin: 0 auto;
+        padding: 45px 30px;
+        border-radius: 15px;
+        background-color: #c4dbf5;
+      }
+
+      .field {
+        margin-bottom: 10px;
+      }
+
+      .field input {
+        width: 100%;
+        font-size: 16px;
+        box-sizing: border-box;
+        padding: 5px 10px;
+        border-radius: 5px;
+        outline: none;
+        border: 1px solid gray;
+      }
+
+      .field label {
+        display: block;
+        font-weight: bold;
+        color: #505050;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+      }
+
+      .actions input {
+        width: 100%;
+        font-size: 16px;
+        box-sizing: border-box;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-align: center;
+        outline: none;
+        background-color: #fff;
+        border: 1px solid #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #505050;
+        margin-top: 5px;
+      }
+
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .field
+        = f.label :nickname
+        = f.text_field :nickname, autofocus: true, autocomplete: "nickname"
+      .field
+        = f.label :password
+        = f.password_field :password, autocomplete: "off"
+      .actions
+        = f.submit "Log in"
+
+

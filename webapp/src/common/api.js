@@ -1,17 +1,15 @@
 import axios from 'axios'
 
-function returnData(response) {
-  return response.data
-}
+const CSRF_TOKEN = document
+  .querySelector('meta[name=csrf-token]')
+  .getAttribute('content')
 
-function throwError(error) {
-  throw error
-}
+const TIMEOUT_MS = 15000
 
-export const request = (options = {}) =>
-  axios(options)
-    .then(returnData)
-    .catch(throwError)
+axios.defaults.timeout = TIMEOUT_MS
+axios.defaults.headers.common = {
+  'X-CSRF-TOKEN': CSRF_TOKEN,
+}
 
 export const get = (url, options = {}) =>
   request({
@@ -27,3 +25,18 @@ export const post = (url, data, options = {}) =>
     data: data,
     ...options
   })
+
+function returnData(response) {
+  return response.data
+}
+
+function throwError(error) {
+  throw error
+}
+
+function request(options = {}) {
+  return axios(options)
+    .then(returnData)
+    .catch(throwError)
+}
+

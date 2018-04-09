@@ -1,5 +1,4 @@
-class PublicAppController < ActionController::Base
-  include CustomDomainSupport
+class PublicAppController < ApplicationController
   include JsEnv
 
   before_action :ensure_current_trip, only: [:index]

@@ -1,6 +1,6 @@
 import { createActions } from 'redux-actions'
 import { identity } from 'ramda'
-import { get } from '../../common/api'
+import { get, post } from '../../common/api'
 
 export const actions = createActions({
   DATA: {
@@ -21,7 +21,7 @@ export const actions = createActions({
 })
 
 export const api = {
-  create: (photo) => post('/api/photo_sources.json', photo),
+  create: (photo) => post('/api/photo_sources/create_with_int_point.json', photo),
   all: () => get('/api/photo_sources.json')
 }
 
