@@ -1,8 +1,8 @@
 import { takeLatest, call, put, all, takeEvery, throttle } from "redux-saga/effects"
 
 import Track from '../../../common/models/tracks/tracks'
-import IntPoint from '../../../common/models/int-points'
-import HotPoint from '../../models/hot-points'
+import IntPoint from '../../../common/models/int-points/int-points'
+import HotPoint from '../../models/hot-points/hot-points'
 import appActions from './app-actions'
 import cableActions from '../../action-cable/cable-actions'
 import screenfull from "screenfull"

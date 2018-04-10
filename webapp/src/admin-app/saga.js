@@ -1,4 +1,4 @@
-import dataSaga from './services/data/data-saga'
+import dataSaga from './models/data-saga'
 
 function* saga() {
   yield* dataSaga()

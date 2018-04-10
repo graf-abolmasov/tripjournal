@@ -1,26 +1,13 @@
-import { handleActions } from 'redux-actions'
+import reduceReducers from 'reduce-reducers'
 
-import IntPoint from '../../common/models/int-points'
-import HotPoint from '../models/hot-points'
-import Track from '../../common/models/tracks/tracks'
+import intPointsReducer from '../../common/models/int-points/int-points-reducer'
+import tracksReducer from '../../common/models/tracks/tracks-reducer'
+import hotPointsReducer from '../models/hot-points/hot-points-reducer'
 
-export default handleActions({
-  [IntPoint.allSuccess]: (state, action) =>
-    ({...state, intPoints: action.payload}),
-  [HotPoint.allSuccess]: (state, action) =>
-    ({...state, hotTrack: action.payload}),
-  [Track.allSuccess]: (state, action) =>
-    ({...state, tracks: action.payload}),
-  [HotPoint.append]: (state, action) =>
-    ({
-      ...state,
-      hotPoint: action.payload,
-      hotTrack: [...state.hotTrack, action.payload]
-    })
-}, {
-  intPoints: [],
-  tracks: [],
-  hotTrack: [],
-  hotPoint: window.JsEnv.hot_point,
-  trip: window.JsEnv.trip,
-})
+export default reduceReducers(
+  hotPointsReducer,
+  (state, action) => ({ ...state, intPoints: intPointsReducer(state.intPoints, action) }),
+  (state, action) => ({ ...state, tracks: tracksReducer(state.tracks, action) }),
+  (state, action) => ({ ...state, trip: window.JsEnv.trip }),
+)
+

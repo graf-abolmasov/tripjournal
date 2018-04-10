@@ -1,4 +1,4 @@
-import tracksSaga from '../../../common/models/tracks/tracks-saga'
+import tracksSaga from '../../common/models/tracks/tracks-saga'
 import photosSaga from './photos/photos-saga'
 import travelersSaga from './travelers/travelers-saga'
 

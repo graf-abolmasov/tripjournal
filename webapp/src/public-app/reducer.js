@@ -5,6 +5,8 @@ import mapReducer from './views/MapView/map-reducer'
 import galleryReducer from './views/GalleryView/gallery-reducer'
 import { combineReducers } from "redux"
 
+console.log(dataReducer(undefined, {}))
+
 export default combineReducers({
   ui: combineReducers({
     map: mapReducer,

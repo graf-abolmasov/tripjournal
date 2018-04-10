@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from "redux-saga/effects"
 
-import Traveler from '../../../models/travelers'
+import Traveler from './travelers'
 
 function* getAllTravelers() {
   const travelers = yield call(Traveler.all)

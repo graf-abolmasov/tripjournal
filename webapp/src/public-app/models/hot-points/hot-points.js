@@ -1,6 +1,6 @@
 import { createActions } from 'redux-actions'
 import { identity } from 'ramda'
-import { get } from '../../common/api'
+import { get } from '../../../common/api'
 
 export const actions = createActions({
   DATA: {

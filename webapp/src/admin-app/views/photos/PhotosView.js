@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from "react-redux"
-import { identity, times } from "ramda"
+import { times } from "ramda"
 
-import photoActions from '../../models/photos'
+import photoActions from '../../models/photos/photos'
 
 import Thumbnail from "../../components/photos/Thumbnail"
 import PhotoUpload from "../../components/photos/PhotoUpload"

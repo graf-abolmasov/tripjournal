@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 
-import Traveler from '../../../models/travelers'
+import Traveler from './travelers'
 
 export default handleActions({
   [Traveler.allSuccess]: (state, action) => {

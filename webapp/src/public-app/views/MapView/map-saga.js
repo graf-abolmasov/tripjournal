@@ -2,7 +2,7 @@ import { throttle, select, put, takeLatest } from "redux-saga/effects"
 import { push } from 'react-router-redux'
 
 import mapActions from './map-actions'
-import IntPoint from '../../../common/models/int-points'
+import IntPoint from '../../../common/models/int-points/int-points'
 import galleryActions from '../GalleryView/gallery-actions'
 
 function* newHotPointReceivedSaga({payload}) {

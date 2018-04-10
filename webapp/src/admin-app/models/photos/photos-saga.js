@@ -1,8 +1,8 @@
 import randomize from 'randomatic'
-import { takeEvery, take, call, put, takeLatest } from "redux-saga/effects"
+import { takeEvery, call, put, takeLatest } from "redux-saga/effects"
 
-import Photo from '../../../models/photos'
-import cloudinary, { uploadToCloudinarySagaFactory } from "../../cloudinary"
+import cloudinary, { uploadToCloudinarySagaFactory } from "../../services/cloudinary"
+import Photo from './photos'
 
 const uploadToCloudinarySaga = uploadToCloudinarySagaFactory(
   cloudinary.uploadPhoto,

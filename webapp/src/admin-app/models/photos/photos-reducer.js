@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions'
-
-import Photo from '../../../models/photos'
 import { assoc, filter, findIndex, propEq, update } from "ramda"
+
+import Photo from './photos'
 
 export default handleActions({
   [Photo.allSuccess]: (state, action) => {
