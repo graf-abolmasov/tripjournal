@@ -24,8 +24,14 @@ module JsEnv
         env: Rails.env,
         cl: {
             api_key: Cloudinary.config.api_key,
-            upload_url: Cloudinary::Utils.cloudinary_api_url("upload", resource_type: :auto),
-            upload_preset: 'tripjournal',
+            photo_sources: {
+                preset: 'tj-photo-sources',
+                url: Cloudinary::Utils.cloudinary_api_url("upload", resource_type: :auto),
+            },
+            tracks: {
+                preset: 'tj-tracks',
+                url: Cloudinary::Utils.cloudinary_api_url("upload", resource_type: :raw),
+            }
         }
     }
   end

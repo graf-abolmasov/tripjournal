@@ -11,7 +11,7 @@ class Api::TracksController < Api::ApplicationController
   end
 
   def create
-    @track = TracksFactory.create_from_file(params[:file].tempfile.path, @current_trip)
+    @tracks = Track::Ops::Create.execute(@current_trip, params)
     respond_with @tracks, location: nil
   end
 
@@ -19,5 +19,11 @@ class Api::TracksController < Api::ApplicationController
   def show
     @track = Track.find(params[:id])
     respond_with @track
+  end
+
+  private
+
+  def track_params
+    params.require(:track).permit(:file, :remote_url)
   end
 end

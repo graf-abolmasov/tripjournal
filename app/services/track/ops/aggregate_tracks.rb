@@ -1,4 +1,4 @@
-class TracksAggregator
+class Track::Ops::AggregateTracks
 
   # EXPERIMENTAL
 

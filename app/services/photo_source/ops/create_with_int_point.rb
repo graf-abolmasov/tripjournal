@@ -1,4 +1,4 @@
-class Operations::PhotoSource::CreateWithIntPoint
+class PhotoSource::Ops::CreateWithIntPoint
 
   def self.execute(traveler, trip, params)
     photo_source = PhotoSource.create(params) do |ps|

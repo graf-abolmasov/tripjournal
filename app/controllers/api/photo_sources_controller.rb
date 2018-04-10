@@ -11,7 +11,7 @@ class Api::PhotoSourcesController < Api::ApplicationController
   end
 
   def create_with_int_point
-    @photo_source = Operations::PhotoSource::CreateWithIntPoint.execute(current_traveler, @current_trip, photo_source_params)
+    @photo_source = PhotoSource::Ops::CreateWithIntPoint.execute(current_traveler, @current_trip, photo_source_params)
     respond_with @photo_source, location: nil
   end
 

@@ -1,6 +1,6 @@
+import tracksSaga from '../../../common/models/tracks/tracks-saga'
 import photosSaga from './photos/photos-saga'
 import travelersSaga from './travelers/travelers-saga'
-import tracksSaga from './tracks/tracks-saga'
 
 function* dataSaga() {
   yield* photosSaga()

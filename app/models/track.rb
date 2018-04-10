@@ -7,6 +7,8 @@ class Track < ApplicationRecord
 
   has_many :points, -> { order(id: :asc) }, dependent: :delete_all
 
+  scope :without_processing, -> { where(type: nil) }
+
   before_save :prepare_geojson
 
   def recreate_geojson!
@@ -20,7 +22,7 @@ class Track < ApplicationRecord
   private
 
   def prepare_geojson
-    self.geojson_hq ||= GeoJson.from_track(self, *HQ_RESOLUTION)
-    self.geojson_lq ||= GeoJson.from_track(self, *LQ_RESOLUTION)
+    self.geojson_hq ||= Track::Utils::GeoJson.from_track(self, *HQ_RESOLUTION)
+    self.geojson_lq ||= Track::Utils::GeoJson.from_track(self, *LQ_RESOLUTION)
   end
 end

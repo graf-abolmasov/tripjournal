@@ -1,4 +1,4 @@
-class GeoJson
+class Track::Utils::GeoJson
   class << self
     def from_track(track, tolerance = 1, highest_quality = false)
       {

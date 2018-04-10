@@ -9,7 +9,7 @@ require_relative '../app/services/tracks_factory'
 
 host = 'http://go2snow.test:3000'
 
-tracks = TracksFactory.send(:read_tracks_from_file, ARGV[0])
+tracks = TrackFile.send(:read_tracks_from_file, ARGV[0])
 
 tracks.each do |track|
   progress = ProgressBar.create(total: track.length, format: '%a %B %p%% %r points/sec')

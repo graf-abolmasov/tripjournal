@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from "react-redux"
 import Dropzone from "react-dropzone"
 
-import trackActions from '../../models/tracks'
+import trackActions from '../../../common/models/tracks/tracks'
 
 import './UploadTrackView.sass'
 
@@ -12,6 +12,10 @@ class UploadTrackView extends React.Component {
     super(props)
 
     this.handleFilesDrop = this.handleFilesDrop.bind(this)
+  }
+
+  componentWillMount() {
+    this.props.allTracksRequest()
   }
 
   handleFilesDrop(files) {
@@ -27,12 +31,15 @@ class UploadTrackView extends React.Component {
       <div className="upload-track">
         <form className="upload-track__form">
           <Dropzone onDrop={this.handleFilesDrop}
-                    multiple={false}
+                    multiple={true}
                     disabled={this.props.uploading}
                     maxSize={5*1024*1024 /*5Mb*/}
                     className="upload-track__dropzone">
             <span className="upload-track__help-text">
               {this.props.uploading ? 'Uploading...' : 'Drop your files or click here to upload'}
+              <br/>
+              <br/>
+              Files over 150Kb will be processed asynchronously
             </span>
           </Dropzone>
         </form>
@@ -48,7 +55,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapActionsToProps = {
-  uploadTrackRequest: trackActions.uploadRequest,
+  uploadTrackRequest: trackActions.createRequest,
+  allTracksRequest: trackActions.allRequest,
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(UploadTrackView)

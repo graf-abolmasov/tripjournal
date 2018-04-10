@@ -1,12 +1,15 @@
 import { handleActions } from 'redux-actions'
 
-import Track from '../../models/tracks'
+import Track from '../../../common/models/tracks/tracks'
 
 export default handleActions({
-  [Track.uploadRequest]: (state, action) => {
+  [Track.createRequest]: (state, action) => {
     return { uploading: true }
   },
-  [Track.uploadSuccess]: (state, action) => {
+  [Track.createSuccess]: (state, action) => {
+    return { uploading: false }
+  },
+  [Track.createFailure]: (state, action) => {
     return { uploading: false }
   },
 }, {

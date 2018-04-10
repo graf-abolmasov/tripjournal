@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions'
 
 import IntPoint from '../../common/models/int-points'
 import HotPoint from '../models/hot-points'
-import Track from '../models/tracks'
+import Track from '../../common/models/tracks/tracks'
 
 export default handleActions({
   [IntPoint.allSuccess]: (state, action) =>

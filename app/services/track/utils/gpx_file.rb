@@ -1,10 +1,12 @@
-class GpxFile
+class Track::Utils::GpxFile
 
   class << self
     def read(filename)
       gpx =  GPX::GPXFile.new(gpx_file: filename)
       gpx.tracks.map do |t|
-        t.points.map { |p| { x: p.lat, y: p.lon, created_at: p.time || Time.zone.now } }
+        t.points.map do |p|
+          { x: p.lat, y: p.lon, created_at: p.time || Time.zone.now }
+        end
       end
     end
 

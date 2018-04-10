@@ -1,6 +1,6 @@
 require 'zip'
 
-class KmlFile
+class Track::Utils::KmlFile
 
   class << self
     def read(filename)
