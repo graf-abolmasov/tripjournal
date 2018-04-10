@@ -7,7 +7,7 @@ end
 
 ruby '2.5.0'
 
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.2.0'
 
 gem 'bulk_insert'
 gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
@@ -28,6 +28,7 @@ gem 'responders', '~> 2.0'
 gem 'sidekiq'
 gem 'slim-rails'
 gem 'webpacker', '3.2.1'
+gem 'bootsnap', require: false
 
 # SaaS
 gem 'cloudinary'
