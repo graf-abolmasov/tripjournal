@@ -27,7 +27,7 @@ gem 'redis', '~> 3.0'
 gem 'responders', '~> 2.0'
 gem 'sidekiq'
 gem 'slim-rails'
-gem 'webpacker'
+gem 'webpacker', '3.2.1'
 
 # SaaS
 gem 'cloudinary'
