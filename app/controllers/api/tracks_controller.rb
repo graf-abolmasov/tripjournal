@@ -6,7 +6,7 @@ class Api::TracksController < Api::ApplicationController
 
   def index
     @tracks = @current_trip.tracks.order(updated_at: :desc).select(:id, :type, :geojson_lq, :updated_at)
-    if @tracks.blank? || stale?(last_modified: @tracks.first.updated_at.utc, etag: @tracks.first.cache_key)
+    if @tracks.blank? || stale?(@tracks.first)
       respond_with @tracks
     end
   end

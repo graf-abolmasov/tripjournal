@@ -4,7 +4,7 @@ const CSRF_TOKEN = document
   .querySelector('meta[name=csrf-token]')
   .getAttribute('content')
 
-const TIMEOUT_MS = 15000
+const TIMEOUT_MS = 60000
 
 axios.defaults.timeout = TIMEOUT_MS
 axios.defaults.headers.common = {

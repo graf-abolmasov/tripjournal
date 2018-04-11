@@ -1,7 +1,7 @@
 class Point < ApplicationRecord
 
   belongs_to :trip
-  belongs_to :track
+  belongs_to :track, optional: true
 
   scope :hot, -> { where(track_id: nil).order(id: :asc) }
 
