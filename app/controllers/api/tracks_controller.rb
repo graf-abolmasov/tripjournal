@@ -2,9 +2,10 @@ class Api::TracksController < Api::ApplicationController
 
   respond_to :json, only: [:index, :create]
   respond_to :gpx,  only: :show
+  respond_to :geojson, only: [:index]
 
   def index
-    @tracks = @current_trip.tracks.order(updated_at: :desc).select(:id, :geojson_lq, :updated_at)
+    @tracks = @current_trip.tracks.order(updated_at: :desc).select(:id, :type, :geojson_lq, :updated_at)
     if @tracks.blank? || stale?(last_modified: @tracks.first.updated_at.utc, etag: @tracks.first.cache_key)
       respond_with @tracks
     end

@@ -9,8 +9,8 @@ const uploadToCloudinarySaga = uploadToCloudinarySagaFactory(
   Track.uploadToClProgress
 )
 
-function* doAllTracksRequestSaga() {
-  const tracks = yield call(Track.all)
+function* doAllTracksRequestSaga({payload}) {
+  const tracks = yield call(Track.all, payload)
   yield put(Track.allSuccess(tracks))
 }
 

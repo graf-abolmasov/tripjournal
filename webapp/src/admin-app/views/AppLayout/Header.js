@@ -1,16 +1,30 @@
 import React, { Fragment } from 'react'
 import { connect } from "react-redux"
 
-import './Header.sass'
+import { NavLink, withRouter } from "react-router-dom"
 
-const Header = (props) => (
-  <div className="header">
-    Header
-  </div>
-)
+const Header = (props) => {
+  return (
+    <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <div className="collapse navbar-collapse">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <a className="nav-link" href="/">&larr; К карте</a>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/admin/photos">Фотографии</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/admin/tracks">Трэки</NavLink>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  )
+}
 
 const mapStateToProps = (state) => (
-  {traveler: state.data.traveler}
+  { traveler: state.data.traveler }
 )
 
-export default connect(mapStateToProps)(Header)
+export default withRouter(connect(mapStateToProps)(Header))

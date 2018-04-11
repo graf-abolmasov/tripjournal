@@ -14,10 +14,6 @@ class UploadTrackView extends React.Component {
     this.handleFilesDrop = this.handleFilesDrop.bind(this)
   }
 
-  componentWillMount() {
-    this.props.allTracksRequest()
-  }
-
   handleFilesDrop(files) {
     files.forEach((file) => {
       this.props.uploadTrackRequest({
@@ -56,7 +52,6 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = {
   uploadTrackRequest: trackActions.createRequest,
-  allTracksRequest: trackActions.allRequest,
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(UploadTrackView)

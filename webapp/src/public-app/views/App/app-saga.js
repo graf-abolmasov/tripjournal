@@ -11,7 +11,7 @@ function* initializeAppSaga({payload}) {
   const [intPoints, hotTrack, tracks] = yield all([
     call(IntPoint.all),
     call(HotPoint.all),
-    call(Track.all)
+    call(Track.all, 'geojson')
   ])
 
   yield all([

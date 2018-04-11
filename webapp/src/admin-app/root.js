@@ -5,10 +5,11 @@ import { Provider } from 'react-redux'
 
 import store, { history } from './store'
 import PhotosView from './views/photos/PhotosView'
-import UploadTrackView from './views/tracks/UploadTrackView'
+import TracksView from "./views/tracks/TracksView"
 import AppLayout from './views/AppLayout/AppLayout'
 
 import 'reset-css'
+import 'bootstrap/dist/css/bootstrap.css';
 
 const Root = () => (
   <Provider store={store}>
@@ -16,7 +17,7 @@ const Root = () => (
       <AppLayout>
         <Switch>
           <Route path="/admin/photos" component={PhotosView}/>
-          <Route path="/admin/tracks" component={UploadTrackView}/>
+          <Route path="/admin/tracks" component={TracksView}/>
           <Redirect to="/admin/photos"/>
         </Switch>
       </AppLayout>

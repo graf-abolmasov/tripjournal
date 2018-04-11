@@ -19,6 +19,10 @@ class Track < ApplicationRecord
     GpxFile.from_track(self)
   end
 
+  def to_geojson
+    { id: id, type: 'FeatureCollection', features: geojson_lq }
+  end
+
   private
 
   def prepare_geojson

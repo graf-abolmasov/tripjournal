@@ -23,7 +23,7 @@ export const actions = createActions({
 
 export const api = {
   create: (track) => post('/api/tracks.json', track),
-  all: () => get('/api/tracks.json')
+  all: (format = 'json') => get(`/api/tracks.${format || 'json'}`),
 }
 
 export default {
