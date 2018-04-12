@@ -20,7 +20,7 @@ class IntPoint < ApplicationRecord
 
   def video_url
     return nil if cl_video_id.blank?
-    Cloudinary::Utils.cloudinary_url(cl_video_id, format: 'mp4')
+    Cloudinary::Utils.cloudinary_url(cl_video_id, resource_type: :video, format: 'mp4')
   end
 
 end
