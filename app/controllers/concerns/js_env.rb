@@ -32,6 +32,9 @@ module JsEnv
                 preset: 'tj-tracks',
                 url: Cloudinary::Utils.cloudinary_api_url("upload", resource_type: :raw),
             }
+        },
+        session: {
+            authorized: traveler_signed_in?
         }
     }
   end

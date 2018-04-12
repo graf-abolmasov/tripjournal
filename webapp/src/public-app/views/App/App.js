@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import screenfull from 'screenfull'
 import appActions from "./app-actions"
 
-import './App.scss'
+import './App.sass'
 
 class App extends React.Component {
 
@@ -21,21 +21,32 @@ class App extends React.Component {
     }, 8000)
   }
 
+  renderFullscreenButton() {
+    return (
+      <button className="app__fullscreen-button" onClick={this.props.requestFullScreen}>
+        Перейти в полный экран
+      </button>
+    )
+  }
+
+  renderSettingsButton() {
+    return (
+      <a className="app__settings-button" href="/admin">
+        <i className="ion ion-android-settings"/>
+      </a>
+    )
+  }
+
   render() {
     const showFullscreenButton = this.state.showFullscreenButton
       && window.mobileDetect
       && screenfull.enabled
       && !this.props.isFullScreen
+    const showSettingsButton = this.props.session.authorized
     return (
-      <div id="appContainer">
-        {showFullscreenButton ? (
-          <div id="fullScreenBtnContainer">
-            <span>Перейти в полный экран</span>
-            <button onClick={this.props.requestFullScreen}>
-              <i className="ion ion-android-expand"/>
-            </button>
-          </div>
-        ) : null}
+      <div className="public-app">
+        {showFullscreenButton ? this.renderFullscreenButton() : null}
+        {showSettingsButton ? this.renderSettingsButton() : null}
         {this.props.children}
       </div>
     )
@@ -46,6 +57,7 @@ const mapStateToProps = (state) => {
   return {
     isFullScreen: state.ui.settings.isFullScreen,
     trip: state.data.trip,
+    session: state.session
   };
 };
 

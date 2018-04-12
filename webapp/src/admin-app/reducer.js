@@ -10,4 +10,5 @@ export default combineReducers({
   }),
   data: dataReducer,
   routing: routerReducer,
+  session: () => window.JsEnv.session,
 })

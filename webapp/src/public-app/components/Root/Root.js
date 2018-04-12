@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store, { history } from '../../store'
 
+import 'reset-css'
 import './Root.css'
 
 import App from '../../views/App/App'
