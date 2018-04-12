@@ -5,7 +5,7 @@ class PhotoSource::Ops::CreateWithIntPoint
       ps.traveler = traveler
     end
     if photo_source.persisted?
-      IntPointFactory.from_photo(photo_source, trip)
+      IntPoint::Ops::CreateFromPhoto.execute(photo_source, trip)
     end
     photo_source
   end

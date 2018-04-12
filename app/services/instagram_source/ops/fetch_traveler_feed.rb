@@ -1,12 +1,12 @@
-class InstagramGrabber
+class InstagramSource::Ops::FetchTravelerFeed
 
   class << self
     def execute(traveler)
-      inst_client = Instagram.client(access_token: traveler.instagram_token)
+      inst_client = ::Instagram.client(access_token: traveler.instagram_token)
       photos = inst_client.user_recent_media
       return if photos.empty?
 
-      photos.each do |photo|
+      photos.map do |photo|
         InstagramSource.find_by(instagram_media_id: photo.id) || create(photo, traveler)
       end
     end
@@ -29,7 +29,10 @@ class InstagramGrabber
           inst_source.lng = photo.location.longitude
         end
       end
-      IntPointFactory.from_instagram(inst_source)
+      if inst_source.persisted?
+        IntPoint::Ops::CreateFromInstagram.execute(inst_source)
+      end
+      inst_source
     end
   end
 end
