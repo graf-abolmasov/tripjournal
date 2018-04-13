@@ -26,6 +26,21 @@ export const post = (url, data, options = {}) =>
     ...options
   })
 
+export const put = (url, data, options = {}) =>
+  request({
+    method: 'put',
+    url: url,
+    data: data,
+    ...options
+  })
+
+export const destroy = (url, options = {}) =>
+  request({
+    method: 'delete',
+    url: url,
+    ...options
+  })
+
 function returnData(response) {
   return response.data
 }

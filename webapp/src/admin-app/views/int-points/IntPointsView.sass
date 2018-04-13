@@ -1,0 +1,29 @@
+.int-points
+  display: flex
+
+.int-points__panel
+  height: calc(100vh - 75px)
+  overflow-y: auto
+  &.-left
+    width: 30%
+    min-width: 450px
+    flex-basis: 450px
+  &.-right
+    flex-grow: 1
+    margin-left: 25px
+
+@media (max-width: 600px)
+  .int-points
+    position: relative
+    overflow-x: auto
+    height: 100%
+
+  .int-points__panel
+    &.-left,
+    &.-right
+      width: 100%
+      min-width: 100%
+      overflow-y: auto
+    &.-right
+      margin-left: 25px
+

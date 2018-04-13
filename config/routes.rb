@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :hot_points,    only: [:index]
     resources :trips,         only: %i[index show]
     resources :tracks,        only: %i[index show create]
-    resources :int_points,    only: [:index]
+    resources :int_points,    only: %i[index update destroy]
     resources :travelers,     only: [:index]
     resources :photo_sources, only: [:index] do
       collection do

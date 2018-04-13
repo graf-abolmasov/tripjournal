@@ -12,7 +12,10 @@ const Header = (props) => {
             <a className="nav-link" href="/">&larr; К карте</a>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/admin/photos">Фотографии</NavLink>
+            <NavLink className="nav-link" to="/admin/int-points">Посты</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/admin/photos">Фото</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/admin/tracks">Трэки</NavLink>
