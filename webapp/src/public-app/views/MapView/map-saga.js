@@ -14,8 +14,8 @@ function* newHotPointReceivedSaga({payload}) {
 }
 
 function* openGallerySaga({payload}) {
-  yield put(push("/gallery"))
   yield put(galleryActions.setSelectedIndex(payload))
+  yield put(push("/gallery"))
 }
 
 function* moveCenterToHotPointSaga() {
