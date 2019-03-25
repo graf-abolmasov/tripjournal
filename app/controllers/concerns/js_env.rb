@@ -14,11 +14,11 @@ module JsEnv
   private
 
   def js_env
-    <<~EOS.html_safe
+    <<~JAVASCRIPT.html_safe
       <script type="text/javascript">
         window.JsEnv = #{js_env_data.to_json};
       </script>
-    EOS
+    JAVASCRIPT
   end
 
   def js_env_data
