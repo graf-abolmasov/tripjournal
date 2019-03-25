@@ -6,13 +6,16 @@ class Track::Ops::AggregateTracks
   class << self
     def execute(distance_epsilon_for_new_track:, time_epsilon_for_new_track:)
       # Sort by id != sort by created_at, because imported tracks may have any created_at
-      newer_track = Track.order(created_at: :desc).first
+      newer_track = newest_track
       tracks_to_join = []
-      Track.order(created_at: :desc).where.not(id: newer_track.id).each do |older_track|
-        newer_track_start_point = newer_track.points.order(created_at: :asc, id: :asc).first
-        older_track_finish_point = older_track.points.order(created_at: :desc, id: :desc).first
-        if older_track_finish_point.distance_to(newer_track_start_point) <= distance_epsilon_for_new_track &&
-           older_track_finish_point.time_diff(newer_track_start_point) <= time_epsilon_for_new_track
+      other_tracks(newer_track.id).each do |older_track|
+        close_tracks = close_tracks?(
+          newer_track.points.order(created_at: :asc, id: :asc).first,
+          older_track.points.order(created_at: :desc, id: :desc).first,
+          distance_epsilon_for_new_track,
+          time_epsilon_for_new_track
+        )
+        if close_tracks
           tracks_to_join.unshift(newer_track)
         else
           join_tracks(newer_track, tracks_to_join)
@@ -23,6 +26,19 @@ class Track::Ops::AggregateTracks
     end
 
     private
+
+    def newest_track
+      Track.order(created_at: :desc).first
+    end
+
+    def other_tracks(track)
+      Track.order(created_at: :desc).where.not(id: track.id)
+    end
+
+    def close_tracks?(newer_track_start_point, older_track_finish_point, distance_epsilon_for_new_track, time_epsilon_for_new_track)
+      older_track_finish_point.distance_to(newer_track_start_point) <= distance_epsilon_for_new_track &&
+        older_track_finish_point.time_diff(newer_track_start_point) <= time_epsilon_for_new_track
+    end
 
     def join_tracks(first_track, other_tracks)
       other_tracks = Array.wrap(other_tracks)

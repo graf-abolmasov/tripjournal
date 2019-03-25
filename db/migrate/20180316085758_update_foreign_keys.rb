@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/AbcSize
 class UpdateForeignKeys < ActiveRecord::Migration[5.1]
   def up
     remove_foreign_key 'instagram_sources', 'travelers'
@@ -44,3 +45,4 @@ class UpdateForeignKeys < ActiveRecord::Migration[5.1]
     add_foreign_key 'tracks', 'trips'
   end
 end
+# rubocop:enable Metrics/AbcSize

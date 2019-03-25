@@ -15,23 +15,52 @@ class InstagramSource::Ops::FetchTravelerFeed
     private
 
     def create(post, traveler)
-      result = InstagramSource.create do |source|
-        source.instagram_media_id = post.id
-        source.traveler = traveler
-        source.kind = video?(post) ? 'video' : 'image'
-        source.title = post.caption.try(:text)
-        source.original_image_url = post.images.standard_resolution.url
-        source.original_video_url = post.videos.standard_resolution.url if video?(post)
-        source.original_media_url = post.link
-        source.tags = post.tags
-        source.created_at = Time.at(post.created_time.to_i)
+      source = create_source(post, traveler)
+      IntPoint::Ops::CreateFromInstagram.execute(source) if source.persisted?
+      source
+    end
+
+    def create_source(post, traveler)
+      InstagramSource.create(
+        instagram_media_id: post.id,
+        traveler: traveler,
+        kind: post_kind(post),
+        title: post_title(post),
+        original_image_url: post_image_url(post),
+        original_video_url: post_video_url(post),
+        original_media_url: post.link,
+        tags: post.tags,
+        created_at: Time.at(post.created_time.to_i)
+      ) do |source|
         if location_present?(post)
-          source.lat = post.location.latitude
-          source.lng = post.location.longitude
+          source.lat = post_lat(post)
+          source.lng = post_lng(post)
         end
       end
-      IntPoint::Ops::CreateFromInstagram.execute(result) if result.persisted?
-      result
+    end
+
+    def post_kind(post)
+      video?(post) ? 'video' : 'image'
+    end
+
+    def post_title(post)
+      post.caption.try(:text)
+    end
+
+    def post_image_url(post)
+      post.images.standard_resolution.url
+    end
+
+    def post_video_url(post)
+      post.videos.standard_resolution.url if video?(post)
+    end
+
+    def post_lat(post)
+      post.location.latitude
+    end
+
+    def post_lng(post)
+      post.location.longitude
     end
 
     def video?(post)

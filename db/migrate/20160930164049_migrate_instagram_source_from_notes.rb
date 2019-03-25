@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/AbcSize
 class MigrateInstagramSourceFromNotes < ActiveRecord::Migration[5.0]
   def up
     drop_table :instagram_sources
@@ -38,3 +39,4 @@ class MigrateInstagramSourceFromNotes < ActiveRecord::Migration[5.0]
     raise ActiveRecord::IrreversibleMigration
   end
 end
+# rubocop:enable Metrics/AbcSize

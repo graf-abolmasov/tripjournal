@@ -19,7 +19,7 @@ class Point < ApplicationRecord
     fi2 = to_rad(other_point.lat)
     l1 = to_rad(lng)
     l2 = to_rad(other_point.lng)
-    111.2 * Math.acos(Math.sin(fi1) * Math.sin(fi2) + Math.cos(fi1) * Math.cos(fi2) * Math.cos(l2 - l1))
+    spherical_distance(fi1, fi2, l1, l2)
   rescue StandardError
     99_999
   end
@@ -29,6 +29,10 @@ class Point < ApplicationRecord
   end
 
   private
+
+  def spherical_distance(fi1, fi2, lng1, lng2)
+    111.2 * Math.acos(Math.sin(fi1) * Math.sin(fi2) + Math.cos(fi1) * Math.cos(fi2) * Math.cos(lng2 - lng1))
+  end
 
   def to_rad(deg)
     deg * Math::PI / 180.0

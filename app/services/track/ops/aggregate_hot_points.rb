@@ -11,23 +11,30 @@ class Track::Ops::AggregateHotPoints
 
         p1 = ::Point.hot.first
         points = [p1]
-        ::Point.hot.where('id > ?', p1.id).each do |p|
+        points_after(p1).each do |p|
           p2 = p
-          if p1.distance_to(p2) > distance_epsilon_for_new_track ||
-             p1.time_diff(p2) > time_epsilon_for_new_track
-            create_from_points(points, p1.trip)
+          if create_track?(p1, p2, distance_epsilon_for_new_track, time_epsilon_for_new_track)
+            create_track(points, p1.trip)
             points = []
           end
           points << p2
           p1 = p2
         end
-        create_from_points(points, p1.trip)
+        create_track(points, p1.trip)
       end
     end
 
     private
 
-    def create_from_points(points, trip)
+    def points_after(point)
+      ::Point.hot.where('id > ?', point.id)
+    end
+
+    def create_track?(point1, point2, distance_epsilon, time_epsilon)
+      point1.distance_to(point2) > distance_epsilon || point1.time_diff(point2) > time_epsilon
+    end
+
+    def create_track(points, trip)
       return if points.blank? || points.length < 2
 
       Track.create(points: points, created_at: points.first.created_at, trip: trip)

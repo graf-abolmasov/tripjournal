@@ -9,14 +9,17 @@ class Track::Utils::KmlFile
       coords = data.css('gxXcoord').to_a
       dates = data.css('when').to_a
       points = coords.each_with_index.map do |c, idx|
-        x_y_z = c.content.split(' ')
-        created_at = dates[idx].content
-        { x: x_y_z[1].to_f, y: x_y_z[0].to_f, created_at: created_at }
+        x_y_created_at(c, dates[idx])
       end
       [points]
     end
 
     private
+
+    def x_y_created_at(coord, date)
+      x_y_z = coord.content.split(' ')
+      { x: x_y_z[1].to_f, y: x_y_z[0].to_f, created_at: date.content }
+    end
 
     def read_file(filename)
       ext = filename[-3..-1]
