@@ -34,13 +34,6 @@ Naming/UncommunicativeBlockParamName:
   Exclude:
     - 'app/views/api/int_points/index.json.jbuilder'
 
-# Offense count: 1
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: snake_case, camelCase
-Naming/VariableName:
-  Exclude:
-    - 'app/views/api/int_points/index.json.jbuilder'
-
 # Offense count: 24
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, EnforcedStyle.
