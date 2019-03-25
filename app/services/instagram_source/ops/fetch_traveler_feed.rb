@@ -14,24 +14,32 @@ class InstagramSource::Ops::FetchTravelerFeed
 
     private
 
-    def create(photo, traveler)
-      result = InstagramSource.create do |inst_source|
-        inst_source.instagram_media_id = photo.id
-        inst_source.traveler = traveler
-        inst_source.kind  = photo.type == 'video' ? 'video' : 'image'
-        inst_source.title = photo.caption.try(:text)
-        inst_source.original_image_url = photo.images.standard_resolution.url
-        inst_source.original_video_url = photo.videos.standard_resolution.url if photo.type == 'video'
-        inst_source.original_media_url = photo.link
-        inst_source.tags = photo.tags
-        inst_source.created_at = Time.at(photo.created_time.to_i)
-        if photo.location.present? && photo.location.latitude.present? && photo.location.longitude.present?
-          inst_source.lat = photo.location.latitude
-          inst_source.lng = photo.location.longitude
+    def create(post, traveler)
+      result = InstagramSource.create do |source|
+        source.instagram_media_id = post.id
+        source.traveler = traveler
+        source.kind = video?(post) ? 'video' : 'image'
+        source.title = post.caption.try(:text)
+        source.original_image_url = post.images.standard_resolution.url
+        source.original_video_url = post.videos.standard_resolution.url if video?(post)
+        source.original_media_url = post.link
+        source.tags = post.tags
+        source.created_at = Time.at(post.created_time.to_i)
+        if location_present?(post)
+          source.lat = post.location.latitude
+          source.lng = post.location.longitude
         end
       end
       IntPoint::Ops::CreateFromInstagram.execute(result) if result.persisted?
       result
+    end
+
+    def video?(post)
+      post.type == 'video'
+    end
+
+    def location_present?(post)
+      post.location.present? && post.location.latitude.present? && post.location.longitude.present?
     end
   end
 end
