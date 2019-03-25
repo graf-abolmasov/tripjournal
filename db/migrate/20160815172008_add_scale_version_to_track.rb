@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddScaleVersionToTrack < ActiveRecord::Migration[4.2]
   def change
     rename_column :tracks, :json, :geojson_hq

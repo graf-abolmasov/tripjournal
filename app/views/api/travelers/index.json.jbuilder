@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.array! @travelers do |track|
-  json.(track, :id, :nickname)
+  json.call(track, :id, :nickname)
 end

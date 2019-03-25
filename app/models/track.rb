@@ -1,7 +1,8 @@
-class Track < ApplicationRecord
+# frozen_string_literal: true
 
-  HQ_RESOLUTION = [0.0000005, true]
-  LQ_RESOLUTION = [0.00005, false]
+class Track < ApplicationRecord
+  HQ_RESOLUTION = [0.0000005, true].freeze
+  LQ_RESOLUTION = [0.00005, false].freeze
 
   belongs_to :trip
 

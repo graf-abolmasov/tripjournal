@@ -1,5 +1,6 @@
-class Traveler < ApplicationRecord
+# frozen_string_literal: true
 
+class Traveler < ApplicationRecord
   devise :database_authenticatable,
          authentication_keys: [:nickname]
 

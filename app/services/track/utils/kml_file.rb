@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'zip'
 
 class Track::Utils::KmlFile
-
   class << self
     def read(filename)
       data = read_file(filename)

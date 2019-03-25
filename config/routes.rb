@@ -1,5 +1,6 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   devise_for :travelers, path: 'admin', only: :sessions
@@ -14,8 +15,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     resources :hot_points,    only: [:index]
-    resources :trips,         only: [:index, :show]
-    resources :tracks,        only: [:index, :show, :create]
+    resources :trips,         only: %i[index show]
+    resources :tracks,        only: %i[index show create]
     resources :int_points,    only: [:index]
     resources :travelers,     only: [:index]
     resources :photo_sources, only: [:index] do

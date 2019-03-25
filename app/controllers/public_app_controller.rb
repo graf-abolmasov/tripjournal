@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PublicAppController < ApplicationController
   include JsEnv
 
@@ -7,7 +9,8 @@ class PublicAppController < ApplicationController
     @hot_point = HotPoint.for_trip(@current_trip)
     push_to_js_env(hot_point: {
                      lat: @hot_point.lat.to_f,
-                     lng: @hot_point.lng.to_f },
+                     lng: @hot_point.lng.to_f
+                   },
                    trip: @current_trip)
   end
 

@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class Track::Utils::GeoJson
   class << self
     def from_track(track, tolerance = 1, highest_quality = false)
       {
-          type: 'Feature',
-          geometry: {
-              type: 'MultiLineString',
-              coordinates: [simplify(track.points.to_a, tolerance, highest_quality).map { |tp| [tp.y, tp.x] }]
-          }
+        type: 'Feature',
+        geometry: {
+          type: 'MultiLineString',
+          coordinates: [simplify(track.points.to_a, tolerance, highest_quality).map { |tp| [tp.y, tp.x] }]
+        }
       }
     end
 

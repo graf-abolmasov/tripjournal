@@ -1,5 +1,6 @@
-class Track::Ops::CreateFromFile
+# frozen_string_literal: true
 
+class Track::Ops::CreateFromFile
   SIZE_THRESHOLD = 150_000 # 150Kb
 
   class << self
@@ -34,7 +35,7 @@ class Track::Ops::CreateFromFile
 
     def read_tracks_from_file(filename)
       ext = filename[-3..-1]
-      if ext == 'kmz' || ext == 'kml'
+      if %w[kmz kml].include?(ext)
         Track::Utils::KmlFile.read(filename)
       elsif ext == 'gpx'
         Track::Utils::GpxFile.read(filename)

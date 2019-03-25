@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdminAppController < ApplicationController
   include JsEnv
 
@@ -8,7 +10,7 @@ class AdminAppController < ApplicationController
   def index
     push_to_js_env(trip: @current_trip,
                    traveler: {
-                       nickname: current_traveler.nickname
+                     nickname: current_traveler.nickname
                    })
   end
 end

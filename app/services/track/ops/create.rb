@@ -1,5 +1,6 @@
-class Track::Ops::Create
+# frozen_string_literal: true
 
+class Track::Ops::Create
   def self.execute(trip, params)
     if params[:remote_url].present?
       Track::Ops::CreateFromRemoteUrl.execute(trip, params)
@@ -9,5 +10,4 @@ class Track::Ops::Create
       raise 'No data to create track'
     end
   end
-
 end

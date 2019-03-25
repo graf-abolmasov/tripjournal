@@ -1,14 +1,13 @@
-class Api::TracksController < Api::ApplicationController
+# frozen_string_literal: true
 
-  respond_to :json, only: [:index, :create]
+class Api::TracksController < Api::ApplicationController
+  respond_to :json, only: %i[index create]
   respond_to :gpx,  only: :show
   respond_to :geojson, only: [:index]
 
   def index
     @tracks = @current_trip.tracks.order(updated_at: :desc).select(:id, :type, :geojson_lq, :updated_at)
-    if @tracks.blank? || stale?(@tracks.first)
-      respond_with @tracks
-    end
+    respond_with @tracks if @tracks.blank? || stale?(@tracks.first)
   end
 
   def create

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JsEnv
   extend ActiveSupport::Concern
 
@@ -12,30 +14,30 @@ module JsEnv
   private
 
   def js_env
-    <<-EOS.html_safe
-<script type="text/javascript">
-  window.JsEnv = #{js_env_data.to_json};
-</script>
+    <<~EOS.html_safe
+      <script type="text/javascript">
+        window.JsEnv = #{js_env_data.to_json};
+      </script>
     EOS
   end
 
   def js_env_data
     @js_env_data ||= {
-        env: Rails.env,
-        cl: {
-            api_key: Cloudinary.config.api_key,
-            photo_sources: {
-                preset: 'tj-photo-sources',
-                url: Cloudinary::Utils.cloudinary_api_url("upload", resource_type: :auto),
-            },
-            tracks: {
-                preset: 'tj-tracks',
-                url: Cloudinary::Utils.cloudinary_api_url("upload", resource_type: :raw),
-            }
+      env: Rails.env,
+      cl: {
+        api_key: Cloudinary.config.api_key,
+        photo_sources: {
+          preset: 'tj-photo-sources',
+          url: Cloudinary::Utils.cloudinary_api_url('upload', resource_type: :auto)
         },
-        session: {
-            authorized: traveler_signed_in?
+        tracks: {
+          preset: 'tj-tracks',
+          url: Cloudinary::Utils.cloudinary_api_url('upload', resource_type: :raw)
         }
+      },
+      session: {
+        authorized: traveler_signed_in?
+      }
     }
   end
 end

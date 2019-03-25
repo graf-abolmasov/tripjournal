@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :tj do
   namespace :data do
     task reprocess_tracks: :environment do

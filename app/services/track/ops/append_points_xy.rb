@@ -1,5 +1,6 @@
-class Track::Ops::AppendPointsXY
+# frozen_string_literal: true
 
+class Track::Ops::AppendPointsXY
   class << self
     def execute(track, points_x_y)
       Point.bulk_insert(:lat, :lng, :track_id, :trip_id, :created_at, :updated_at) do |worker|

@@ -1,5 +1,6 @@
-class IntPoint::Ops::CreateFromInstagram
+# frozen_string_literal: true
 
+class IntPoint::Ops::CreateFromInstagram
   class << self
     def execute(inst_source)
       IntPoint.create do |int_point|
@@ -17,9 +18,7 @@ class IntPoint::Ops::CreateFromInstagram
 
         int_point.cl_image_id = upload_image(inst_source.original_image_url, tags: inst_source.tags)
 
-        if inst_source.video?
-          int_point.cl_video_id = upload_video(inst_source.original_video_url, tags: inst_source.tags)
-        end
+        int_point.cl_video_id = upload_video(inst_source.original_video_url, tags: inst_source.tags) if inst_source.video?
       end
     end
 

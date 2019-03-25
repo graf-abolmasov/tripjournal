@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.array! @trips do |trip|
-  json.(trip, :id, :name, :description, :custom_domain)
+  json.call(trip, :id, :name, :description, :custom_domain)
 end

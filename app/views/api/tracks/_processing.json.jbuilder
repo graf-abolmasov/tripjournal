@@ -1,1 +1,3 @@
-json.(processing, :id, :processing)
+# frozen_string_literal: true
+
+json.call(processing, :id, :processing)

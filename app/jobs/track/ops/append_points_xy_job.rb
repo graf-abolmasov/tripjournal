@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Track::Ops::AppendPointsXYJob < ActiveJob::Base
   queue_as :default
 

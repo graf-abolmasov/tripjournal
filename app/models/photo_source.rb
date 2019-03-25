@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'geo/coord'
 
 class PhotoSource < ApplicationRecord
-
   belongs_to :traveler
 
   has_one :int_point, dependent: :destroy, as: :source
@@ -12,11 +13,13 @@ class PhotoSource < ApplicationRecord
 
   def lat
     return nil if meta['image_metadata']['GPSLatitude'].blank?
+
     parse_coord(meta['image_metadata']['GPSLatitude'], "%latd deg %latm' %lats\" %lath").lat
   end
 
   def lng
     return nil if meta['image_metadata']['GPSLongitude'].blank?
+
     parse_coord(meta['image_metadata']['GPSLongitude'], "%lngd deg %lngm' %lngs\" %lngh").lng
   end
 
@@ -35,6 +38,6 @@ class PhotoSource < ApplicationRecord
   end
 
   def ensure_image_metadata
-    self.meta ||= Cloudinary::Uploader.explicit(cl_public_id, options = { image_metadata: true, type: :upload })
+    self.meta ||= Cloudinary::Uploader.explicit(cl_public_id, image_metadata: true, type: :upload)
   end
 end

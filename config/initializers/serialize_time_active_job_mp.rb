@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActiveSupport::TimeWithZone
   include GlobalID::Identification
 
@@ -22,11 +24,10 @@ class Time
   end
 end
 
-
 class Date
   include GlobalID::Identification
 
-  alias_method :id, :to_s
+  alias id to_s
 
   def self.find(date_string)
     Date.parse(date_string)

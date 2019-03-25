@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTripIdToTracks < ActiveRecord::Migration[5.0]
   def change
     add_reference :tracks, :trip, foreign_key: true

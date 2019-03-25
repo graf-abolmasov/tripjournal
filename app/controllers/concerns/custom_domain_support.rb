@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CustomDomainSupport
   extend ActiveSupport::Concern
 
@@ -12,9 +14,7 @@ module CustomDomainSupport
   def ensure_current_trip
     @current_trip = find_by_param || find_by_custom_domain
 
-    if @current_trip.blank?
-      redirect_to '/welcome'
-    end
+    redirect_to '/welcome' if @current_trip.blank?
   end
 
   private

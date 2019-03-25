@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeNoteType < ActiveRecord::Migration[4.2]
   def up
     add_column :notes, :lat, :decimal, precision: 9, scale: 6

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Images
   class << self
     def original_url(public_id)
@@ -16,6 +18,7 @@ class Images
 
     def with_public_id(public_id)
       return nil if public_id.blank?
+
       yield(public_id)
     end
   end

@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'gpx'
 require 'net/http'
 require 'ruby-progressbar'

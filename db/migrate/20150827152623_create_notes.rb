@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 class CreateNotes < ActiveRecord::Migration[4.2]
   def change
     create_table :notes do |t|
-
       t.integer :kind, default: 0, null: false
       t.string  :title
       t.string  :text

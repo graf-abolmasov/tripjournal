@@ -1,9 +1,9 @@
-class InstagramSource < ApplicationRecord
+# frozen_string_literal: true
 
-  enum kind: {image: 0, video: 10}
+class InstagramSource < ApplicationRecord
+  enum kind: { image: 0, video: 10 }
 
   belongs_to :traveler
 
   has_one :int_point, dependent: :destroy, foreign_key: :source_id
-
 end

@@ -1,5 +1,6 @@
-class InstagramSource::Ops::FetchTravelerFeed
+# frozen_string_literal: true
 
+class InstagramSource::Ops::FetchTravelerFeed
   class << self
     def execute(traveler)
       inst_client = ::Instagram.client(access_token: traveler.instagram_token)
@@ -14,7 +15,7 @@ class InstagramSource::Ops::FetchTravelerFeed
     private
 
     def create(photo, traveler)
-      inst_source = InstagramSource.create do |inst_source|
+      result = InstagramSource.create do |inst_source|
         inst_source.instagram_media_id = photo.id
         inst_source.traveler = traveler
         inst_source.kind  = photo.type == 'video' ? 'video' : 'image'
@@ -29,10 +30,8 @@ class InstagramSource::Ops::FetchTravelerFeed
           inst_source.lng = photo.location.longitude
         end
       end
-      if inst_source.persisted?
-        IntPoint::Ops::CreateFromInstagram.execute(inst_source)
-      end
-      inst_source
+      IntPoint::Ops::CreateFromInstagram.execute(result) if result.persisted?
+      result
     end
   end
 end

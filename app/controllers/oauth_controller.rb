@@ -1,5 +1,6 @@
-class OauthController < ActionController::Base
+# frozen_string_literal: true
 
+class OauthController < ActionController::Base
   def connect_instagram
     redirect_to Instagram.authorize_url(redirect_uri: instagram_callback_url)
   end
@@ -8,5 +9,4 @@ class OauthController < ActionController::Base
     response = Instagram.get_access_token(params[:code], redirect_uri: instagram_callback_url)
     render text: response.access_token
   end
-
 end

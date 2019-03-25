@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.webpacker.check_yarn_integrity = false
@@ -15,7 +17,7 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
   config.public_file_server.headers = {
-      'Cache-Control' => 'public, max-age=600'
+    'Cache-Control' => 'public, max-age=600'
   }
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -39,7 +41,7 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   config.action_cable.url = "wss://#{ENV['HOST']}/cable"
-  config.action_cable.allowed_request_origins = %W(https://#{ENV['HOST']} http://#{ENV['HOST']})
+  config.action_cable.allowed_request_origins = %W[https://#{ENV['HOST']} http://#{ENV['HOST']}]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -49,7 +51,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -79,7 +81,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Track::Ops::AggregateHotPointsJob < ActiveJob::Base
   queue_as :default
 
@@ -10,5 +12,4 @@ class Track::Ops::AggregateHotPointsJob < ActiveJob::Base
     # Track::Ops::AggregateTracks.execute(distance_epsilon_for_new_track: DISTANCE_EPSILON_FOR_NEW_TRACK,
     #                          time_epsilon_for_new_track: TIME_EPSILON_FOR_NEW_TRACK)
   end
-
 end

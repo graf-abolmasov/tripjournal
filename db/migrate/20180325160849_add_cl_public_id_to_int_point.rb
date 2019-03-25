@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddClPublicIdToIntPoint < ActiveRecord::Migration[5.1]
   def change
     add_column :int_points, :cl_image_id, :string

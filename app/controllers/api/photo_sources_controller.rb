@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::PhotoSourcesController < Api::ApplicationController
   include ActionController::RequestForgeryProtection
 
@@ -7,10 +9,10 @@ class Api::PhotoSourcesController < Api::ApplicationController
 
   def index
     @photo_sources = PhotoSource.joins(:int_point)
-                         .where(int_points: { trip_id: @current_trip.id })
-                         .where(traveler: current_traveler)
-                         .inverse_chronologically_sorted
-                         .all
+                                .where(int_points: { trip_id: @current_trip.id })
+                                .where(traveler: current_traveler)
+                                .inverse_chronologically_sorted
+                                .all
     respond_with @photo_sources
   end
 

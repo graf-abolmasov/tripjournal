@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddHotToPoints < ActiveRecord::Migration[5.1]
   def up
     add_reference :points, :trip, index: true, foreign_key: true

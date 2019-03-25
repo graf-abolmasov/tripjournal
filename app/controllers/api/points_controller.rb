@@ -1,5 +1,6 @@
-class Api::PointsController < Api::ApplicationController
+# frozen_string_literal: true
 
+class Api::PointsController < Api::ApplicationController
   def create
     @point = @current_trip.points.create!(point_params)
     PointsChannel.notify(@point)

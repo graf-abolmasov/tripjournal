@@ -1,5 +1,6 @@
-class Track::Ops::AggregateTracks
+# frozen_string_literal: true
 
+class Track::Ops::AggregateTracks
   # EXPERIMENTAL
 
   class << self
@@ -11,7 +12,7 @@ class Track::Ops::AggregateTracks
         newer_track_start_point = newer_track.points.order(created_at: :asc, id: :asc).first
         older_track_finish_point = older_track.points.order(created_at: :desc, id: :desc).first
         if older_track_finish_point.distance_to(newer_track_start_point) <= distance_epsilon_for_new_track &&
-            older_track_finish_point.time_diff(newer_track_start_point) <= time_epsilon_for_new_track
+           older_track_finish_point.time_diff(newer_track_start_point) <= time_epsilon_for_new_track
           tracks_to_join.unshift(newer_track)
         else
           join_tracks(newer_track, tracks_to_join)
@@ -26,6 +27,7 @@ class Track::Ops::AggregateTracks
     def join_tracks(first_track, other_tracks)
       other_tracks = Array.wrap(other_tracks)
       return if other_tracks.blank?
+
       Track.transaction do
         joined_ids = [first_track.id] + other_tracks.map(&:id)
         Rails.logger.info("Join tracks [#{joined_ids.join(' + ')}]")

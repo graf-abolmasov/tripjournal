@@ -1,5 +1,6 @@
-class IntPoint::Ops::CreateFromPhoto
+# frozen_string_literal: true
 
+class IntPoint::Ops::CreateFromPhoto
   class << self
     def execute(photo_source, trip)
       IntPoint.create do |int_point|
